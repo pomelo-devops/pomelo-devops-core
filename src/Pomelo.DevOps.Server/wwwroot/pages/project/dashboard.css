@@ -1,0 +1,303 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.dashboard-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 30px;
+    overflow: auto;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.dashboard-placeholder {
+    width: 100px;
+    height: 100px;
+    margin: 0 10px 10px 0;
+    background: #ccc;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dashboard-placeholder:hover {
+    background: #ddd;
+}
+
+.dashboard-widget-outer {
+    left: 30px;
+    top: 30px;
+    z-index: 1;
+}
+
+.dashboard-widget {
+    position: absolute;
+    background: #fff;
+    box-shadow: 1px 1px 5px rgba(0,0,0,.1);
+    overflow: hidden;
+}
+
+.dashboard-widget-cover {
+    position: absolute;
+    opacity: 0;
+}
+
+    .dashboard-widget-cover:hover {
+        background: rgba(255,255,255,.75);
+        opacity: 1;
+    }
+
+.dashboard-management-buttons {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.dashboard-management-button {
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 50px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,.1);
+    cursor: pointer;
+    line-height: 20px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.dashboard-management-button > * {
+    vertical-align: middle;
+}
+
+    .dashboard-management-button > svg {
+        fill: #666;
+        margin-right: 5px;
+    }
+
+    .dashboard-management-button:hover {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+    .dashboard-management-button:hover > svg path {
+        fill: #fff;
+    }
+
+.dashboard-edit-sidebar {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,.1);
+}
+
+.dialog {
+}
+
+.dialog-header {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: normal;
+}
+
+    .dialog-header * {
+        vertical-align: middle;
+    }
+
+    .dialog-header span {
+        line-height: 32px;
+        margin-left: 5px;
+        font-size: 14px;
+    }
+
+    .dialog-header svg, .dialog-header img {
+        width: 32px;
+        height: 32px;
+    }
+
+.field {
+    margin-bottom: 15px;
+}
+
+.dialog-textbox {
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    line-height: 30px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #666;
+    font-weight: lighter;
+}
+
+    .dialog-textbox::placeholder {
+        color: #bbb;
+        font-weight: lighter;
+    }
+
+    .dialog-textbox:focus {
+        border-color: #FA9F32;
+        color: #FA9F32;
+    }
+
+.field b {
+    font-size: 12px;
+}
+
+.dialog-body {
+    position: absolute;
+    top: 53px;
+    bottom: 54px;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+    background: #fafafa;
+}
+
+.dialog-footer {
+    position: absolute;
+    height: 53px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.dashboard-widget-cover svg {
+    fill: #666;
+    width: 22px;
+    height: 22px;
+    margin: 9px;
+}
+
+.dashboard-widget-cover a {
+    display: block;
+    background: #eee;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+    border-radius: 50%;
+    top: 50%;
+    margin-top: -25px;
+}
+
+    .dashboard-widget-cover a.first {
+        left: 50%;
+        margin-left: -45px;
+    }
+
+    .dashboard-widget-cover a.second {
+        left: 50%;
+        margin-left: 5px;
+    }
+
+    .dashboard-widget-cover a > * {
+        vertical-align: middle;
+    }
+
+.dashboard-widget-cover a:hover {
+    background: #FA9F32;
+}
+
+    .dashboard-widget-cover a:hover svg path {
+        fill: #fff;
+    }
+
+.dialog-footer .button {
+    background: #FA9F32;
+    color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 5px 15px;
+    display: inline-block;
+    margin: 12.5px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+    .dialog-footer .button:hover {
+        background: #ffaa45;
+    }
+
+.dashboard-matrix-row {
+    height: 110px;
+}
+
+.dashboard-widget.active, .dashboard-placeholder.active {
+    outline: 5px solid #FA9F32;
+}
+
+.dialog-select {
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    line-height: 30px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #666;
+    font-weight: lighter;
+    padding: 8px 0;
+}
+
+.dialog-search {
+    border-bottom: 1px solid #ddd;
+    line-height: 32px;
+    padding: 0 10px;
+}
+
+    .dialog-search input {
+        outline: 0;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        padding: 5px;
+        display: block;
+        margin: 5px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+.widget-list-item {
+    margin: -10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.widget-list-item:hover {
+    background: #FFF7EE;
+}
+
+.widget-list-item > * {
+    vertical-align: middle;
+}
+
+.widget-list-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+}
+
+.widget-list-item-text {
+    width: calc(100% - 44px);
+    display: inline-block;
+    margin-left: 8px;
+}
+
+    .widget-list-item-text .title {
+    }
+
+    .widget-list-item-text .description {
+        font-size: 12px;
+    }

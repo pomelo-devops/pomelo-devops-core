@@ -1,0 +1,147 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.pipeline-playbook-sidebar {
+    position: absolute;
+    top: 38.55px;
+    bottom: 0;
+    left: 0;
+    width: 360px;
+    border-right: 1px solid #ddd;
+    background: #fefefe;
+    overflow-y: auto;
+}
+
+.pipeline-playbook-stage, .pipeline-playbook-stage-add {
+    margin: 15px !important;
+    padding: 15px !important;
+    background: #fff;
+    border-radius: 15px;
+    border: .5px solid #e7e7e7;
+    cursor: grab;
+    box-sizing: border-box;
+}
+
+.pipeline-playbook-stage-add {
+    text-align: center;
+    cursor: pointer;
+    padding: 8px 15px;
+}
+
+    .pipeline-playbook-stage-add:hover {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+    .pipeline-playbook-stage-add svg {
+        fill: #888;
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+    }
+
+    .pipeline-playbook-stage-add:hover svg {
+        fill: #fff;
+    }
+
+    .pipeline-playbook-stage-add span {
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+
+    .pipeline-playbook-stage svg.toggle {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        float: right;
+        background: #eee;
+        box-shadow: 0 0 15px rgba(0,0,0,.1);
+        padding: 4px;
+        border-radius: 20px;
+        fill: #666;
+        margin-top: -2px;
+        margin-left: 8px;
+    }
+
+        .pipeline-playbook-stage svg.toggle:hover, .pipeline-playbook-stage svg.toggle.active {
+            background: #FA9F32;
+            fill: #fff;
+        }
+
+.pipeline-playbook-stage-header > * {
+    vertical-align: middle;
+}
+
+.pipeline-playbook-stage-header > .title {
+    margin-left: 5px;
+}
+
+.pipeline-playbook-stage-header > .stage {
+    background: #FA9F32;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.pipeline-playbook-stage-steps {
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.pipeline-playbook-stage-step {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    background: #fafafa;
+    box-sizing: border-box;
+}
+
+    .pipeline-playbook-stage-step > table img {
+        width: 36px;
+        height: 36px;
+        border-radius: 5px;
+    }
+
+    .pipeline-playbook-stage-step > table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+.step-icon {
+    width: 41px;
+}
+
+.step-name {
+    font-size: 16px;
+}
+
+.step-type {
+    font-size: 12px;
+    zoom: 0.8;
+    color: #aaa;
+}
+
+#pipeline-edit-playbook-container {
+    position: absolute;
+    top: 38px;
+    left: 361px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.invisible {
+    display: none;
+}
+
+.pipeline-playbook-stage-step.active {
+    background: #FA9F32;
+    color: #fff;
+}
+
+    .pipeline-playbook-stage-step.active .step-type {
+        color: #fff;
+    }

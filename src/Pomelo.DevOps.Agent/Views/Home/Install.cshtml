@@ -1,0 +1,47 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+@model Pomelo.DevOps.Agent.Config
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Install</title>
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <form class="form-signin" method="post">
+        <div class="text-center mb-4">
+            <img class="mb-4" src="~/img/logo.png" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Pomelo DevOps Agent</h1>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="server" placeholder="Server Address" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" name="personalAccessToken" placeholder="Personal Access Token" required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="projectId" placeholder="Project ID" required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="agentPoolId" placeholder="Agent Pool ID" required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="identifier" placeholder="Identifier (optional)">
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register Agent</button>
+    </form>
+    <script src="~/js/bootstrap.js"></script>
+</body>
+</html>

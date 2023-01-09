@@ -1,0 +1,228 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.pipeline-search-outer {
+    display: block;
+    margin: 0 auto;
+    width: 720px;
+}
+
+.pipeline-type-button {
+    border-bottom: 3px solid #fff;
+    margin: 0 5px;
+    padding: 3px;
+    cursor: pointer;
+    line-height: 41px;
+}
+
+    .pipeline-type-button:hover, .pipeline-type-button.active {
+        border-color: #FA9F32
+    }
+
+.pipeline-search-textbox {
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    line-height: 32px;
+    color: #666;
+}
+
+.pipeline-search-wrap {
+    float: right;
+    display: inline-block;
+}
+
+    .pipeline-search-wrap > * {
+        vertical-align: top;
+    }
+
+.pipeline-search-button {
+    display: inline-block;
+    height: 41px;
+    border-radius: 35px;
+    background: #FA9F32;
+    margin-left: 8px;
+    cursor: pointer;
+    line-height: 41px;
+    padding: 0 10px;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 0 7px rgba(0,0,0,.1);
+}
+
+    .pipeline-search-button > * {
+        vertical-align: middle;
+    }
+
+    .pipeline-search-button:hover {
+        background: #ffaa45;
+    }
+
+    .pipeline-search-button.blue {
+        background: #2c87ff;
+    }
+
+    .pipeline-search-button.blue:hover {
+        background: #62a6ff;
+    }
+
+    .pipeline-search-button svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+
+        .pipeline-search-button svg path {
+            fill: #fff;
+        }
+
+.pipeline-list-outer {
+    margin-top: 30px;
+}
+
+.pipeline-list-item {
+    background: #fff;
+    padding: 10px;
+    width: 700px;
+    margin: 0 auto;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgb(0,0,0,.05);
+    display: block;
+    color: #666;
+}
+
+.pipeline-list-item-title {
+
+}
+
+    .pipeline-list-item-title > * {
+        vertical-align: top;
+    }
+
+    .pipeline-list-item .pipeline-list-item-title svg {
+        width: 24px;
+        height: 24px;
+    }
+
+.pipeline-list-item .pipeline-list-item-title span {
+    line-height: 24px;
+    margin-left: 10px;
+}
+
+.pipeline-list-item:hover {
+    background: #fff6ec;
+}
+
+.pipeline-list-item-visibility {
+    float: right;
+}
+
+.pipeline-list-item-snapshots {
+    height: 50px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.pipeline-list-item-snapshot {
+    width: 12px;
+    margin-right: 2px;
+    float: left;
+    height: 49.5px;
+}
+
+.pipeline-list-item-snapshot-fill {
+    width: 100%;
+    background: #4c99ff;
+    overflow: hidden;
+    opacity: 0.3;
+    transition: opacity .2s ease-in-out;
+    min-height: 0.5px;
+}
+
+    .pipeline-list-item-snapshot-fill.succeeded {
+        background: #2DCC21;
+    }
+
+    .pipeline-list-item-snapshot-fill.failed {
+        background: #ff0000;
+    }
+
+    .pipeline-list-item-snapshot-fill.skipped {
+        background: #FA9F32;
+    }
+
+.pipeline-list-item-subtitle {
+    vertical-align: top;
+    color: #888;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+.pipeline-list-item-snapshots-no-result {
+    line-height: 49.5px;
+    font-size: 16px;
+    color: #aaa;
+    text-align: center;
+}
+
+.pipeline-list-item:hover .pipeline-list-item-snapshot-fill {
+    opacity: 1;
+}
+
+.pipeline-list-item-name {
+    width: 225px;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+}
+
+.form-filter {
+    background: #fff;
+    display: inline-block;
+    box-shadow: 0 0 7px rgba(0,0,0,.1);
+    border-radius: 15px;
+    padding: 2px 15px;
+    height: 41px;
+}
+
+    .form-filter > * {
+        vertical-align: middle;
+    }
+
+    .form-filter > input {
+        border: none !important;
+    }
+
+    .form-filter svg {
+        fill: #666;
+        margin-right: 5px;
+    }
+
+        .form-filter svg path {
+            fill: #666;
+        }
+
+.form-clear-button {
+    display: inline-flex;
+    cursor: pointer;
+}
+
+    .form-clear-button > svg {
+        fill: #666;
+    }
+
+    .form-clear-button:hover > svg {
+        fill: #000;
+    }
+
+    .form-filter-outer > * {
+        vertical-align: top;
+        line-height: 41px;
+    }

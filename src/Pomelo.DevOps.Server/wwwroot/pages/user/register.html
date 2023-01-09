@@ -1,0 +1,60 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Register</title>
+</head>
+<body>
+    <div class="login">
+        <img src="/assets/img/login-sidebar.png" class="left" />
+        <div class="right"
+             v-if="providers"
+             v-bind:class="{ 'no-3p-login': providers.filter(x => x.mode != 'Local').length == 0 }">
+            <div class="sign-in-title">Create Account</div>
+            <template v-if="!succeeded">
+                <div class="group">
+                    <small>Username</small>
+                    <input v-model="form.username" type="text" class="textbox" placeholder="Input username..." />
+                </div>
+                <div class="group">
+                    <small>Email Address</small>
+                    <input v-model="form.email" type="text" class="textbox" placeholder="Input email address..." />
+                </div>
+                <div class="group">
+                    <small>Password</small>
+                    <input v-model="form.password"
+                           type="password"
+                           class="textbox"
+                           placeholder="Input password again..." />
+                </div>
+                <div class="group">
+                    <small>Password Confirm</small>
+                    <input v-model="form.confirm"
+                           type="password"
+                           class="textbox"
+                           placeholder="Input password..." />
+                </div>
+                <div class="group center">
+                    <a class="sign-in-button" v-on:click="submit">Submit</a>
+                </div>
+            </template>
+            <div v-else>
+                <div class="form-group">
+                    <svg class="succeeded-icon" t="1670826540266" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4125" width="200" height="200"><path d="M512 1024a512 512 0 1 1 0-1024 512 512 0 0 1 0 1024z m-71.318588-361.411765a29.334588 29.334588 0 0 0 20.48-8.252235L774.625882 349.364706a27.708235 27.708235 0 0 0 0-39.936 29.575529 29.575529 0 0 0-41.08047 0l-292.74353 284.912941L290.454588 448.150588a29.575529 29.575529 0 0 0-41.08047 0 27.708235 27.708235 0 0 0 0 39.996236l170.706823 166.128941a29.274353 29.274353 0 0 0 20.540235 8.252235z" fill="#33A954" p-id="4126"></path></svg>
+                </div>
+                <div class="form-group">
+                    Account Created
+                </div>
+                <div class="form-group" style="margin-top: 30px;">
+                    <a class="sign-in-button" href="/login">Back to Sign-in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <notification></notification>
+</body>
+</html>

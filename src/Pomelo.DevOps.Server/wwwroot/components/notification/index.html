@@ -1,0 +1,10 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="notification" v-bind:style="`top: ${top || 65}px`">
+    <div class="notification-item" v-bind:class="{ success: notification.type == 'success', info: notification.type == 'info', warn: notification.type == 'warn', error: notification.type == 'error' }" v-for="notification in notifications">
+        <div class="notification-item-title">{{ notification.title }}</div>
+        <div>{{ notification.message }}</div>
+    </div>
+</div>

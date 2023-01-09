@@ -1,0 +1,8 @@
+{
+  "id": "Pomelo.DevOps.Triggers.Interval",
+  "name": "Interval",
+  "description": "Interval Trigger",
+  "icon": "/assets/img/icon.svg",
+  "view": "/pages/trigger/interval",
+  "settings": "/pages/settings/index"
+}

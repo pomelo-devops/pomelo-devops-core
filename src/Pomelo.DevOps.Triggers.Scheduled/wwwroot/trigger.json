@@ -1,0 +1,8 @@
+{
+  "id": "Pomelo.DevOps.Triggers.Scheduled",
+  "name": "Scheduled",
+  "description": "Scheduled Trigger",
+  "icon": "/assets/img/icon.svg",
+  "view": "/pages/trigger/scheduled",
+  "settings": "/pages/settings/index"
+}

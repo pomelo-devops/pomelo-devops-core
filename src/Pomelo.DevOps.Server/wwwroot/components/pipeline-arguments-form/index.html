@@ -1,0 +1,30 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="form-group" v-for="arg in pipeline.arguments">
+    <small>{{ arg.description || arg.argument }}</small>
+    <template v-if="!arg.type || arg.type == 'Text'">
+        <input class="form-control" type="text" v-model="modelValue[arg.argument]" />
+    </template>
+    <template v-else-if="arg.type == 'Option'">
+        <radio-button v-for="option in arg.options.split(',').map(x => { var splited = x.split(':'); return { value: splited[0], description: splited.length >= 2 ? splited[1] : splited[0] } })"
+                      v-model="modelValue[arg.argument]"
+                      v-bind:value="option.value"
+                      v-bind:hint="option.description == option.value ? null : option.description"></radio-button>
+    </template>
+    <template v-else-if="arg.type == 'ToggleButton'">
+        <div>
+            <toggle-button v-model="modelValue[arg.argument]"></toggle-button>
+        </div>
+    </template>
+    <div v-else-if="arg.type == 'Number'">
+        <input-number v-model="modelValue[arg.argument]"
+                      v-bind:step="arg.numberStep"
+                      v-bind:min="arg.numberMin"
+                      v-bind:max="arg.numberMax"></input-number>
+    </div>
+    <template v-else>
+        <div>Not supported yet</div>
+    </template>
+</div>

@@ -1,0 +1,64 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.widget-editor-tree-item-folder-padding {
+}
+
+.widget-editor-tree-item {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+    .widget-editor-tree-item:hover {
+        background: #f0f0f0;
+    }
+
+.widget-editor-tree-item > * {
+    vertical-align: middle;
+}
+
+    .widget-editor-tree-item > svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    .widget-editor-tree-item.active {
+        font-weight: bold;
+        color: #FA9F32;
+    }
+
+.widget-editor-tree-folder-actions {
+    float: right;
+    padding-right: 15px;
+    opacity: 0;
+}
+
+    .widget-editor-tree-folder-actions * {
+        vertical-align: middle;
+    }
+
+    .widget-editor-tree-folder-actions svg, .widget-editor-tree-folder-actions svg path {
+        fill: #666;
+    }
+
+.widget-editor-tree-folder-actions a {
+    margin-left: 5px;
+}
+
+.widget-editor-tree-item:hover .widget-editor-tree-folder-actions {
+    opacity: 1;
+}
+
+.widget-editor-tree-folder-actions a:hover svg, .widget-editor-tree-folder-actions a:hover svg path {
+    fill: #FA9F32!important;
+}
+
+.widget-editor-tree-item-textbox {
+    box-sizing: border-box;
+    width: calc(100% - 35px);
+}

@@ -1,0 +1,12 @@
+id: publish-trx-test-result
+name: Publish TRX Test Result
+version: 0.9.0
+description: Publish TRX Test Result
+dependencies: 
+methods:
+  - name: Publish
+    entry: 
+      windows: powershell -File publish-trx.ps1
+      linux: pwsh -File publish-trx.ps1
+      mac: pwsh -File publish-trx.ps1
+website: ''

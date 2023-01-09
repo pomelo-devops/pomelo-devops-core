@@ -1,0 +1,4 @@
+{
+  "/": "/pages/home/index",
+  "/trigger/merge_request/{id}": "/pages/trigger/merge_request"
+}

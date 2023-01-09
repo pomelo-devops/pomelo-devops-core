@@ -1,0 +1,9 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<a class="check-box-outer" v-on:click="click">
+    <div class="check-box" v-bind:class="{ active: active }"><div class="check-box-inner"></div></div>
+    <span class="check-box-title">{{ title || value }}</span>
+    <span v-if="hint">{{ hint }}</span>
+</a>

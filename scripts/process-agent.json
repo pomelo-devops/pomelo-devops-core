@@ -1,0 +1,7 @@
+﻿[
+    {
+        "FileName": "agent\\Pomelo.DevOps.Agent.exe",
+        "WorkingDirectory": "agent",
+        "Arguments": "--ignore-ssl-errors"
+    }
+]

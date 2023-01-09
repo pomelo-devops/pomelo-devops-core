@@ -1,0 +1,27 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dialog">
+    <a class="back-button" href="/system/trigger-providers">
+        <svg t="1669790068549" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6528" width="20" height="20"><path d="M710.153924 8.980397L266.007127 460.692524a81.118646 81.118646 0 0 0 0.861532 114.476097l446.192936 441.050666a26.922883 26.922883 0 0 0 37.853573-38.284339L304.722232 536.884282a27.27288 27.27288 0 0 1-0.323074-38.445877L748.545955 46.726278A26.922883 26.922883 0 1 0 710.180847 9.00732z" p-id="6529"></path></svg>
+    </a>
+    <div class="dialog-header">
+        <svg t="1669807803977" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="23619" width="20" height="20"><path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01" p-id="23620"></path><path d="M504.081067 951.569067c-20.445867 24.541867-60.347733 10.069333-60.347734-21.845334V426.666667a17.066667 17.066667 0 0 1 17.066667-17.066667h422.058667a34.133333 34.133333 0 0 1 26.2144 55.978667L504.081067 951.569067z" fill="#FFAA44" p-id="23621"></path><path d="M519.918933 72.430933c20.445867-24.541867 60.347733-10.069333 60.347734 21.845334V546.133333a68.266667 68.266667 0 0 1-68.266667 68.266667H141.141333a34.133333 34.133333 0 0 1-26.2144-55.978667L519.918933 72.430933z" fill="#FF7744" p-id="23622"></path></svg>
+        <span>{{ $root.localization.sr('SYSTEM_TRIGGER_ADD') }}</span>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('SYSTEM_TRIGGER_ADD_PROVIDER_METADATA_JSON_URL') }}</b>
+        <input type="text" class="dialog-textbox" v-model="form.providerEntryUrl" v-bind:placeholder="$root.localization.sr('SYSTEM_TRIGGER_ADD_PROVIDER_METADATA_JSON_URL_PLACEHOLDER')" />
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('SYSTEM_TRIGGER_ADD_AUTHORIZATION_TOKEN') }}</b>
+        <input type="text" class="dialog-textbox" v-model="form.token" v-bind:placeholder="$root.localization.sr('SYSTEM_TRIGGER_ADD_AUTHORIZATION_TOKEN_PLACEHOLDER')" />
+    </div>
+    <div class="footer">
+        <a class="submit" v-on:click="add">
+            <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+            <span>{{ $root.localization.sr('SYSTEM_TRIGGER_ADD_PROVIDER') }}</span>
+        </a>
+    </div>
+</div>

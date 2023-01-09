@@ -1,0 +1,97 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{842C83A7-7A3C-42D7-9487-184394488213}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{87911679-F368-43EC-B0E8-49A552871565}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{2D7D7F7C-F506-4D12-B658-42C4FEC2E324}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Agent", "src\Pomelo.DevOps.Agent\Pomelo.DevOps.Agent.csproj", "{6832F157-3283-4A4D-A5AA-2793D96388FD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Models", "src\Pomelo.DevOps.Models\Pomelo.DevOps.Models.csproj", "{8052779E-EB9A-4262-872D-EC24AE2CFD0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Server", "src\Pomelo.DevOps.Server\Pomelo.DevOps.Server.csproj", "{C55CFC48-866D-4665-A077-19AAC382B6E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Shared", "src\Pomelo.DevOps.Shared\Pomelo.DevOps.Shared.csproj", "{A861F663-1449-490B-BCFD-7BBF44E0C02E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Triggers.GitLab", "src\Pomelo.DevOps.Triggers.GitLab\Pomelo.DevOps.Triggers.GitLab.csproj", "{B88D3D09-A1BB-4EDA-90AC-484E8513080C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Triggers.Scheduled", "src\Pomelo.DevOps.Triggers.Scheduled\Pomelo.DevOps.Triggers.Scheduled.csproj", "{6E562CF0-4B1E-418C-875D-9B52AB3AB87D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Triggers.Interval", "src\Pomelo.DevOps.Triggers.Interval\Pomelo.DevOps.Triggers.Interval.csproj", "{ACEA700E-F4DB-4D76-8F11-1B2B719BC4EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.JobExtensions.TRX", "src\Pomelo.DevOps.JobExtensions.TRX\Pomelo.DevOps.JobExtensions.TRX.csproj", "{E9FEE2C3-FD35-4F20-A5F7-28DF9FC13F74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Agent.CLI", "src\Pomelo.DevOps.Agent.CLI\Pomelo.DevOps.Agent.CLI.csproj", "{59FF45A9-3071-41E5-8381-4A5BEF41DD09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.DevOps.WindowsService", "src\Pomelo.DevOps.WindowsService\Pomelo.DevOps.WindowsService.csproj", "{C30449EE-EA4A-4B92-93E9-C8FB7489335A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6832F157-3283-4A4D-A5AA-2793D96388FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6832F157-3283-4A4D-A5AA-2793D96388FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6832F157-3283-4A4D-A5AA-2793D96388FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6832F157-3283-4A4D-A5AA-2793D96388FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8052779E-EB9A-4262-872D-EC24AE2CFD0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8052779E-EB9A-4262-872D-EC24AE2CFD0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8052779E-EB9A-4262-872D-EC24AE2CFD0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8052779E-EB9A-4262-872D-EC24AE2CFD0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55CFC48-866D-4665-A077-19AAC382B6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55CFC48-866D-4665-A077-19AAC382B6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55CFC48-866D-4665-A077-19AAC382B6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55CFC48-866D-4665-A077-19AAC382B6E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A861F663-1449-490B-BCFD-7BBF44E0C02E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A861F663-1449-490B-BCFD-7BBF44E0C02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A861F663-1449-490B-BCFD-7BBF44E0C02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A861F663-1449-490B-BCFD-7BBF44E0C02E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88D3D09-A1BB-4EDA-90AC-484E8513080C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88D3D09-A1BB-4EDA-90AC-484E8513080C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88D3D09-A1BB-4EDA-90AC-484E8513080C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88D3D09-A1BB-4EDA-90AC-484E8513080C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E562CF0-4B1E-418C-875D-9B52AB3AB87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E562CF0-4B1E-418C-875D-9B52AB3AB87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E562CF0-4B1E-418C-875D-9B52AB3AB87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E562CF0-4B1E-418C-875D-9B52AB3AB87D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACEA700E-F4DB-4D76-8F11-1B2B719BC4EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACEA700E-F4DB-4D76-8F11-1B2B719BC4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACEA700E-F4DB-4D76-8F11-1B2B719BC4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACEA700E-F4DB-4D76-8F11-1B2B719BC4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9FEE2C3-FD35-4F20-A5F7-28DF9FC13F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9FEE2C3-FD35-4F20-A5F7-28DF9FC13F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9FEE2C3-FD35-4F20-A5F7-28DF9FC13F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9FEE2C3-FD35-4F20-A5F7-28DF9FC13F74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59FF45A9-3071-41E5-8381-4A5BEF41DD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59FF45A9-3071-41E5-8381-4A5BEF41DD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59FF45A9-3071-41E5-8381-4A5BEF41DD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59FF45A9-3071-41E5-8381-4A5BEF41DD09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C30449EE-EA4A-4B92-93E9-C8FB7489335A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C30449EE-EA4A-4B92-93E9-C8FB7489335A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C30449EE-EA4A-4B92-93E9-C8FB7489335A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C30449EE-EA4A-4B92-93E9-C8FB7489335A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6832F157-3283-4A4D-A5AA-2793D96388FD} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{8052779E-EB9A-4262-872D-EC24AE2CFD0B} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{C55CFC48-866D-4665-A077-19AAC382B6E2} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{A861F663-1449-490B-BCFD-7BBF44E0C02E} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{B88D3D09-A1BB-4EDA-90AC-484E8513080C} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{6E562CF0-4B1E-418C-875D-9B52AB3AB87D} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{ACEA700E-F4DB-4D76-8F11-1B2B719BC4EF} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{E9FEE2C3-FD35-4F20-A5F7-28DF9FC13F74} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{59FF45A9-3071-41E5-8381-4A5BEF41DD09} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{C30449EE-EA4A-4B92-93E9-C8FB7489335A} = {842C83A7-7A3C-42D7-9487-184394488213}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55D2925D-EC34-4669-BDC3-EEA5517D6588}
+	EndGlobalSection
+EndGlobal

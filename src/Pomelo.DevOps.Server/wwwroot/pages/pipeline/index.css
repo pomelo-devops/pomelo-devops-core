@@ -1,0 +1,323 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+
+.pipeline-jobs-header-search {
+    outline: 0;
+    border: none;
+    height: 31px;
+    line-height: 37.55px;
+    margin: 2px 0;
+    color: #666;
+}
+
+
+.pipeline-jobs-header > svg {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    fill: #666;
+    margin-right: 5px;
+}
+
+.pipeline-jobs-header-search.text {
+    border-bottom: 1px solid #ddd;
+    height: 27px;
+    margin: 4px 0;
+}
+
+    .pipeline-jobs-header-search.text:hover, .pipeline-jobs-header-search.text:focus {
+        border-color: #ff6a00;
+    }
+
+.pipeline-jobs-header-search.select:focus {
+    color: #ff6a00 !important;
+}
+
+.pipeline-jobs-header-search-button {
+    color: #fff;
+    background: #FA9F32;
+    vertical-align: middle;
+    margin-left: 15px;
+    border-radius: 50px;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+    .pipeline-jobs-header-search-button > * {
+        vertical-align: middle;
+    }
+
+    .pipeline-jobs-header-search-button > svg {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+        margin-right: 3px;
+    }
+
+    .pipeline-jobs-header-search-button:hover {
+        background: #ffaa45;
+    }
+
+.pipeline-jobs-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+.pipeline-jobs-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    overflow: hidden;
+}
+
+.pipeline-jobs-table-outer {
+    padding: 30px;
+}
+
+.pipeline-jobs-table td, .pipeline-jobs-table th {
+    text-align: left;
+    font-weight: normal;
+}
+
+.pipeline-jobs-table > tbody > tr:nth-child(2n+1) {
+    border-top: .5px solid #ddd;
+}
+
+.pipeline-jobs-table .first-col {
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 0;
+}
+
+.pipeline-jobs-table .normal {
+    padding: 15px;
+}
+
+.pipeline-jobs-table .job-name {
+    padding: 15px;
+    padding-bottom: 2px;
+}
+
+.pipeline-jobs-table .job-desc {
+    padding: 15px;
+    padding-top: 2px;
+    font-weight: lighter;
+}
+
+.pipeline-jobs-table > tbody:hover {
+    background: #fff7ee;
+}
+
+.pipeline-jobs-table .job-date {
+    padding: 15px;
+    padding-bottom: 2px;
+    width: 160px;
+    font-weight: lighter;
+}
+
+    .pipeline-jobs-table .job-date > svg {
+        fill: #666;
+        width: 22px;
+        height: 22px;
+        margin-right: 2px;
+    }
+
+    .pipeline-jobs-table .job-date > * {
+        vertical-align: middle;
+    }
+
+.pipeline-jobs-table .job-duration {
+    padding: 15px;
+    padding-top: 2px;
+    width: 160px;
+    font-weight: lighter;
+}
+
+    .pipeline-jobs-table .job-duration > svg {
+        fill: #666;
+        width: 22px;
+        height: 22px;
+        margin-right: 2px;
+    }
+
+    .pipeline-jobs-table .job-duration > * {
+        vertical-align: middle;
+    }
+
+.pipeline-jobs-table > tbody {
+    cursor: pointer;
+}
+
+.pipeline-jobs-table .job-desc > svg {
+    fill: #666;
+    width: 16px;
+    height: 16px;
+}
+
+.pipeline-jobs-table .job-desc > * {
+    vertical-align: middle;
+}
+
+.pipeline-jobs-table .job-desc > span {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.pipeline-jobs-table .job-name > span.label {
+    border: .5px solid #FA9F32;
+    color: #FA9F32;
+    font-size: 12px;
+    padding: 2px;
+    line-height: 12px;
+}
+
+.pipeline-jobs-header-search-button.new-job {
+    background: #367be9;
+    float: right;
+    font-size: 15px;
+    margin: 6px 0;
+    height: 41px;
+    padding: 0 8px;
+    line-height: 41px;
+    font-size: 14px;
+    box-shadow: 0 0 7px rgba(0,0,0,.1);
+}
+
+    .pipeline-jobs-header-search-button.new-job:hover {
+        background: #5793f2;
+    }
+
+.pipeline-jobs-table .no-job {
+    border: none !important;
+}
+
+    .pipeline-jobs-table .no-job tr {
+        border: none !important;
+    }
+
+    .pipeline-jobs-table .no-job td {
+        text-align: center;
+        padding: 15px;
+    }
+
+.pipeline-jobs-table .job-title {
+    color: #666;
+}
+
+.pipeline-job-nav {
+    list-style: none;
+    padding: 0;
+    background: #fff;
+    line-height: 32px;
+    border-radius: 32px;
+    box-shadow: 0 0 15px rgba(0,0,0,.05);
+    text-align: center;
+    margin: 30px auto;
+    width: fit-content;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+
+    .pipeline-job-nav li {
+        display: inline-block;
+        width: 30px;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .pipeline-job-nav li:hover, .pipeline-job-nav li.active {
+            background: #FA9F32;
+            color: #fff;
+        }
+
+
+.pipeline-job-status {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ccc;
+}
+
+    .pipeline-job-status i {
+        line-height: 36px;
+        font-size: 16px;
+        width: 36px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .pipeline-job-status.green {
+        background: #00a80e;
+    }
+
+    .pipeline-job-status.blue {
+        background: #007bff;
+    }
+
+    .pipeline-job-status.red {
+        background: #ff3c3c;
+    }
+
+    .pipeline-job-status.orange {
+        background: #ff883c;
+    }
+
+.form-filter {
+    background: #fff;
+    display: inline-block;
+    box-shadow: 0 0 7px rgba(0,0,0,.1);
+    border-radius: 15px;
+    padding: 2px 15px;
+    height: 41px;
+}
+
+    .form-filter > * {
+        vertical-align: middle;
+    }
+
+    .form-filter > input {
+        border: none !important;
+    }
+
+    .form-filter svg {
+        fill: #666;
+        margin-right: 5px;
+    }
+
+        .form-filter svg path {
+            fill: #666;
+        }
+
+.form-clear-button {
+    display: inline-flex;
+    cursor: pointer;
+}
+
+    .form-clear-button > svg {
+        fill: #666;
+    }
+
+    .form-clear-button:hover > svg {
+        fill: #000;
+    }
+
+.form-filter-outer {
+    padding-bottom: 30px;
+}
+
+.form-filter-outer > * {
+    vertical-align: top;
+    line-height: 41px;
+}

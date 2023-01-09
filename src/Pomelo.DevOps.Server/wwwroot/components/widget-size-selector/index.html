@@ -1,0 +1,7 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<select v-model="selected" v-on:change="onSelected">
+    <option v-for="(size, i) in sizes" v-bind:value="i">{{ size.width }} x {{ size.height }}</option>
+</select>

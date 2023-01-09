@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "pomelo-vue@1.0.39",
+      "destination": "wwwroot/assets/js/pomelo-vue/"
+    },
+    {
+      "library": "codemirror@5.65.10",
+      "destination": "wwwroot/assets/js/codemirror/"
+    },
+    {
+      "library": "dragula@3.7.3",
+      "destination": "wwwroot/assets/js/dragula/"
+    },
+    {
+      "library": "moment@2.29.4",
+      "destination": "wwwroot/assets/js/moment/"
+    },
+    {
+      "library": "jquery@3.6.1",
+      "destination": "wwwroot/assets/js/jquery/"
+    },
+    {
+      "library": "font-awesome@4.7.0",
+      "destination": "wwwroot/assets/",
+      "files": [
+        "css/font-awesome.css",
+        "css/font-awesome.css.map",
+        "css/font-awesome.min.css",
+        "fonts/fontawesome-webfont.eot",
+        "fonts/fontawesome-webfont.svg",
+        "fonts/fontawesome-webfont.ttf",
+        "fonts/fontawesome-webfont.woff",
+        "fonts/fontawesome-webfont.woff2",
+        "fonts/FontAwesome.otf"
+      ]
+    },
+    {
+      "library": "@microsoft/signalr@7.0.0",
+      "destination": "wwwroot/assets/js/signalr/"
+    },
+    {
+      "library": "mc-datepicker@0.6.5",
+      "destination": "wwwroot/assets/js/mc-datepicker/"
+    },
+    {
+      "library": "marked@4.2.4",
+      "destination": "wwwroot/assets/js/marked/"
+    },
+    {
+      "library": "js-yaml@4.1.0",
+      "destination": "wwwroot/assets/js/js-yaml/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "mimetypes@0.1.1",
+      "destination": "wwwroot/assets/js/mimetypes/"
+    }
+  ]
+}

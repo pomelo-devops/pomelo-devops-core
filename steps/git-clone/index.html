@@ -1,0 +1,22 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div v-if="step" class="form">
+    <small class="form-text text-muted">Git Repo URL</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.GIT_CLONE_REPO" class="form-control">
+    </div>
+    <small class="form-text text-muted">Local Path</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.GIT_CLONE_PATH" class="form-control">
+    </div>
+    <small class="form-text text-muted">Git User (Optional)</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.GIT_CLONE_USER" class="form-control">
+    </div>
+    <small class="form-text text-muted">Git Password or Token (Optional)</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.GIT_CLONE_TOKEN" class="form-control">
+    </div>
+</div>

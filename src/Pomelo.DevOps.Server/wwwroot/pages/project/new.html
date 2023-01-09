@@ -1,0 +1,45 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Pomelo DevOps</title>
+</head>
+<body>
+    <div class="project-dialog">
+        <div class="project-dialog-header">
+            <svg t="1669720125607" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5280" width="20" height="20"><path d="M505.088 513.1264m-450.816 0a450.816 450.816 0 1 0 901.632 0 450.816 450.816 0 1 0-901.632 0Z" fill="#FA9F32" p-id="5281"></path><path d="M705.0752 649.3696l-148.3776-78.6432 42.752-61.0816a39.1168 39.1168 0 0 0 7.1168-22.5792V369.2544c0-78.5408-63.8976-142.4384-142.4384-142.4384S321.6896 290.6624 321.6896 369.2544v117.5552c0 8.4992 2.816 16.9472 7.9872 23.7568l44.288 58.5728-160.7168 84.2752a39.24992 39.24992 0 0 0-21.0944 34.8672v41.8816c0 21.7088 17.664 39.3728 39.3728 39.3728h455.2192c21.7088 0 39.3728-17.664 39.3728-39.3728v-45.9776a39.53664 39.53664 0 0 0-21.0432-34.816z" fill="#FFFFFF" p-id="5282"></path><path d="M843.2128 604.3136l-148.3776-78.6432 42.752-61.0816a39.1168 39.1168 0 0 0 7.1168-22.5792V324.1472c0-78.5408-63.8976-142.4384-142.4384-142.4384-13.6192 0-24.6784 11.0592-24.6784 24.6784s11.0592 24.6784 24.6784 24.6784c51.3536 0 93.1328 41.7792 93.1328 93.1328v114.7392l-47.4112 67.7376a39.6032 39.6032 0 0 0-6.0416 31.7952 39.62368 39.62368 0 0 0 19.8656 25.6L814.848 645.12v30.0032h-20.992c-13.6192 0-24.6784 11.0592-24.6784 24.6784s11.0592 24.6784 24.6784 24.6784h30.976c21.7088 0 39.3728-17.664 39.3728-39.3728v-45.9776c0-14.6432-8.0384-28.0064-20.992-34.816z" fill="#FFFFFF" p-id="5283"></path></svg>
+            <span>{{ localization.sr('NEW_PROJECT') }}</span>
+        </div>
+        <div class="field">
+            <b>{{ localization.sr('NEW_PROJECT_PROJECT_NAME') }}</b>
+            <input v-model="form.name" v-bind:placeholder="localization.sr('NEW_PROJECT_PROJECT_NAME_PLACEHOLDER')" class="project-dialog-textbox" />
+        </div>
+        <div class="field">
+            <b>{{ localization.sr('NEW_PROJECT_PROJECT_ID') }}</b>
+            <input v-model="form.id" v-bind:placeholder="localization.sr('NEW_PROJECT_PROJECT_ID_PLACEHOLDER')" class="project-dialog-textbox" />
+        </div>
+        <div class="field">
+            <b>{{ localization.sr('NEW_PROJECT_PROJECT_LOGO') }}</b>
+            <div class="org-logo-outer" v-on:click="selectIcon">
+                <img v-if="!form.iconBase64String" src="/assets/img/logo.png" />
+                <img v-else v-bind:src="'data:image/png;base64,' + form.iconBase64String" />
+            </div>
+            <div class="field-hint">{{ localization.sr('NEW_PROJECT_PROJECT_LOGO_HINT') }}</div>
+            <input id="file-org-icon" type="file" style="display: none" v-on:change="onFileSelected" />
+        </div>
+        <div class="footer">
+            <a class="submit" v-on:click="create">
+                <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+                <span>{{ localization.sr('NEW_PROJECT_CREATE_PROJECT') }}</span>
+            </a>
+        </div>
+    </div>
+    <notification top="15"></notification>
+</body>
+</html>

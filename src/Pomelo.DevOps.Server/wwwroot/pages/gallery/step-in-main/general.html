@@ -1,0 +1,62 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="form">
+    <h2>
+        <svg t="1669726379858" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4161" width="20" height="20"><path d="M405.0432 88.6272L97.3824 271.2064a76.09344 76.09344 0 0 0-37.2224 66.304l4.3008 357.7344c0.3072 27.136 15.104 52.0704 38.8096 65.3824l311.9616 175.1552a75.9808 75.9808 0 0 0 76.032-0.9216l307.6608-182.5792c23.3472-13.8752 37.5296-39.1168 37.2224-66.304l-4.3008-357.7344c-0.3072-27.136-15.104-52.0704-38.8096-65.3824L481.0752 87.7056a75.9808 75.9808 0 0 0-76.032 0.9216z" fill="#A5ADF6" p-id="4162"></path><path d="M719.2576 513.9968l-126.208 74.9056a76.09344 76.09344 0 0 0-37.2224 66.304l1.792 146.7392c0.3072 27.136 15.104 52.0704 38.8096 65.3824l127.9488 71.8336a75.9808 75.9808 0 0 0 76.032-0.9216l126.208-74.9056c23.3472-13.8752 37.5296-39.1168 37.2224-66.304l-1.792-146.7392c-0.3072-27.136-15.104-52.0704-38.8096-65.3824l-127.9488-71.8336a75.9808 75.9808 0 0 0-76.032 0.9216z" fill="#A5ADF6" p-id="4163"></path><path d="M836.1472 684.7488l-1.792-149.76-38.0416-21.3504a77.96736 77.96736 0 0 0-78.0288 0.9216l-124.2112 73.728a78.04416 78.04416 0 0 0-38.1952 68.0448l1.7408 144.384c0.3584 27.8528 15.5136 53.4528 39.8336 67.1232l3.4304 1.9456 197.0688-116.9408c23.9616-14.2336 38.5024-40.192 38.1952-68.096z" fill="#635DF7" p-id="4164"></path><path d="M448.1536 720.4352c-115.0976 0-208.6912-93.6448-208.6912-208.6912s93.6448-208.6912 208.6912-208.6912c115.0976 0 208.6912 93.6448 208.6912 208.6912s-93.5936 208.6912-208.6912 208.6912z m0-335.5136c-69.888 0-126.7712 56.8832-126.7712 126.7712s56.8832 126.7712 126.7712 126.7712 126.7712-56.8832 126.7712-126.7712-56.832-126.7712-126.7712-126.7712z" fill="#FFFFFF" p-id="4165"></path></svg>
+        <span>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_GENERAL_SETTINGS') }}</span>
+    </h2>
+    <div class="group">
+        <small>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_START_CONDITION') }}</small>
+        <radio-button v-model="step.condition" value="RequirePreviousTaskSuccess" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_START_CONDITION_REQUIRE_PREVIOUS_TASK_SUCCESS')"></radio-button>
+        <radio-button v-model="step.condition" value="RequirePreviousTaskFailed" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_START_CONDITION_REQUIRE_PREVIOUS_TASK_FAILED')"></radio-button>
+        <radio-button v-model="step.condition" value="RunAnyway" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_START_CONDITION_RUN_ANYWAY')"></radio-button>
+        <radio-button v-model="step.condition" value="CheckVariable" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_START_CONDITION_CHECK_VARIABLE_IS_TRUE')"></radio-button>
+    </div>
+    <div class="group" v-if="step.condition == 'CheckVariable'">
+        <small>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_CONDITION_VARIABLE_NAME') }}</small>
+        <input class="form-control" v-model="step.conditionVariable" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_CONDITION_VARIABLE_NAME_PLACEHOLDER')" />
+    </div>
+    <div class="group">
+        <small>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_TIMEOUT') }}</small>
+        <div>
+            <input-number v-model="step.timeout" min="-1"></input-number> <span class="agent-count-hint">{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_TIMEOUT_HINT') }}</span>
+        </div>
+    </div>
+    <div class="group">
+        <small>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_RETRY') }}</small>
+        <div>
+            <input-number v-model="step.retry" min="-1"></input-number> <span class="agent-count-hint">{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_RETRY_HINT') }}</span>
+        </div>
+    </div>
+    <div class="group">
+        <small>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_ERROR_HANDLING') }}</small>
+        <radio-button v-model="step.errorHandlingMode"
+                      value="Normal"
+                      v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_ERROR_HANDLING_NORMAL')"
+                      v-bind:hint="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_ERROR_HANDLING_NORMAL_HINT')" />
+        <radio-button v-model="step.errorHandlingMode"
+                      value="IgnoreFail"
+                      v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_ERROR_HANDLING_IGNORE_FAILURE')"
+                      v-bind:hint="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_ERROR_HANDLING_IGNORE_FAILURE_HINT')" />
+        <radio-button v-model="step.errorHandlingMode"
+                      value="StderrAsFail"
+                      v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_ERROR_HANDLING_STDERR')"
+                      v-bind:hint="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_ERROR_HANDLING_STDERR_HINT')" />
+    </div>
+</div>
+
+<div class="form">
+    <h2>
+        <svg t="1669900628273" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8950" width="20" height="20"><path d="M1001.661867 796.544c48.896 84.906667 7.68 157.013333-87.552 157.013333H110.781867c-97.834667 0-139.050667-69.504-90.112-157.013333l401.664-666.88c48.896-87.552 128.725333-87.552 177.664 0l401.664 666.88zM479.165867 296.533333v341.333334a32 32 0 1 0 64 0v-341.333334a32 32 0 1 0-64 0z m0 469.333334v42.666666a32 32 0 1 0 64 0v-42.666666a32 32 0 1 0-64 0z" fill="#FAAD14" p-id="8951"></path></svg>
+        <span class="danger">{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_DANGER_ZONE') }}</span>
+    </h2>
+
+    <div class="footer">
+        <a class="submit danger" v-on:click="deleteStep">
+            <svg t="1670142255230" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4114" width="20" height="20"><path d="M521.894912 45.954048c-261.41696 0-473.341952 211.919872-473.341952 473.339904 0 261.42208 211.924992 473.344 473.341952 473.344 261.419008 0 473.344-211.922944 473.344-473.344C995.239936 257.874944 783.31392 45.954048 521.894912 45.954048zM744.216576 742.58944c-3.61472 3.574784-8.31488 5.382144-13.053952 5.382144s-9.479168-1.80736-13.134848-5.46304L521.892864 545.545216 326.1952 742.107136c-3.61472 3.65568-8.394752 5.46304-13.134848 5.46304s-9.439232-1.80736-13.053952-5.382144c-7.230464-7.230464-7.2704-18.95936-0.079872-26.1888L495.756288 519.30112 299.483136 322.197504c-7.189504-7.230464-7.149568-18.95936 0.079872-26.1888 7.230464-7.149568 18.878464-7.230464 26.1888 0.079872l196.134912 196.963328 195.697664-196.560896c7.230464-7.310336 18.95936-7.230464 26.1888-0.079872 7.230464 7.230464 7.2704 18.95936 0.079872 26.1888L548.02432 519.296l196.273152 197.103616C751.486976 723.63008 751.446016 735.358976 744.216576 742.58944z" p-id="4115"></path></svg>
+            <span>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_STEP_GALLERY_DELETE_STEP') }}</span>
+        </a>
+    </div>
+</div>

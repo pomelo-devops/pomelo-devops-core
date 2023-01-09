@@ -1,0 +1,58 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.notification {
+    position: fixed;
+    z-index: 10;
+    right: 15px;
+    top: 65px;
+    width: 280px;
+    font-size: 14px;
+}
+
+.notification-item {
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    border-top: 5px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.notification-item-title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.notification-item.info {
+    border-color: #2c87ff;
+}
+
+    .notification-item.info .notification-item-title {
+        color: #2c87ff;
+    }
+
+.notification-item.warn {
+    border-color: #FA9F32;
+}
+
+    .notification-item.warn .notification-item-title {
+        color: #FA9F32;
+    }
+
+.notification-item.success {
+    border-color: #25923F;
+}
+
+    .notification-item.success .notification-item-title {
+        color: #25923F;
+    }
+
+.notification-item.error {
+    border-color: #E21010;
+}
+
+    .notification-item.error .notification-item-title {
+        color: #E21010;
+    }

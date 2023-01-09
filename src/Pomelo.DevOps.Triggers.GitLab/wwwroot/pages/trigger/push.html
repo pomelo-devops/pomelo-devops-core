@@ -1,0 +1,105 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div id="gitlab-trigger" v-if="provider">
+    <div class="form">
+        <h2>
+            <img v-bind:src="provider.proxiedIconUrl" />
+            <span>Push Trigger</span>
+        </h2>
+
+        <div class="form-group">
+            <small>Trigger Name</small>
+            <input type="text" class="form-control" placeholder="Trigger Name..." v-model="trigger.name" />
+        </div>
+
+        <div class="form-group">
+            <small>Enabled</small>
+            <div>
+                <toggle-button v-model="trigger.enabled"></toggle-button>
+            </div>
+        </div>
+
+        <div class="form-group" v-if="external">
+            <small>GitLab Group/User</small>
+            <input type="text" class="form-control" placeholder="Group or user..." v-model="external.gitLabNamespace" />
+        </div>
+
+        <div class="form-group" v-if="external">
+            <small>GitLab Repository</small>
+            <input type="text" class="form-control" placeholder="Repository..." v-model="external.gitLabProject" />
+        </div>
+
+        <div class="form-group" v-if="external">
+            <small>Branch ('*' means track all)</small>
+            <input type="text" class="form-control" placeholder="Branch..." v-model="external.branch" />
+        </div>
+
+        <div class="form-group" v-if="external">
+            <small>Job Name Template</small>
+            <input type="text" class="form-control" placeholder="Job Name Template..." v-model="external.jobNameTemplate" />
+        </div>
+
+        <div class="form-group" v-if="external">
+            <small>Job Description Template</small>
+            <input type="text" class="form-control" placeholder="Job Description Template..." v-model="external.jobDescriptionTemplate" />
+        </div>
+
+        <pipeline-arguments-form v-if="external && external.arguments"
+                                 v-model="external.arguments"
+                                 v-bind:projectId="projectId"
+                                 v-bind:pipelineId="pipelineId"></pipeline-arguments-form>
+
+        <div class="form-group">
+            <small>Additional Arguments</small>
+            <table class="gitlab-trigger-additional-arguments-table">
+                <thead>
+                    <tr>
+                        <th>Argument</th>
+                        <th>Value</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody v-if="pipeline && arguments">
+                    <tr v-for="arg in arguments.filter(x => pipeline.arguments.map(x => x.argument).indexOf(x.key) == -1)">
+                        <td>{{ arg.key }}</td>
+                        <td>{{ arg.value }}</td>
+                        <td>
+                            <a class="table-button small danger" v-on:click="removeArgument(arg.key)">Remove</a>
+                        </td>
+                    </tr>
+                    <tr v-if="!arguments.filter(x => pipeline.arguments.map(x => x.argument).indexOf(x.key) == -1).length">
+                        <td colspan="3">No additional argument</td>
+                    </tr>
+                    <tr>
+                        <td class="gitlab-trigger-new-arg">
+                            <input v-model="newArgument.key" class="form-control" type="text" placeholder="Key" />
+                        </td>
+                        <td class="gitlab-trigger-new-arg">
+                            <input v-model="newArgument.value" class="form-control" type="text" placeholder="Value" />
+                        </td>
+                        <td class="gitlab-trigger-new-arg">
+                            <a class="table-button small" v-on:click="addArgument">+ New Argument</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="gitlab-trigger-footer" v-if="$root.hasPermissionToPipeline(projectId, pipelineId, 2)">
+            <a class="submit" v-if="mode == 'new'" v-on:click="createTrigger">
+                <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+                <span>Create</span>
+            </a>
+            <a class="submit" v-if="mode == 'edit'" v-on:click="saveTrigger">
+                <svg t="1669804635301" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10225" width="20" height="20"><path d="M725.4 105.7H151.8c-27.1 0-49.2 22-49.2 49.1v711.8c0 27.1 22.1 49.1 49.2 49.1H866c27.1 0 49.2-22 49.2-49.1V294.8L725.4 105.7z m-399.4 40h338.8v241.9c0 12.9-10.5 23.3-23.5 23.3H349.5c-12.9 0-23.5-10.5-23.5-23.3V145.7z m5.4 727.6V612.5c0-4.1 3.4-7.4 7.5-7.4h363.4c4.1 0 7.5 3.3 7.5 7.4v260.8H331.4z m543.8-6.8c0 4.9-4.2 9.1-9.2 9.1H749.9V612.5c0-26.1-21.3-47.4-47.5-47.4H339c-26.2 0-47.5 21.3-47.5 47.4v263.2H151.8c-5 0-9.2-4.2-9.2-9.1V154.8c0-4.9 4.2-9.1 9.2-9.1H286v241.9c0 34.9 28.5 63.3 63.5 63.3h291.8c35 0 63.5-28.4 63.5-63.3V145.7h4l166.4 165.8v555z" fill="#403E3E" p-id="10226"></path><path d="M638.4 664H400.8c-11 0-20 9-20 20s9 20 20 20h237.6c11 0 20-9 20-20s-8.9-20-20-20zM638.4 765.1H400.8c-11 0-20 9-20 20s9 20 20 20h237.6c11 0 20-9 20-20s-8.9-20-20-20z" fill="#403E3E" p-id="10227"></path></svg>
+                <span>Save</span>
+            </a>
+            <a class="submit danger" v-if="mode == 'edit'" v-on:click="deleteTrigger">
+                <svg t="1670142255230" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4114" width="20" height="20"><path d="M521.894912 45.954048c-261.41696 0-473.341952 211.919872-473.341952 473.339904 0 261.42208 211.924992 473.344 473.341952 473.344 261.419008 0 473.344-211.922944 473.344-473.344C995.239936 257.874944 783.31392 45.954048 521.894912 45.954048zM744.216576 742.58944c-3.61472 3.574784-8.31488 5.382144-13.053952 5.382144s-9.479168-1.80736-13.134848-5.46304L521.892864 545.545216 326.1952 742.107136c-3.61472 3.65568-8.394752 5.46304-13.134848 5.46304s-9.439232-1.80736-13.053952-5.382144c-7.230464-7.230464-7.2704-18.95936-0.079872-26.1888L495.756288 519.30112 299.483136 322.197504c-7.189504-7.230464-7.149568-18.95936 0.079872-26.1888 7.230464-7.149568 18.878464-7.230464 26.1888 0.079872l196.134912 196.963328 195.697664-196.560896c7.230464-7.310336 18.95936-7.230464 26.1888-0.079872 7.230464 7.230464 7.2704 18.95936 0.079872 26.1888L548.02432 519.296l196.273152 197.103616C751.486976 723.63008 751.446016 735.358976 744.216576 742.58944z" p-id="4115"></path></svg>
+                <span>Delete Trigger</span>
+            </a>
+        </div>
+    </div>
+</div>

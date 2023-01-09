@@ -1,0 +1,223 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+#pipeline-arguments {
+    position: absolute;
+    top: 51px;
+    left: 30px;
+    right: 30px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+    #pipeline-arguments > .form {
+        margin: 30px auto 0 auto;
+        margin-top: 30px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,.05);
+        margin-bottom: 30px;
+    }
+
+        #pipeline-arguments > .form input.form-control {
+            color: #666;
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+            outline: 0;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            line-height: 30px;
+        }
+
+            #pipeline-arguments > .form input.form-control:focus {
+                border-color: #FA9F32;
+            }
+
+        #pipeline-arguments > .form small, #pipeline-arguments > .form label {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        #pipeline-arguments > .form textarea.form-control {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            outline: 0;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        #pipeline-arguments > .form h1, #pipeline-arguments > .form h2 {
+            margin: 0;
+            padding: 0 0 10px 0;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+            #pipeline-arguments > .form h1 > svg, #pipeline-arguments > .form h2 > svg {
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+
+        #pipeline-arguments > .form .form-group {
+            margin-bottom: 15px;
+        }
+
+
+    #pipeline-arguments .form .danger {
+        color: #dc1600;
+    }
+
+.submit {
+    font-size: 18px;
+    margin-top: 15px;
+    display: inline-block;
+    color: #fff;
+    background: #FA9F32;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+    .submit > * {
+        vertical-align: middle;
+    }
+
+    .submit svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+    }
+
+    .submit span {
+        margin-left: 10px;
+    }
+
+    .submit:hover {
+        background: #ffaa45;
+    }
+
+
+    .submit.danger {
+        background: #dc1600;
+        color: #fff !important;
+    }
+
+        .submit.danger:hover {
+            background: #ef3c28;
+        }
+
+.footer {
+    text-align: center;
+}
+
+.pipeline-arguments-table {
+    width: 100%;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.pipeline-arguments-table > thead {
+    font-size: 12px;
+}
+
+    .pipeline-arguments-table > thead > tr > th {
+        text-align: left;
+    }
+
+    .pipeline-arguments-table td, .pipeline-arguments-table th {
+        padding: 15px;
+    }
+
+    .pipeline-arguments-table > tbody > tr, .pipeline-arguments-table > tfoot > tr {
+        border-top: .5px solid #ddd;
+    }
+
+    .pipeline-arguments-table > tbody > tr:hover {
+        background: #fff6ec
+    }
+
+.table-button {
+    padding: 10px 15px;
+    border-radius: 50px;
+    background: #FA9F32;
+    color: #fff;
+    cursor: pointer;
+}
+
+    .table-button:hover {
+        background: #ffaa45;
+    }
+
+    .table-button.small {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .table-button.danger {
+        color: #fff!important;
+        background: #dc1600;
+    }
+
+    .table-button.danger:hover {
+        background: #ef3c28;
+    }
+
+input[type="text"].table-textbox {
+    border: none;
+    outline: 0;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background: none;
+    border-bottom: 1px solid rgba(0,0,0,0);
+    line-height: 20px;
+    color: #666;
+}
+
+input[type="text"].table-textbox:hover {
+    border-bottom: 1px solid #FA9F32;
+}
+input[type="text"].table-textbox::placeholder {
+    color: #bbb;
+}
+
+.pipeline-argument-dragula-anchor svg {
+    width: 20px;
+    height: 20px;
+    fill: #aaa;
+    margin-left: 10px;
+    cursor: grab;
+}
+
+.no-wrap {
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+    .no-wrap > * {
+        vertical-align: middle;
+    }
+
+.table-select {
+    outline: 0;
+    border: none;
+    color: #666;
+    background: none;
+    border-bottom: 1px solid rgba(0,0,0,0);
+}
+
+.table-select:hover {
+    border-bottom: 1px solid #FA9F32;
+}

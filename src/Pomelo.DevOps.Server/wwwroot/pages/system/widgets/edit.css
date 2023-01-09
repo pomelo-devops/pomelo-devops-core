@@ -1,0 +1,281 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.widget-edit-header {
+    background: #fff;
+    line-height: 36px;
+    border-bottom: 1px solid #ddd;
+    padding: 0 15px;
+}
+
+.widget-edit-header-button {
+    cursor: pointer;
+    height: 38.55px;
+    line-height: 38.55px;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 5px;
+    color: inherit;
+}
+
+    .widget-edit-header-button > * {
+        vertical-align: middle;
+    }
+
+    .widget-edit-header-button > svg {
+        width: 22px;
+        height: 22px;
+        margin-right: 5px;
+        fill: #666;
+    }
+
+        .widget-edit-header-button > svg path {
+            fill: #666;
+        }
+
+    .widget-edit-header-button:hover {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+        .widget-edit-header-button:hover > svg {
+            fill: #fff;
+        }
+        .widget-edit-header-button:hover > svg path {
+            fill: #fff;
+        }
+
+.widget-edit-left {
+    position: absolute;
+    top: 39.55px;
+    bottom: 0;
+    left: 0;
+    width: 340px;
+    border-right: 1px solid #ddd;
+    background: #fefefe;
+}
+
+.widget-edit-files-header {
+    background: #f0f0f0;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 30px;
+    padding: 0 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .widget-edit-files-header a {
+        display: inline-block;
+        height: 20px;
+        float: right;
+        margin: 5px 0;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+    .widget-edit-files-header > * {
+        vertical-align: middle;
+    }
+
+.widget-edit-files-header svg {
+    width: 20px;
+    height: 20px;
+    fill: #666;
+}
+
+    .widget-edit-files-header svg path {
+        fill: #666;
+    }
+
+.widget-edit-right {
+    position: absolute;
+    top: 39.55px;
+    bottom: 0;
+    right: 0;
+    left: 341px;
+    border-right: 1px solid #ddd;
+    overflow: auto;
+}
+
+    .widget-edit-right img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+.dialog {
+    margin: 0 auto;
+    margin-top: 30px;
+    background: #fff;
+    width: 480px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,.05);
+}
+
+.dialog-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .dialog-header * {
+        vertical-align: middle;
+    }
+
+    .dialog-header span {
+        line-height: 40px;
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    .dialog-header svg {
+        width: 40px;
+        height: 40px;
+    }
+
+.field {
+    padding: 8px;
+}
+
+.dialog-textbox {
+    font-size: 16px;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    line-height: 34px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #666;
+    font-weight: lighter;
+}
+
+    .dialog-textbox::placeholder {
+        color: #bbb;
+        font-weight: lighter;
+    }
+
+    .dialog-textbox:focus {
+        border-color: #FA9F32;
+        color: #FA9F32;
+    }
+
+.field b {
+    font-size: 12px;
+}
+
+.org-logo-outer {
+    padding: 15px;
+    border-radius: 15px;
+    border: 3px dashed #bbb;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+    .org-logo-outer:hover {
+        border-color: #FA9F32;
+        cursor: pointer;
+    }
+
+    .org-logo-outer img {
+        width: 100px;
+        height: 100px;
+    }
+
+.footer {
+    text-align: center;
+}
+
+.submit {
+    font-size: 18px;
+    margin-top: 15px;
+    display: inline-block;
+    color: #fff;
+    background: #FA9F32;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+    .submit > * {
+        vertical-align: middle;
+    }
+
+    .submit svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+    }
+
+        .submit svg path {
+            fill: #fff;
+        }
+
+    .submit span {
+        margin-left: 10px;
+    }
+
+    .submit:hover {
+        background: #ffaa45;
+    }
+
+.field-hint {
+    padding: 8px;
+    text-align: center;
+}
+
+.back-button {
+    margin-top: -40px;
+    margin-left: -40px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 0 15px rgb(0 0 0 / 20%);
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color, .2s, ease-in-out;
+}
+
+    .back-button svg {
+        margin: 7px;
+        width: 16px;
+        height: 16px;
+        fill: #666;
+        transition: fill, .2s, ease-in-out
+    }
+
+    .back-button:hover {
+        background: #2c87ff;
+    }
+
+        .back-button:hover svg {
+            fill: #fff;
+        }
+
+.user-selector-anchor {
+    color: #FA9F32;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+    .user-selector-anchor:hover {
+        text-decoration: underline;
+    }
+
+.button {
+    background: #FA9F32;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .button:hover {
+        background: #ffaa45;
+    }

@@ -1,0 +1,19 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="login-provider-list-outer">
+    <a class="login-provider-list-item"
+       v-bind:class="{ active: active == provider.id }"
+       v-for="provider in providers"
+       v-on:click="editProvider(provider)">
+        <img v-if="provider.mode == 'Local'" src="/assets/img/local-auth.svg" />
+        <img v-else v-bind:src="provider.iconUrl" />
+        {{ provider.name }}
+    </a>
+    <a class="login-provider-list-item" v-on:click="addProvider" v-bind:class="{ active: active == 'new' }">
+        <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+        {{ $root.localization.sr('SYSTEM_LOGIN_PROVIDER_ADD_PROVIDER') }}
+    </a>
+</div>
+<div id="login-provider-container"></div>

@@ -1,0 +1,8 @@
+{
+  "id": "Pomelo.DevOps.Triggers.GitLab.Push",
+  "name": "GitLab",
+  "description": "GitLab Push Trigger",
+  "icon": "/assets/img/icon.svg",
+  "view": "/pages/trigger/push",
+  "settings": "/pages/settings/index"
+}

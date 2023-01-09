@@ -1,0 +1,66 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="agent-pool-table-outer">
+    <table class="agent-pool-table">
+        <thead>
+            <tr>
+                <th colspan="4" class="agent-pool-table-header" style="padding-bottom: 0;">
+                    <svg t="1669807418526" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6291" width="20" height="20"><path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01" p-id="6292"></path><path d="M204.8 68.266667a136.533333 136.533333 0 0 0-136.533333 136.533333v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533334h614.4a136.533333 136.533333 0 0 0 136.533333-136.533334V204.8a136.533333 136.533333 0 0 0-136.533333-136.533333H204.8z m0 477.866666a136.533333 136.533333 0 0 0-136.533333 136.533334v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533333h614.4a136.533333 136.533333 0 0 0 136.533333-136.533333v-136.533333a136.533333 136.533333 0 0 0-136.533333-136.533334H204.8z" fill="#FF7744" p-id="6293"></path><path d="M204.8 68.266667a136.533333 136.533333 0 0 0-136.533333 136.533333v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533334V68.266667z m0 477.866666a136.533333 136.533333 0 0 0-136.533333 136.533334v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533333V546.133333z" fill="#FFAA44" p-id="6294"></path><path d="M324.266667 187.733333A51.2 51.2 0 0 1 375.466667 238.933333v68.266667a51.2 51.2 0 0 1-102.4 0V238.933333a51.2 51.2 0 0 1 51.2-51.2z m187.733333 0A51.2 51.2 0 0 1 563.2 238.933333v68.266667a51.2 51.2 0 0 1-102.4 0V238.933333A51.2 51.2 0 0 1 512 187.733333zM699.733333 273.066667A51.2 51.2 0 0 1 750.933333 221.866667h34.133334a51.2 51.2 0 0 1 0 102.4h-34.133334A51.2 51.2 0 0 1 699.733333 273.066667z m-375.466666 392.533333A51.2 51.2 0 0 1 375.466667 716.8v68.266667a51.2 51.2 0 0 1-102.4 0v-68.266667a51.2 51.2 0 0 1 51.2-51.2z m187.733333 0a51.2 51.2 0 0 1 51.2 51.2v68.266667a51.2 51.2 0 0 1-102.4 0v-68.266667a51.2 51.2 0 0 1 51.2-51.2z m187.733333 85.333333a51.2 51.2 0 0 1 51.2-51.2h34.133334a51.2 51.2 0 0 1 0 102.4h-34.133334a51.2 51.2 0 0 1-51.2-51.2z" fill="#FFFFFF" p-id="6295"></path></svg>
+                    <span>{{ $root.localization.sr('AGENT_POOLS') }}</span>
+                </th>
+            </tr>
+            <tr>
+                <th>{{ $root.localization.sr('AGENT_POOLS_ID') }}</th>
+                <th>{{ $root.localization.sr('AGENT_POOLS_NAME') }}</th>
+                <th>{{ $root.localization.sr('AGENT_POOLS_AGENTS') }}</th>
+                <th v-if="$root.hasPermissionToProject(projectId, true)">{{ $root.localization.sr('AGENT_POOLS_ACTIONS') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="pool in pools">
+                <td>{{ pool.id}}</td>
+                <td>{{ pool.name }}</td>
+                <td>{{ pool.agents.length }}</td>
+                <td v-if="$root.hasPermissionToProject(projectId, true)">
+                    <a class="agent-pool-table-button" v-bind:href="`/project/${this.projectId}/agent-pool/${pool.id}`">{{ $root.localization.sr('AGENT_POOLS_AGENTS') }}</a>
+                    <a class="agent-pool-table-button" v-bind:href="`/project/${this.projectId}/agent-pool/${pool.id}/edit`">{{ $root.localization.sr('AGENT_POOLS_EDIT') }}</a>
+                    <a class="agent-pool-table-button danger" v-on:click="deleteAgentPool(pool)">{{ $root.localization.sr('AGENT_POOLS_DELETE') }}</a>
+                </td>
+            </tr>
+            <tr v-if="!pools.length">
+                <td v-bind:colspan="$root.hasPermissionToProject(projectId, true) ? 4 : 3">{{ $root.localization.sr('AGENT_POOLS_NO_RESULT') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="agent-pool-table" v-if="$root.hasPermissionToProject(projectId, true)">
+        <thead>
+            <tr>
+                <th colspan="3" class="agent-pool-table-header">
+                    <svg t="1669807418526" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6291" width="20" height="20"><path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01" p-id="6292"></path><path d="M204.8 68.266667a136.533333 136.533333 0 0 0-136.533333 136.533333v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533334h614.4a136.533333 136.533333 0 0 0 136.533333-136.533334V204.8a136.533333 136.533333 0 0 0-136.533333-136.533333H204.8z m0 477.866666a136.533333 136.533333 0 0 0-136.533333 136.533334v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533333h614.4a136.533333 136.533333 0 0 0 136.533333-136.533333v-136.533333a136.533333 136.533333 0 0 0-136.533333-136.533334H204.8z" fill="#FF7744" p-id="6293"></path><path d="M204.8 68.266667a136.533333 136.533333 0 0 0-136.533333 136.533333v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533334V68.266667z m0 477.866666a136.533333 136.533333 0 0 0-136.533333 136.533334v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533333V546.133333z" fill="#FFAA44" p-id="6294"></path><path d="M324.266667 187.733333A51.2 51.2 0 0 1 375.466667 238.933333v68.266667a51.2 51.2 0 0 1-102.4 0V238.933333a51.2 51.2 0 0 1 51.2-51.2z m187.733333 0A51.2 51.2 0 0 1 563.2 238.933333v68.266667a51.2 51.2 0 0 1-102.4 0V238.933333A51.2 51.2 0 0 1 512 187.733333zM699.733333 273.066667A51.2 51.2 0 0 1 750.933333 221.866667h34.133334a51.2 51.2 0 0 1 0 102.4h-34.133334A51.2 51.2 0 0 1 699.733333 273.066667z m-375.466666 392.533333A51.2 51.2 0 0 1 375.466667 716.8v68.266667a51.2 51.2 0 0 1-102.4 0v-68.266667a51.2 51.2 0 0 1 51.2-51.2z m187.733333 0a51.2 51.2 0 0 1 51.2 51.2v68.266667a51.2 51.2 0 0 1-102.4 0v-68.266667a51.2 51.2 0 0 1 51.2-51.2z m187.733333 85.333333a51.2 51.2 0 0 1 51.2-51.2h34.133334a51.2 51.2 0 0 1 0 102.4h-34.133334a51.2 51.2 0 0 1-51.2-51.2z" fill="#FFFFFF" p-id="6295"></path></svg>
+                    <span>{{ $root.localization.sr('AGENT_POOLS_CREATE_POOL') }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3" id="agent-pool-new">
+                    <div class="form">
+                        <div class="form-group">
+                            <small>{{ $root.localization.sr('AGENT_POOLS_POOL_NAME') }}</small>
+                            <input type="text" v-bind:placeholder="$root.localization.sr('AGENT_POOLS_POOL_NAME_PLACEHOLDER')" v-model="form.name" class="form-control" />
+                        </div>
+                        <div class="footer">
+                            <a class="submit" v-on:click="createPool">
+                                <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+                                <span>{{ $root.localization.sr('AGENT_POOLS_CREATE_POOL') }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

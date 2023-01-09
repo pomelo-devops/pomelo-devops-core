@@ -1,0 +1,268 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.pipeline-job-timeline-outer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 360px;
+    border-right: 1px solid #ddd;
+    background: #fefefe;
+    overflow-y: auto;
+}
+
+
+.pipeline-job-stage-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background: #ccc;
+    display: inline-block;
+    vertical-align: middle;
+    border-style: none;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}
+
+.pipeline-job-stage-toggle {
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    border-style: none;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0);
+}
+
+    .pipeline-job-stage-toggle:hover {
+        border-color: #FA9F32;
+        background: #FA9F32;
+    }
+
+        .pipeline-job-stage-toggle:hover i {
+            color: #fff;
+        }
+
+.pipeline-job-stage-name {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 120px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pipeline-job-step-icon {
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    margin-right: 30px;
+    background: #ccc;
+    display: inline-block;
+    vertical-align: middle;
+    border-style: none;
+    box-sizing: border-box;
+    margin-top: -34px !important;
+    margin-right: 5px !important;
+    border: 1px solid #ccc;
+}
+
+.pipeline-job-step-item {
+    margin: 10px 0 !important;
+    height: 20px;
+}
+
+    .pipeline-job-step-item h6 {
+        width: calc(100% - 31px);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+.pipeline-job-stage-icon i, .pipeline-job-stage-toggle i {
+    font-size: 14px;
+    width: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.pipeline-job-stage-toggle i {
+    color: #666;
+}
+
+.pipeline-job-stage-icon.green, .pipeline-job-step-icon.green {
+    background: #00a80e;
+    border-color: #00a80e;
+}
+
+.pipeline-job-stage-icon.red, .pipeline-job-step-icon.red {
+    background: #ff3c3c;
+    border-color: #ff3c3c;
+}
+
+.pipeline-job-stage-icon.blue, .pipeline-job-step-icon.blue {
+    background: #007bff;
+    border-color: #007bff;
+}
+
+.pipeline-job-stage-icon.white, .pipeline-job-step-icon.white {
+    background: #fff;
+    border-color: #00a80e;
+}
+
+    .pipeline-job-stage-icon.white i, .pipeline-job-step-icon.white i {
+        color: #00a80e !important;
+    }
+
+.pipeline-job-step-icon i {
+    font-size: 11px;
+    width: 19px;
+    line-height: 19px;
+    text-align: center;
+    color: #fff;
+}
+
+.pipeline-job-step-item h4 {
+    color: #515365 !important;
+}
+
+.pipeline-job-log {
+    margin-bottom: 10px;
+}
+
+.pipeline-job-step-item.active .pipeline-job-step-icon, .pipeline-job-step-item .pipeline-job-step-icon:hover {
+    border-color: #007bff;
+    cursor: pointer;
+}
+
+.pipeline-job-step-item.active h6, .pipeline-job-step-item h6:hover, .pointer:hover {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.pipeline-edit-right-section {
+    padding: 0 25px 25px 25px;
+}
+
+    .pipeline-edit-right-section .title {
+        color: #333;
+        margin-top: -26px;
+        background: rgb(241,242,243);
+        display: table;
+        padding-right: 5px;
+        cursor: pointer;
+    }
+
+    .pipeline-edit-right-section .line {
+        border-top: 0.8px solid #ccc;
+        margin: 15px 0;
+    }
+
+.pipeline-edit-trigger-container {
+    position: absolute;
+    top: 45px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.pipeline-job-stage-item {
+    padding: 10px;
+    border-bottom: 0.8px solid #ddd;
+    cursor: pointer;
+}
+
+    .pipeline-job-stage-item:hover {
+        background: #fff7ee;
+    }
+
+    .pipeline-job-stage-item.active {
+        background: #FA9F32;
+        color: #fff !important;
+    }
+
+        .pipeline-job-stage-item.active .pipeline-job-stage-toggle i {
+            color: #fff
+        }
+
+        .pipeline-job-stage-item.active .pipeline-job-stage-toggle:hover {
+            border-color: #fff;
+            background: #fff;
+        }
+
+            .pipeline-job-stage-item.active .pipeline-job-stage-toggle:hover i {
+                color: #FA9F32;
+            }
+
+    .pipeline-job-stage-item.step {
+        padding-left: 65px;
+    }
+
+.pipeline-job-stage-duration {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.pipeline-job-stage-item.step .pipeline-job-stage-name {
+    width: calc(100% - 36px);
+}
+
+#job-log {
+    background: #201F1E;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 361px;
+    overflow: auto;
+}
+
+.pipeline-job-log-outer {
+    padding: 15px;
+    font-weight: normal;
+    color: #ccc;
+    font-family: Consolas;
+}
+
+.pipeline-job-log .log-warn {
+    color: #FA9F32;
+}
+
+.pipeline-job-log .log-error {
+    color: #ff3c3c;
+}
+
+.abort-job {
+    position: fixed;
+    right: 20px;
+    top: 60px;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    padding: 7px;
+    border-radius: 50px;
+    z-index: 20;
+    opacity: .4;
+    cursor: pointer;
+}
+
+    .abort-job:hover {
+        opacity: 1;
+    }
+
+    .abort-job > svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .abort-job > * {
+        vertical-align: middle;
+    }

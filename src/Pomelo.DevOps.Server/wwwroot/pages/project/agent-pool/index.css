@@ -1,0 +1,180 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.agent-pool-table-outer {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.agent-pool-table {
+    border-collapse: collapse;
+    width: 100%;
+    background: #fff;
+    border-radius: 15px;
+    margin: 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+}
+
+    .agent-pool-table th {
+        text-align: left;
+        font-size: 12px;
+    }
+
+.agent-pool-table-header {
+    font-size: 18px !important;
+    font-weight: normal;
+}
+
+
+    .agent-pool-table-header > svg {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+    }
+
+    .agent-pool-table-header > * {
+        vertical-align: middle;
+    }
+
+.agent-pool-table th, .agent-pool-table td {
+    padding: 15px;
+}
+
+.agent-pool-table > tbody > tr {
+    border-top: .5px solid #ddd;
+}
+
+.agent-pool-table-button {
+    background: #FA9F32;
+    color: #fff;
+    border-radius: 50px;
+    padding: 5px 8px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+    .agent-pool-table-button:hover {
+        background: #ffaa45;
+    }
+
+    .agent-pool-table-button.danger {
+        background: #dc1600;
+    }
+
+        .agent-pool-table-button.danger:hover {
+            background: #ef3c28;
+        }
+
+#agent-pool-new > .form input.form-control {
+    color: #666;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    line-height: 30px;
+}
+
+    #agent-pool-new > .form input.form-control:focus {
+        border-color: #FA9F32;
+    }
+
+#agent-pool-new > .form small, #agent-pool-new > .form label {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+#agent-pool-new > .form textarea.form-control {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    outline: 0;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+#agent-pool-new > .form h1, #agent-pool-new > .form h2 {
+    margin: 0;
+    padding: 0 0 10px 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+
+    #agent-pool-new > .form h1 > svg, #agent-pool-new > .form h2 > svg {
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+#agent-pool-new > .form .form-group {
+    margin-bottom: 15px;
+}
+
+
+#agent-pool-new .form .danger {
+    color: #dc1600;
+}
+
+.submit {
+    font-size: 18px;
+    margin-top: 15px;
+    display: inline-block;
+    color: #fff;
+    background: #FA9F32;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 8px;
+}
+
+    .submit > * {
+        vertical-align: middle;
+    }
+
+    .submit svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+    }
+
+        .submit svg path {
+            fill: #fff;
+        }
+
+    .submit span {
+        margin-left: 10px;
+    }
+
+    .submit:hover {
+        background: #ffaa45;
+    }
+
+
+    .submit.danger {
+        background: #dc1600;
+        color: #fff !important;
+    }
+
+        .submit.danger:hover {
+            background: #ef3c28;
+        }
+
+.footer {
+    text-align: center;
+}
+
+.generated-pat {
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    background: #fff7ee;
+    color: #f58500;
+}

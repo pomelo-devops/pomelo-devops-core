@@ -1,0 +1,27 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dialog">
+    <a class="back-button" v-bind:href="`/project/${projectId}/pipeline`">
+        <svg t="1669790068549" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6528" width="20" height="20"><path d="M710.153924 8.980397L266.007127 460.692524a81.118646 81.118646 0 0 0 0.861532 114.476097l446.192936 441.050666a26.922883 26.922883 0 0 0 37.853573-38.284339L304.722232 536.884282a27.27288 27.27288 0 0 1-0.323074-38.445877L748.545955 46.726278A26.922883 26.922883 0 1 0 710.180847 9.00732z" p-id="6529"></path></svg>
+    </a>
+    <div class="dialog-header">
+        <svg t="1669789862027" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5605" width="20" height="20"><path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01" p-id="5606"></path><path d="M263.645867 496.7424A34.133333 34.133333 0 0 1 294.161067 477.866667h435.677866a34.133333 34.133333 0 0 1 30.5152 18.875733l111.854934 223.675733A68.266667 68.266667 0 0 1 811.1104 819.2H212.8896a68.266667 68.266667 0 0 1-61.064533-98.781867l111.854933-223.675733zM204.8 887.466667a34.133333 34.133333 0 1 1 68.266667 0v34.133333a34.133333 34.133333 0 1 1-68.266667 0v-34.133333z m580.266667-34.133334a34.133333 34.133333 0 0 0-34.133334 34.133334v34.133333a34.133333 34.133333 0 1 0 68.266667 0v-34.133333a34.133333 34.133333 0 0 0-34.133333-34.133334z" fill="#FFAA44" p-id="5607"></path><path d="M273.066667 430.08a341.333333 341.333333 0 0 1 119.1936-259.1744l97.518933-83.626667a34.133333 34.133333 0 0 1 44.4416 0l97.518933 83.626667A341.333333 341.333333 0 0 1 750.933333 430.045867V716.8a238.933333 238.933333 0 1 1-477.866666 0v-286.72z" fill="#FF7744" p-id="5608"></path><path d="M477.866667 819.2a34.133333 34.133333 0 1 1 68.266666 0v136.533333a34.133333 34.133333 0 1 1-68.266666 0v-136.533333z" fill="#FFAA44" p-id="5609"></path><path d="M512 273.066667a102.4 102.4 0 1 1 0 204.8 102.4 102.4 0 0 1 0-204.8z" fill="#FFFFFF" p-id="5610"></path></svg>
+        <span>{{ $root.localization.sr('PIPELINE_NEW_PIPELINE') }}</span>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('PIPELINE_PIPELINE_NAME') }}</b>
+        <input v-model="form.name" v-bind:placeholder="$root.localization.sr('PIPELINE_PIPELINE_NAME_PLACEHOLDER')" class="dialog-textbox" />
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('PIPELINE_PIPELINE_ID') }}</b>
+        <input v-model="form.id" v-bind:placeholder="$root.localization.sr('PIPELINE_PIPELINE_ID_PLACEHOLDER')" class="dialog-textbox" />
+    </div>
+    <div class="footer">
+        <a class="submit" v-on:click="create">
+            <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+            <span>{{ $root.localization.sr('PIPELINE_CREATE_PIPELINE') }}</span>
+        </a>
+    </div>
+</div>

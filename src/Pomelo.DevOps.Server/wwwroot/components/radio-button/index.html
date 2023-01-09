@@ -1,0 +1,9 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<a class="radio-button-outer" v-on:click="click">
+    <div class="radio-button" v-bind:class="{ active: active }"><div class="radio-button-inner"></div></div>
+    <span class="radio-button-title">{{ title || value }}</span>
+    <span v-if="hint">{{ hint }}</span>
+</a>

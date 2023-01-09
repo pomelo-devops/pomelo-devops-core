@@ -1,0 +1,61 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="stage-edit">
+    <div class="stage-edit-inner" v-if="stage">
+        <div class="stage-edit-header">
+            <svg t="1669806663267" class="icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8921" width="20" height="20"><path d="M511.501461 513.495618m-510.504382 0a510.504382 510.504382 0 1 0 1021.008763 0 510.504382 510.504382 0 1 0-1021.008763 0Z" fill="#FFC64B" opacity=".5" p-id="8922"></path><path d="M511.501461 513.495618m-218.759105 0a218.759104 218.759104 0 1 0 437.518209 0 218.759104 218.759104 0 1 0-437.518209 0Z" fill="#FFC64B" p-id="8923"></path></svg>
+            <input type="text" v-model="stage.name" class="stage-name-textbox" />
+        </div>
+        <div class="field">
+            <b>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ORDER') }}</b>
+            <input-number v-model="stage.order" min="1"></input-number> <span class="agent-count-hint">{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ORDER_HINT') }}</span>
+        </div>
+        <div class="field">
+            <b>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL') }}</b>
+            <radio-button v-model="stage.isolationLevel" value="Sequential" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_SEQUENTIAL')" v-bind:hint="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_SEQUENTIAL_HINT')"></radio-button>
+            <radio-button v-model="stage.isolationLevel" value="Parallel" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_PARALLEL')" v-bind:hint="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_PARALLEL_HINT')"></radio-button>
+        </div>
+        <div class="field">
+            <b>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_AGENT_POOL') }}</b>
+            <div class="agent-pool-selector-link" v-if="!stage.agentPoolId" v-on:click="showAgentSelector = true">{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_AGENT_POOL_CLICK') }}</div>
+            <div class="agent-pool-selector-link selected" v-else v-on:click="showAgentSelector = true">{{ (agentPool && agentPool.name) || stage.agentPoolId }}</div>
+        </div>
+        <div class="field">
+            <b>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_AGENT_COUNT') }}</b>
+            <input-number v-model="stage.agentCount" min="1"></input-number> <span class="agent-count-hint" v-if="agentPool">({{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_AGENT_COUNT_HINT', agentPool.agents.length) }})</span>
+        </div>
+        <div class="field">
+            <b>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_START_CONDITION') }}</b>
+            <radio-button v-model="stage.condition" value="RequirePreviousTaskSuccess" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_START_CONDITION_REQUIRE_PREVIOUS_TASK_SUCCESS')"></radio-button>
+            <radio-button v-model="stage.condition" value="RequirePreviousTaskFailed" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_START_CONDITION_REQUIRE_PREVIOUS_TASK_FAILED')"></radio-button>
+            <radio-button v-model="stage.condition" value="RunAnyway" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_START_CONDITION_RUN_ANYWAY')"></radio-button>
+            <radio-button v-model="stage.condition" value="CheckVariable" v-bind:title="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_START_CONDITION_CHECK_VARIABLE_IS_TRUE')"></radio-button>
+        </div>
+        <div class="field" v-if="stage.condition == 'CheckVariable'">
+            <b>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_CONDITION_VARIABLE_NAME') }}</b>
+            <input v-model="stage.conditionVariable" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_CONDITION_VARIABLE_NAME_PLACEHOLDER')" class="stage-edit-textbox" />
+        </div>
+        <div class="field">
+            <b>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_TIMEOUT') }}</b>
+            <input-number v-model="stage.timeout" min="-1"></input-number> <span class="agent-count-hint">{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_TIMEOUT_HINT') }}</span>
+        </div>
+    </div>
+    <div class="stage-edit-inner">
+        <div class="stage-edit-header">
+            <svg t="1669900628273" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8950" width="20" height="20"><path d="M1001.661867 796.544c48.896 84.906667 7.68 157.013333-87.552 157.013333H110.781867c-97.834667 0-139.050667-69.504-90.112-157.013333l401.664-666.88c48.896-87.552 128.725333-87.552 177.664 0l401.664 666.88zM479.165867 296.533333v341.333334a32 32 0 1 0 64 0v-341.333334a32 32 0 1 0-64 0z m0 469.333334v42.666666a32 32 0 1 0 64 0v-42.666666a32 32 0 1 0-64 0z" fill="#FAAD14" p-id="8951"></path></svg>
+            <span class="stage-edit-header-danger">{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_DANGER_ZONE') }}</span>
+        </div>
+        <div class="footer">
+            <a class="submit danger" v-on:click="deleteStage">
+                <svg t="1670142255230" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4114" width="20" height="20"><path d="M521.894912 45.954048c-261.41696 0-473.341952 211.919872-473.341952 473.339904 0 261.42208 211.924992 473.344 473.341952 473.344 261.419008 0 473.344-211.922944 473.344-473.344C995.239936 257.874944 783.31392 45.954048 521.894912 45.954048zM744.216576 742.58944c-3.61472 3.574784-8.31488 5.382144-13.053952 5.382144s-9.479168-1.80736-13.134848-5.46304L521.892864 545.545216 326.1952 742.107136c-3.61472 3.65568-8.394752 5.46304-13.134848 5.46304s-9.439232-1.80736-13.053952-5.382144c-7.230464-7.230464-7.2704-18.95936-0.079872-26.1888L495.756288 519.30112 299.483136 322.197504c-7.189504-7.230464-7.149568-18.95936 0.079872-26.1888 7.230464-7.149568 18.878464-7.230464 26.1888 0.079872l196.134912 196.963328 195.697664-196.560896c7.230464-7.310336 18.95936-7.230464 26.1888-0.079872 7.230464 7.230464 7.2704 18.95936 0.079872 26.1888L548.02432 519.296l196.273152 197.103616C751.486976 723.63008 751.446016 735.358976 744.216576 742.58944z" p-id="4115"></path></svg>
+                <span>{{ $root.localization.sr('PIPELINE_EDIT_PLAYBOOK_DELETE_STAGE') }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+<agent-pool-selector v-model:visible="showAgentSelector"
+                     v-bind:projectId="projectId"
+                     v-model="stage.agentPoolId">
+</agent-pool-selector>

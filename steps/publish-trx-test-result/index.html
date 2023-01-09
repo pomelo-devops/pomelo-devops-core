@@ -1,0 +1,14 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div v-if="step" class="form">
+    <small class="form-text text-muted">Suite Name</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.PUBLISH_TRX_SUITE" class="form-control">
+    </div>
+    <small class="form-text text-muted">Test Result File Path (*.trx/*.json)</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.PUBLISH_TRX_PATH" class="form-control">
+    </div>
+</div>

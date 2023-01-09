@@ -1,0 +1,50 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.gallery-package-upload-box {
+    cursor: pointer;
+    border: 5px dashed #888;
+    width: 200px;
+    padding: 15px;
+    border-radius: 35px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.gallery-package-upload-box svg {
+    width: 100px;
+    height: 100px;
+    margin: 50px;
+    fill: #888;
+}
+
+    .gallery-package-upload-box:hover {
+        border-color: #FA9F32
+    }
+
+    .gallery-package-upload-box:hover svg {
+        fill: #FA9F32
+    }
+
+.gallery-package-upload-button {
+    outline: 0;
+    border: none;
+    font-size: 16px;
+    background: #FA9F32;
+    line-height: 50px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 50px;
+    padding: 0 25px;
+}
+
+    .gallery-package-upload-button:hover {
+        background: #ffaa45;
+    }
+
+.gallery-package-upload-form {
+    margin-top: 15px;
+    text-align: center;
+}

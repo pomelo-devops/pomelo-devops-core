@@ -1,0 +1,70 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="personal-access-token-table-outer">
+    <table class="personal-access-token-table">
+        <thead>
+            <tr>
+                <th colspan="3" class="personal-access-token-table-header" style="padding-bottom: 0;">
+                    <svg t="1669820076144" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13525" width="20" height="20"><path d="M959.982 170.694H64.018C28.738 170.694 0.02 199.396 0.02 234.692v554.618c0 35.31 28.718 63.998 63.998 63.998h895.964c35.31 0 63.998-28.688 63.998-63.998V234.692c0-35.298-28.688-63.998-63.998-63.998z" fill="#ED5564" p-id="13526"></path><path d="M849.736 542.836l-42.654-63.998a21.35 21.35 0 0 0-17.75-9.5H362.694c-11.782 0-21.342 9.562-21.342 21.342v170.634c0 11.812 9.562 21.376 21.342 21.376h213.304c5.688 0 11.094-2.25 15.094-6.25l27.592-27.592 27.56 27.592c8.344 8.312 21.844 8.312 30.188 0l27.562-27.592 27.59 27.592a21.43 21.43 0 0 0 15.094 6.25c5.466 0 10.904-2.124 15.092-6.25l42.656-42.686c1-1 1.876-2.062 2.656-3.25l42.654-63.998a21.328 21.328 0 0 0 0-23.67z" fill="#F6BB42" p-id="13527"></path><path d="M1023.98 320.016v-85.324c0-35.296-28.688-63.998-63.998-63.998H64.018C28.738 170.694 0.02 199.396 0.02 234.692v85.324h1023.96z" fill="#656D78" p-id="13528"></path><path d="M33.862 320.016h60.342l149.338-149.322H183.2zM161.858 320.016h60.34l149.34-149.322h-60.342zM289.852 320.016h60.342l149.338-149.322h-60.342zM417.846 320.016h60.342l149.338-149.322h-60.34zM545.842 320.016h60.342l149.336-149.322h-60.338zM673.838 320.016h60.34l149.338-149.322h-60.342z" fill="#434A54" p-id="13529"></path><path d="M393.722 554.694c0 11.75 9.562 21.312 21.342 21.312h428.358l6.312-9.5a21.328 21.328 0 0 0 0-23.67l-6.312-9.5H415.066c-11.78 0-21.344 9.562-21.344 21.358z" opacity=".1" p-id="13530"></path><path d="M951.17 170.694l-149.338 149.322h60.34l136.372-136.37a63.66 63.66 0 0 0-38.56-12.954h-8.814z" fill="#434A54" p-id="13531"></path><path d="M362.694 405.34c-94.122 0-170.682 76.56-170.682 170.666 0 94.122 76.56 170.68 170.682 170.68 94.09 0 170.648-76.558 170.648-170.68 0-94.106-76.558-170.666-170.648-170.666z m-63.998 191.976c-11.78 0-21.342-9.532-21.342-21.31 0-11.782 9.562-21.312 21.342-21.312a21.3 21.3 0 0 1 21.312 21.312c0 11.78-9.532 21.31-21.312 21.31z" fill="#FFCE54" p-id="13532"></path></svg>
+                    <span>{{ $root.localization.sr('MY_PAT') }}</span>
+                </th>
+            </tr>
+            <tr>
+                <th>{{ $root.localization.sr('MY_PAT_NAME') }}</th>
+                <th>{{ $root.localization.sr('MY_PAT_EXPIRE_AT') }}</th>
+                <th>{{ $root.localization.sr('MY_PAT_ACTIONS') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="pat in pats">
+                <td>{{ pat.name }}</td>
+                <td v-if="pat.expireAt">{{ $root.moment(pat.expireAt).format('YYYY-MM-DD') }}</td>
+                <td v-else>{{ $root.localization.sr('MY_PAT_LONG_TERM') }}</td>
+                <td><a class="personal-access-token-table-button" v-on:click="deletePat(pat)">{{ $root.localization.sr('MY_PAT_ACTIONS_REVOKE') }}</a></td>
+            </tr>
+            <tr v-if="!pats.length">
+                <td colspan="3">{{ $root.localization.sr('MY_PAT_NO_RESULT') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="personal-access-token-table">
+        <thead>
+            <tr>
+                <th colspan="3" class="personal-access-token-table-header">
+                    <svg t="1670509454267" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="23249" data-spm-anchor-id="a313x.7781069.0.i10" width="20" height="20"><path d="M712.96 510.506667l-184.106667 107.733333 161.706667 276.266667L778.24 917.333333l73.6-43.093333L874.666667 786.56l-32.426667-55.253333-58.24-15.146667 15.146667-58.453333-58.24-15.146667 15.146666-58.453333-43.093333-73.6z" fill="#90A4AE" p-id="23250"></path><path d="M712.533333 213.333333a256 256 0 1 0-244.906666 384l13.653333 23.253334a42.666667 42.666667 0 0 0 58.453333 15.36l183.893334-107.946667a42.666667 42.666667 0 0 0 15.36-58.24L725.333333 448a256 256 0 0 0-12.8-234.666667zM394.453333 177.92a64 64 0 1 1-22.826666 87.466667 64 64 0 0 1 22.826666-87.466667z" fill="#90A4AE" p-id="23251" data-spm-anchor-id="a313x.7781069.0.i9" class="selected"></path><path d="M613.205333 593.493333l36.821334-21.546666 183.296 312.917333-36.821334 21.546667z" fill="#607D8B" p-id="23252"></path><path d="M512 576H298.666667v320l64 64h85.333333l64-64v-64l-42.666667-42.666667 42.666667-42.666666-42.666667-42.666667 42.666667-42.666667v-85.333333z" fill="#efb336" p-id="23253" data-spm-anchor-id="a313x.7781069.0.i2" class=""></path><path d="M661.333333 320a256 256 0 1 0-405.333333 207.573333V554.666667a42.666667 42.666667 0 0 0 42.666667 42.666666h213.333333a42.666667 42.666667 0 0 0 42.666667-42.666666v-27.093334A256 256 0 0 0 661.333333 320zM405.333333 128a64 64 0 1 1-64 64 64 64 0 0 1 64-64z" fill="#efb336" p-id="23254" data-spm-anchor-id="a313x.7781069.0.i1" class=""></path><path d="M384 597.333333h42.666667v362.666667h-42.666667z" fill="#e98f36" p-id="23255" data-spm-anchor-id="a313x.7781069.0.i8" class="selected"></path><path d="M626.133333 120.96c-2.986667 0-11.093333-1.28-11.093333-1.28A248.96 248.96 0 0 1 704 199.68c44.586667 27.306667 69.12 59.733333 64 81.92a37.12 37.12 0 0 1-19.2 21.333333c-34.986667 21.333333-100.906667 21.333333-168.32 3.413334-97.493333-26.88-160.853333-85.333333-152.106667-119.466667a36.266667 36.266667 0 0 1 10.453334-16.213333 62.08 62.08 0 0 0-54.826667 14.08c-8.746667 62.72 68.266667 131.84 183.893333 163.626666a388.266667 388.266667 0 0 0 101.546667 14.293334 199.466667 199.466667 0 0 0 99.413333-21.333334 78.506667 78.506667 0 0 0 39.04-48.426666c16.853333-65.493333-61.226667-138.88-181.76-171.946667z" fill="#455A64" p-id="23256"></path></svg>
+                    <span>{{ $root.localization.sr('MY_PAT_GENERATE_TOKEN') }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3" id="personal-access-token-new">
+                    <div class="form">
+                        <div class="form-group">
+                            <small>{{ $root.localization.sr('MY_PAT_TOKEN_NAME') }}</small>
+                            <input type="text" v-bind:placeholder="$root.localization.sr('MY_PAT_TOKEN_NAME_PLACEHOLDER')" v-model="form.name" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <small>{{ $root.localization.sr('MY_PAT_EXPIRE_DATE') }}</small>
+                            <date-picker v-model="form.expireAt" v-bind:placeholder="$root.localization.sr('MY_PAT_EXPIRE_DATE_PLACEHOLDER')"></date-picker>
+                        </div>
+                        <div class="form-group" v-if="result">
+                            <small>Token</small>
+                            <div class="generated-pat">{{ result }}</div>
+                            <div>{{ $root.localization.sr('MY_PAT_GENERATED_HINT') }}</div>
+                        </div>
+                        <div class="footer">
+                            <a class="submit" v-on:click="generateToken">
+                                <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+                                <span>{{ $root.localization.sr('MY_PAT_GENERATE_TOKEN') }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

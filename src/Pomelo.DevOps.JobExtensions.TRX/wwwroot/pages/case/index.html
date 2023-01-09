@@ -1,0 +1,107 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="trx-ext-outer">
+    <div v-for="suite in trxSuites" class="trx-ext-suite">
+        <h2>
+            <img v-bind:src="extension.proxiedIconUrl" />
+            {{ suite }}
+        </h2>
+        <table class="trx-ext-suite-table">
+            <colgroup>
+                <col style="width: 44px" />
+                <col />
+                <col style="width: 140px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <td class="trx-ext-table-no-r-padding"></td>
+                    <td class="trx-ext-table-no-lr-padding">Name</td>
+                    <td>Duration</td>
+                </tr>
+            </thead>
+            <tbody v-if="trxResults[suite]"
+                   v-for="c in trxResults[suite]"
+                   v-on:click="c.toggled = !!!c.toggled">
+                <tr>
+                    <td class="trx-ext-table-no-r-padding">
+                        <div class="trx-ext-result-icon green" v-if="c.testResult.outcome == 'Passed'">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <div class="trx-ext-result-icon orange" v-else-if="c.testResult.outcome == 'NotExecuted'">
+                            <i class="fa fa-minus"></i>
+                        </div>
+                        <div class="trx-ext-result-icon red" v-else-if="c.testResult.outcome == 'Failed'">
+                            <i class="fa fa-close"></i>
+                        </div>
+                    </td>
+                    <td class="trx-ext-table-no-lr-padding">{{ c.fullName }}</td>
+                    <td>{{ c.testResult.duration }}</td>
+                </tr>
+                <tr v-if="!!c.toggled && (c.testResult.stdOut || c.testResult.message)">
+                    <td colspan="3" class="trx-ext-table-detail-col">
+                        <template v-if="c.testResult.stdOut">
+                            <div class="section">Stdout</div>
+                            <pre>{{ c.testResult.stdOut }}</pre>
+                        </template>
+                        <template v-if="c.testResult.message">
+                            <div class="section">Message</div>
+                            <pre>{{ c.testResult.message }}
+{{c.testResult.stackTrace}}</pre>
+                        </template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div v-for="suite in simpleSuites" class="trx-ext-suite">
+        <h2>
+            <svg t="1671544481382" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4791" width="20" height="20"><path d="M182.889139 166.507187h658.221722c72.438945 0 131.567554 59.256593 131.567554 131.695538v575.928009c0 46.074241-36.219473 82.293713-82.293713 82.293713H182.889139C110.450194 956.296463 51.193601 897.167854 51.193601 824.728909V298.202725C51.193601 225.76378 110.450194 166.507187 182.889139 166.507187z" fill="#FFBB96" p-id="4792"></path><path d="M182.889139 166.507187h658.221722c72.438945 0 131.567554 59.256593 131.567554 131.695538v411.340582l-131.567554 118.513186-3.327584 3.327584-131.695538 125.04037H182.889139C110.450194 956.296463 51.193601 897.167854 51.193601 824.728909V298.202725C51.193601 225.76378 110.450194 166.507187 182.889139 166.507187z" fill="#CF5A1A" p-id="4793"></path><path d="M182.889139 166.507187h658.221722c72.438945 0 131.567554 59.256593 131.567554 131.695538v411.340582H791.709036c-46.074241 0-82.293713 36.219473-82.293713 82.293713v164.587427H182.889139C110.450194 956.296463 51.193601 897.167854 51.193601 824.728909V298.202725C51.193601 225.76378 110.450194 166.507187 182.889139 166.507187z" fill="#FF7A45" p-id="4794"></path><path d="M347.348581 67.831521c19.709536 0 32.891889 13.182352 32.891889 32.891889v151.405074c0 19.709536-13.182352 32.891889-32.891889 32.891888s-32.891889-13.182352-32.891888-32.891888V100.72341c0-19.83752 13.182352-32.891889 32.891888-32.891889z m329.174854 0c19.709536 0 32.891889 13.182352 32.891888 32.891889v151.405074c0 19.709536-13.182352 32.891889-32.891888 32.891888s-32.891889-13.182352-32.891889-32.891888V100.72341c0-19.83752 13.054368-32.891889 32.891889-32.891889zM281.564804 495.554056c0 27.260592 22.141232 49.401825 49.401825 49.401825s49.401825-22.141232 49.401825-49.401825-22.141232-49.401825-49.401825-49.401825-49.401825 22.141232-49.401825 49.401825z m230.371204-32.891889h197.479315c19.709536 0 32.891889 13.182352 32.891889 32.891889s-13.182352 32.891889-32.891889 32.891888H511.936008c-19.709536 0-32.891889-13.182352-32.891889-32.891888s13.182352-32.891889 32.891889-32.891889z m0 164.587427h197.479315c19.709536 0 32.891889 13.182352 32.891889 32.891888 0 19.709536-13.182352 32.891889-32.891889 32.891889H511.936008c-19.709536 0-32.891889-13.182352-32.891889-32.891889 0-19.709536 13.182352-32.891889 32.891889-32.891888z m-230.371204 32.891888c0 27.260592 22.141232 49.401825 49.401825 49.401825s49.401825-22.141232 49.401825-49.401825-22.141232-49.401825-49.401825-49.401824-49.401825 22.141232-49.401825 49.401824z" fill="#FFFFFF" p-id="4795"></path></svg>
+            {{ suite }}
+        </h2>
+        <table class="trx-ext-suite-table">
+            <colgroup>
+                <col style="width: 44px" />
+                <col />
+                <col style="width: 140px;" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <td class="trx-ext-table-no-r-padding"></td>
+                    <td class="trx-ext-table-no-lr-padding">Name</td>
+                    <td>Duration</td>
+                </tr>
+            </thead>
+            <tbody v-if="simpleResults[suite]"
+                   v-for="c in simpleResults[suite]"
+                   v-on:click="c.toggled = !!!c.toggled">
+                <tr>
+                    <td class="trx-ext-table-no-r-padding">
+                        <div class="trx-ext-result-icon green" v-if="c.result == 0">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <div class="trx-ext-result-icon orange" v-else-if="c.result == 2">
+                            <i class="fa fa-minus"></i>
+                        </div>
+                        <div class="trx-ext-result-icon red" v-else-if="c.result == 1">
+                            <i class="fa fa-close"></i>
+                        </div>
+                        <div class="trx-ext-result-icon red" v-else-if="c.result == 3">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                    </td>
+                    <td class="trx-ext-table-no-lr-padding">{{ c.name }}</td>
+                    <td>{{ c.duration }}</td>
+                </tr>
+                <tr v-if="!!c.toggled && c.message">
+                    <td colspan="3" class="trx-ext-table-detail-col">
+                        <div class="section">Message</div>
+                        <pre>{{ c.message }}</pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

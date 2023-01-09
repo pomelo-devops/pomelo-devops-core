@@ -1,0 +1,64 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="pipeline-job-timeline-outer" v-if="job">
+    <div>
+        <template v-for="(stage, i) in job.stages">
+            <div class="pipeline-job-stage-item" v-bind:class="{ 'active': active == 'stage-' + stage.id }">
+                <div class="pipeline-job-stage-toggle" v-on:click="toggles[i] = !!! toggles[i]">
+                    <i class="fa fa-chevron-down" v-if="toggles[i]"></i>
+                    <i class="fa fa-chevron-right" v-else></i>
+                </div>
+                <div class="pipeline-job-stage-icon green" v-bind:class="{ 'active': active == 'stage-' + stage.id }" v-if="stage.status == 'Succeeded'">
+                    <i class="fa fa-check"></i>
+                </div>
+                <div class="pipeline-job-stage-icon white" v-bind:class="{ 'active': active == 'stage-' + stage.id }" v-else-if="stage.status == 'Skipped'">
+                </div>
+                <div class="pipeline-job-stage-icon red" v-bind:class="{ 'active': active == 'stage-' + stage.id }" v-else-if="stage.status == 'Failed'">
+                    <i v-if="stage.startedAt && stage.finishedAt && new Date(stage.finishedAt) - new Date(stage.startedAt) >= stage.timeout * 1000 && stage.timeout != -1" class="fa fa-clock-o"></i>
+                    <i v-else class="fa fa-close"></i>
+                </div>
+                <div class="pipeline-job-stage-icon" v-bind:class="{ 'active': active == 'stage-' + stage.id }" v-else-if="stage.status == 'Waiting' || stage.status == 'Pending'">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+                <div class="pipeline-job-stage-icon blue" v-bind:class="{ 'active': active == 'stage-' + stage.id }" v-else>
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
+                <div v-on:click="openLogs('stage-' + stage.id);toggles[i] = true;" v-bind:class="{ 'active': active == 'stage-' + stage.id }" class="pipeline-job-stage-name">{{ stage.name }}</div>
+                <div class="pipeline-job-stage-duration"><span v-if="stage.startedAt">{{ duration(stage.startedAt, stage.finishedAt) }}</span></div>
+            </div>
+            <template v-for="step in stage.steps" v-if="toggles[i]">
+                <div class="pipeline-job-stage-item step" v-on:click="openLogs('step-' + step.id);" v-bind:class="{ 'active': active == 'step-' + step.id }">
+                    <div class="pipeline-job-stage-icon green" v-if="step.status == 'Succeeded'">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <div class="pipeline-job-stage-icon white" v-else-if="step.status == 'Skipped'">
+                    </div>
+                    <div class="pipeline-job-stage-icon red" v-else-if="step.status == 'Failed'">
+                        <i v-if="step.startedAt && step.finishedAt && new Date(step.finishedAt) - new Date(step.startedAt) >= step.timeout * 1000 && step.timeout != -1" class="fa fa-clock-o"></i>
+                        <i v-else class="fa fa-close"></i>
+                    </div>
+                    <div class="pipeline-job-stage-icon" v-else-if="step.status == 'Pending' || step.status == 'Waiting'">
+                        <i class="fa fa-clock-o"></i>
+                    </div>
+                    <div class="pipeline-job-stage-icon blue" v-else>
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                    <div class="pipeline-job-stage-name">{{ step.name }}</div>
+                </div>
+            </template>
+        </template>
+    </div>
+</div>
+<div class="abort-job" v-if="job.status == 'Pending' || job.status == 'Waiting' || job.status == 'Running'" v-on:click="abort">
+    <svg t="1670480528736" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6577" width="20" height="20"><path d="M661.247 857.615H362.753c-108.002 0-196.368-88.366-196.368-196.368V362.753c0-108.002 88.366-196.368 196.368-196.368h298.494c108.002 0 196.368 88.366 196.368 196.368v298.494c0 108.002-88.366 196.368-196.368 196.368z" fill="#FF7B15" p-id="6578"></path></svg>
+    <span>Abort</span>
+</div>
+<div id="job-log" v-if="active">
+    <div class="pipeline-job-log-outer">
+        <div class="pipeline-job-log" v-for="log in logs">
+            <span v-bind:class="{ 'log-info': log.level == 'Information', 'log-warn': log.level == 'Warning', 'log-error': log.level == 'Error' }">{{ log.text }}</span>
+        </div>
+    </div>
+</div>

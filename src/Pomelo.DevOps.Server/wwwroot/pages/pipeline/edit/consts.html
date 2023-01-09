@@ -1,0 +1,46 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div id="pipeline-consts">
+    <div class="form">
+        <h2>
+            <svg t="1669807533878" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15009" data-spm-anchor-id="a313x.7781069.0.i7" width="20" height="20"><path d="M845.8 557.4H557.3V845.1c0 46.2 33.1 82.8 79.3 82.8h209.2c46.2 0 82-36.6 82-82.8V635.9c0-46.2-35.8-78.5-82-78.5zM97 635.9V845.1c0 46.2 33.2 82.8 79.4 82.8h209.2c46.2 0 81.9-36.6 81.9-82.8V557.4H176.4c-46.2 0-79.4 32.3-79.4 78.5zM385.6 97.1H176.4C130.2 97.1 97 129.5 97 175.7v209.2c0 46.2 33.2 82.7 79.4 82.7h291.1V175.7c0-46.2-35.7-78.6-81.9-78.6zM927.8 350.5V206.8c0-65.3-50.2-109.7-115.6-109.7H668.5c-65.4 0-122.4 44.4-122.4 109.7v272h266.1c65.4 0 115.6-62.9 115.6-128.3zM635.9 206.8c0-15.9 16.7-19.9 32.6-19.9h143.7c15.9 0 25.8 4 25.8 19.9v143.7c0 15.9-9.9 38.5-25.8 38.5H635.9V206.8z" p-id="15010" data-spm-anchor-id="a313x.7781069.0.i5" class="" fill="#18ac0d"></path></svg>
+            <span>{{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS') }}</span>
+        </h2>
+        <table class="pipeline-consts-table">
+            <thead>
+                <tr>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS_KEY') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS_VALUE') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS_TYPE') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS_ACTIONS') }}</th>
+                </tr>
+            </thead>
+            <tbody v-if="pipeline.constants" id="pipeline-const-rows">
+                <tr class="pipeline-const-row" v-for="constant in pipeline.constants" v-bind:data-arg="constant.key">
+                    <td><input class="table-textbox" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_CONSTANTS_KEY_PLACEHOLDER')" v-model="constant.key" /></td>
+                    <td>
+                        <input v-if="constant.type == 'Plain'" class="table-textbox" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_CONSTANTS_VALUE_PLACEHOLDER')" v-model="constant.value" />
+                        <input v-else class="table-textbox" type="password" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_CONSTANTS_VALUE_PLACEHOLDER')" v-model="constant.value" />
+                    </td>
+                    <td>
+                        <radio-button v-model="constant.type" value="Plain" v-bind:title="$root.localization.sr('PIPELINE_EDIT_CONSTANTS_TYPE_PLAIN')"></radio-button>
+                        <radio-button v-model="constant.type" value="Secret" v-bind:title="$root.localization.sr('PIPELINE_EDIT_CONSTANTS_TYPE_SECRET')"></radio-button>
+                    </td>
+                    <td class="actions no-wrap">
+                        <a class="table-button small danger" v-on:click="removeConstant(constant)">{{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS_REMOVE') }}</a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr v-if="!pipeline.constants.length">
+                    <td colspan="5">{{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS_NO_RESULT') }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5"><a class="table-button" v-on:click="addConstant">+ {{ $root.localization.sr('PIPELINE_EDIT_CONSTANTS_ADD_CONSTANT') }}</a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+{
+  "id": "Pomelo.DevOps.Triggers.GitLab.MergeRequest",
+  "name": "GitLab",
+  "description": "GitLab Merge Request Trigger",
+  "icon": "/assets/img/icon.svg",
+  "view": "/pages/trigger/merge-request",
+  "settings": "/pages/settings/index"
+}

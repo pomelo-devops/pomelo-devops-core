@@ -1,0 +1,202 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.gallery-step-header {
+    padding: 0 15px;
+    line-height: 50px;
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+.gallery-step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    float: left;
+    margin: 5px 10px 5px 0;
+}
+
+.step-version-selector {
+    outline: 0;
+    float: right;
+    border: none;
+    font-size: 16px;
+    color: #666;
+    cursor: pointer;
+    height: 50px;
+}
+
+
+.gallery-step-method-outer > select {
+    outline: 0;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    max-width: fit-content;
+    min-width: calc(100% - 20px);
+    vertical-align: top;
+}
+
+.gallery-step-header-middle {
+    float: left;
+    height: 60px;
+    width: calc((100% - 142px) / 2);
+}
+
+.gallery-step-name {
+    color: #aaa;
+}
+
+.gallery-step-method-outer {
+    width: calc((100% - 142px) / 2);
+    max-width: fit-content;
+    white-space: nowrap;
+}
+
+.gallery-step-method-outer > select {
+    height: 50px;
+}
+
+.step-name-textbox {
+    outline: 0;
+    border: none;
+    font-size: 16px;
+    color: #666;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+    .step-name-textbox:hover {
+        border-bottom: 1px solid #ddd;
+    }
+
+.gallery-step-method-outer > svg {
+    fill: #666;
+}
+
+.gallery-step-name > span {
+}
+
+.gallery-step-name > svg path {
+    fill: #aaa;
+}
+
+.gallery-step-name > * {
+    vertical-align: top;
+}
+
+.gallery-step-name > svg {
+    margin-right: 3px;
+}
+
+#step-main {
+    position: absolute;
+    top: 51px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+    #step-main > .form {
+        margin: 0 30px;
+        margin-top: 30px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,.05);
+        margin-bottom: 30px;
+    }
+
+        #step-main > .form input.form-control {
+            color: #666;
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+            outline: 0;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            line-height: 30px;
+        }
+
+            #step-main > .form input.form-control:focus {
+                border-color: #FA9F32;
+            }
+
+        #step-main > .form small, #step-main > .form label {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        #step-main > .form textarea.form-control {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            outline: 0;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        #step-main > .form h1, #step-main > .form h2 {
+            margin: 0;
+            padding: 0 0 10px 0;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+            #step-main > .form h1 > svg, #step-main > .form h2 > svg {
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+
+        #step-main > .form .form-group {
+            margin-bottom: 15px;
+        }
+
+.gallery-step-method-outer {
+    display: inline-block;
+    float: right;
+}
+
+.gallery-step-method-outer > * {
+    vertical-align: middle;
+}
+
+.gallery-step-general-settings {
+    float: left;
+    fill: #666;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 7px 0;
+}
+
+    .gallery-step-general-settings > svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .gallery-step-general-settings:hover, .gallery-step-general-settings.active {
+        fill: #FA9F32;
+    }
+
+#step-main > .form .group {
+    margin-bottom: 20px;
+}
+
+    #step-main > .form .group > small {
+        margin-bottom: 5px;
+        display: block;
+    }
+
+#step-main > .form .danger {
+    color: #dc1600;
+}

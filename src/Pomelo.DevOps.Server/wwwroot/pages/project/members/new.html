@@ -1,0 +1,42 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dialog">
+    <a class="back-button" v-bind:href="`/project/${projectId}/members`">
+        <svg t="1669790068549" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6528" width="20" height="20"><path d="M710.153924 8.980397L266.007127 460.692524a81.118646 81.118646 0 0 0 0.861532 114.476097l446.192936 441.050666a26.922883 26.922883 0 0 0 37.853573-38.284339L304.722232 536.884282a27.27288 27.27288 0 0 1-0.323074-38.445877L748.545955 46.726278A26.922883 26.922883 0 1 0 710.180847 9.00732z" p-id="6529"></path></svg>
+    </a>
+    <div class="dialog-header">
+        <svg t="1670759832643" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3271" width="20" height="20"><path d="M472.7296 269.6704m-218.5728 0a218.5728 218.5728 0 1 0 437.1456 0 218.5728 218.5728 0 1 0-437.1456 0Z" fill="#80B7F9" p-id="3272"></path><path d="M554.8544 506.6752H390.656c-176.5888 0-319.744 143.1552-319.744 319.744 0 63.0784 51.1488 114.176 114.176 114.176h575.2832c63.0784 0 114.176-51.1488 114.176-114.176 0-176.5888-143.104-319.744-319.6928-319.744z" fill="#80B7F9" p-id="3273"></path><path d="M747.52 771.072m-202.2912 0a202.2912 202.2912 0 1 0 404.5824 0 202.2912 202.2912 0 1 0-404.5824 0Z" fill="#95C9FC" p-id="3274"></path><path d="M744.2944 568.8832c-110.1824 1.7408-199.0144 91.5456-199.0144 202.1888 0 71.0144 36.608 133.4272 92.0064 169.5232h123.136c63.0784 0 114.176-51.1488 114.176-114.176-0.0512-105.6768-51.3024-199.3216-130.304-257.536z" fill="#3E8BF8" p-id="3275"></path><path d="M810.4448 730.112H788.48v-21.9136c0-22.6304-18.3296-40.96-40.96-40.96s-40.96 18.3296-40.96 40.96v21.9136h-21.9136c-22.6304 0-40.96 18.3296-40.96 40.96s18.3296 40.96 40.96 40.96H706.56v21.9136c0 22.6304 18.3296 40.96 40.96 40.96s40.96-18.3296 40.96-40.96v-21.9136h21.9136c22.6304 0 40.96-18.3296 40.96-40.96s-18.3296-40.96-40.9088-40.96z" fill="#FFFFFF" p-id="3276"></path></svg>
+        <span>{{ $root.localization.sr('MEMBER_ADD_MEMBER') }}</span>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('MEMBER_ADD_MEMBER_USER') }}</b>
+        <div>
+            <a class="user-selector-anchor" v-if="!selectedUser" v-on:click="userSelectorVisibile = true">{{ $root.localization.sr('MEMBER_ADD_MEMBER_USER_CLICK') }}</a>
+            <a class="user-selector-anchor" v-else v-on:click="userSelectorVisibile = true">{{ selectedUser.displayName }}</a>
+        </div>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('MEMBER_ADD_MEMBER_ROLE') }}</b>
+        <radio-button v-model="form.role"
+                      value="Member"
+                      v-bind:title="$root.localization.sr('MEMBER_ADD_MEMBER_ROLE_MEMBER')"
+                      v-bind:hint="$root.localization.sr('MEMBER_ADD_MEMBER_ROLE_MEMBER_HINT')"></radio-button>
+        <radio-button v-model="form.role"
+                      value="Agent"
+                      v-bind:title="$root.localization.sr('MEMBER_ADD_MEMBER_ROLE_AGENT')"
+                      v-bind:hint="$root.localization.sr('MEMBER_ADD_MEMBER_ROLE_AGENT_HINT')"></radio-button>
+        <radio-button v-model="form.role"
+                      value="Admin"
+                      v-bind:title="$root.localization.sr('MEMBER_ADD_MEMBER_ROLE_ADMIN')"
+                      v-bind:hint="$root.localization.sr('MEMBER_ADD_MEMBER_ROLE_ADMIN_HINT')"></radio-button>
+    </div>
+    <div class="footer">
+        <a class="submit" v-on:click="add">
+            <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+            <span>{{ $root.localization.sr('MEMBER_ADD_MEMBER_SUBMIT') }}</span>
+        </a>
+    </div>
+</div>
+<user-selector v-model="form.userId" v-model:visible="userSelectorVisibile" v-model:outUser="selectedUser"></user-selector>

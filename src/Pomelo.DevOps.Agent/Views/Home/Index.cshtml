@@ -1,0 +1,81 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+@model Pomelo.DevOps.Agent.Config
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Pomelo DevOps Agent</title>
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="text-center mb-4">
+        <img class="mb-4" src="~/img/logo.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Pomelo DevOps Agent</h1>
+    </div>
+
+    <div id="app" class="container">
+        <h2 v-if="stages.length == 0" style="text-align: center">The agent is idle now</h2>
+        <div v-for="stage in stages">
+            <h2>{{ stage.name }} <small>({{ stage.pipeline }})</small></h2>
+            <table class="summary-table">
+                <tr class="summary-header">
+                    <td>Job ID</td>
+                    <td>Stage ID</td>
+                    <td>Stage Order</td>
+                    <td>Pool</td>
+                </tr>
+                <tr class="table-value-row">
+                    <td>{{ stage.pipelineJobId }}</td>
+                    <td>{{ stage.id }}</td>
+                    <td>{{ stage.order }}</td>
+                    <td>{{ stage.agentPoolId }}</td>
+                </tr>
+                <tr class="detail-row">
+                    <td>Step</td>
+                    <td>Status</td>
+                    <td>Started At</td>
+                    <td>Finished At</td>
+                </tr>
+                <tr v-for="step in stage.steps" class="detail-row table-value-row">
+                    <td>{{ step.name }}</td>
+                    <td>{{ step.status }}</td>
+                    <td>{{ step.startedAt }}</td>
+                    <td>{{ step.finishedAt }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/pomelo.queryview.js"></script>
+    <script src="~/js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            data: {
+                stages: []
+            },
+            mounted: async function () {
+            },
+            created: function () {
+                var self = this;
+                setInterval(function () {
+                    qv.get('/home/status').then(data => {
+                        self.stages = data;
+                    });
+                }, 2000);
+            },
+            methods: {
+            }
+        });
+        app.$mount('#app');
+    </script>
+</body>
+</html>

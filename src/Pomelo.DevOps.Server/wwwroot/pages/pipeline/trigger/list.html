@@ -1,0 +1,18 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="trigger-provider-item-outer">
+    <div class="trigger-provider-header">
+        <svg t="1669807803977" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="23619" width="20" height="20"><path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01" p-id="23620"></path><path d="M504.081067 951.569067c-20.445867 24.541867-60.347733 10.069333-60.347734-21.845334V426.666667a17.066667 17.066667 0 0 1 17.066667-17.066667h422.058667a34.133333 34.133333 0 0 1 26.2144 55.978667L504.081067 951.569067z" fill="#FFAA44" p-id="23621"></path><path d="M519.918933 72.430933c20.445867-24.541867 60.347733-10.069333 60.347734 21.845334V546.133333a68.266667 68.266667 0 0 1-68.266667 68.266667H141.141333a34.133333 34.133333 0 0 1-26.2144-55.978667L519.918933 72.430933z" fill="#FF7744" p-id="23622"></path></svg>
+        <span>{{ $root.localization.sr('PIPELINE_TRIGGERS') }}</span>
+    </div>
+    <div class="trigger-provider-item"
+         v-for="trigger in triggers"
+         v-bind:title="trigger.description"
+         v-on:click="select(trigger)">
+        <img v-bind:src="trigger.proxiedIconUrl" />
+        <br />
+        <span>{{ trigger.name }}</span>
+    </div>
+</div>

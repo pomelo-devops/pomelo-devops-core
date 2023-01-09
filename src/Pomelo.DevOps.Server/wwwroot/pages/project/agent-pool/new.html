@@ -1,0 +1,39 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dialog">
+    <a class="back-button" v-bind:href="`/project/${projectId}/agent-pool/${poolId}`">
+        <svg t="1669790068549" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6528" width="20" height="20"><path d="M710.153924 8.980397L266.007127 460.692524a81.118646 81.118646 0 0 0 0.861532 114.476097l446.192936 441.050666a26.922883 26.922883 0 0 0 37.853573-38.284339L304.722232 536.884282a27.27288 27.27288 0 0 1-0.323074-38.445877L748.545955 46.726278A26.922883 26.922883 0 1 0 710.180847 9.00732z" p-id="6529"></path></svg>
+    </a>
+    <div class="dialog-header">
+        <svg t="1669807418526" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6291" width="20" height="20"><path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01" p-id="6292"></path><path d="M204.8 68.266667a136.533333 136.533333 0 0 0-136.533333 136.533333v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533334h614.4a136.533333 136.533333 0 0 0 136.533333-136.533334V204.8a136.533333 136.533333 0 0 0-136.533333-136.533333H204.8z m0 477.866666a136.533333 136.533333 0 0 0-136.533333 136.533334v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533333h614.4a136.533333 136.533333 0 0 0 136.533333-136.533333v-136.533333a136.533333 136.533333 0 0 0-136.533333-136.533334H204.8z" fill="#FF7744" p-id="6293"></path><path d="M204.8 68.266667a136.533333 136.533333 0 0 0-136.533333 136.533333v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533334V68.266667z m0 477.866666a136.533333 136.533333 0 0 0-136.533333 136.533334v136.533333a136.533333 136.533333 0 0 0 136.533333 136.533333V546.133333z" fill="#FFAA44" p-id="6294"></path><path d="M324.266667 187.733333A51.2 51.2 0 0 1 375.466667 238.933333v68.266667a51.2 51.2 0 0 1-102.4 0V238.933333a51.2 51.2 0 0 1 51.2-51.2z m187.733333 0A51.2 51.2 0 0 1 563.2 238.933333v68.266667a51.2 51.2 0 0 1-102.4 0V238.933333A51.2 51.2 0 0 1 512 187.733333zM699.733333 273.066667A51.2 51.2 0 0 1 750.933333 221.866667h34.133334a51.2 51.2 0 0 1 0 102.4h-34.133334A51.2 51.2 0 0 1 699.733333 273.066667z m-375.466666 392.533333A51.2 51.2 0 0 1 375.466667 716.8v68.266667a51.2 51.2 0 0 1-102.4 0v-68.266667a51.2 51.2 0 0 1 51.2-51.2z m187.733333 0a51.2 51.2 0 0 1 51.2 51.2v68.266667a51.2 51.2 0 0 1-102.4 0v-68.266667a51.2 51.2 0 0 1 51.2-51.2z m187.733333 85.333333a51.2 51.2 0 0 1 51.2-51.2h34.133334a51.2 51.2 0 0 1 0 102.4h-34.133334a51.2 51.2 0 0 1-51.2-51.2z" fill="#FFFFFF" p-id="6295"></path></svg>
+        <span>{{ $root.localization.sr('AGENT_POOLS_ADD_AGENT') }}</span>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('AGENT_POOLS_NEW_AGENT_STEP_1') }}</b>
+        <ul class="agent-download-list">
+            <li><a target="_blank" href="/agent/Agent-win-x86.zip">Windows(x86)</a></li>
+            <li><a target="_blank" href="/agent/Agent-win-x64.zip">Windows(x64)</a></li>
+            <li><a target="_blank" href="/agent/Agent-win-arm.zip">Windows(Arm)</a></li>
+            <li><a target="_blank" href="/agent/Agent-win-arm64.zip">Windows(Arm64)</a></li>
+            <li><a target="_blank" href="/agent/Agent-linux-x64.zip">Linux(x64)</a></li>
+            <li><a target="_blank" href="/agent/Agent-linux-arm.zip">Linux(Arm)</a></li>
+            <li><a target="_blank" href="/agent/Agent-linux-arm64.zip">Linux(Arm64)</a></li>
+            <li><a target="_blank" href="/agent/Agent-mac-x64.zip">Mac(x64)</a></li>
+            <li><a target="_blank" href="/agent/Agent-mac-arm64.zip">Mac(Arm64)</a></li>
+        </ul>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('AGENT_POOLS_NEW_AGENT_STEP_2') }}</b>
+        <div style="margin-top: 5px">Windows</div>
+        <pre>Set-ExecutionPolicy Unrestricted
+.\install.ps1</pre>
+        <div style="margin-top: 5px">Linux/Mac</div>
+        <pre>.\install.sh</pre>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('AGENT_POOLS_NEW_AGENT_STEP_3') }}</b>
+        <div style="margin-top: 5px">{{ $root.localization.sr('AGENT_POOLS_NEW_AGENT_STEP_3_CONTENT') }}</div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.not-found {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+    .not-found img {
+        height: 70vh;
+        vertical-align: middle;
+        margin-top: 15vh
+    }

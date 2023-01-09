@@ -1,0 +1,126 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.trx-ext-outer {
+    padding: 30px;
+    padding-bottom: 0;
+}
+
+.trx-ext-suite {
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.trx-ext-suite-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .trx-ext-suite-table thead {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .trx-ext-suite-table tbody {
+        border-top: .7px solid #ddd;
+    }
+
+    .trx-ext-suite-table td {
+        padding: 15px;
+    }
+
+    .trx-ext-suite-table thead td {
+        padding: 5px 15px;
+    }
+
+.trx-ext-result-icon {
+    display: inline-block;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+    .trx-ext-result-icon i {
+        font-size: 14px;
+        width: 24px;
+        line-height: 24px;
+        text-align: center;
+        color: #fff;
+    }
+
+.trx-ext-result-toggle i {
+    color: #666;
+}
+
+.trx-ext-result-icon.green {
+    background: #00a80e;
+    border-color: #00a80e;
+}
+
+.trx-ext-result-icon.red {
+    background: #ff3c3c;
+    border-color: #ff3c3c;
+}
+
+.trx-ext-result-icon.orange {
+    background: #FA9F32;
+    border-color: #FA9F32;
+}
+
+.trx-ext-table-no-lr-padding {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.trx-ext-table-no-r-padding {
+    padding-right: 5px !important;
+}
+
+.trx-ext-suite-table tbody {
+    cursor: pointer;
+}
+
+    .trx-ext-suite-table tbody:hover {
+        background: #fff7ee;
+    }
+
+.trx-ext-table-detail-col {
+    padding: 5px 15px 15px 50px !important;
+}
+
+    .trx-ext-table-detail-col .section {
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .trx-ext-table-detail-col pre {
+        border: 1px solid #ddd;
+        background: rgba(255,255,255,.85);
+        padding: 8px;
+        font-family: Consolas;
+        margin: 8px 0;
+        box-sizing: border-box;
+        max-width: 100%;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+
+.trx-ext-suite img, .trx-ext-suite svg {
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+}
+
+.trx-ext-suite h2 {
+    font-weight: normal;
+    padding: 15px;
+    margin: 0;
+}
+
+.trx-ext-suite h2 > * {
+    vertical-align: middle;
+}

@@ -1,0 +1,40 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.toggle-button {
+    display: inline-block;
+    border-radius: 50px;
+    height: 24px;
+    width: 40px;
+    border: .5px solid #ddd;
+    cursor: pointer;
+}
+
+    .toggle-button:hover {
+        border-color: #fcbb6d;
+    }
+
+.toggle-button-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 24px;
+    background: #ddd;
+    display: inline-block;
+    margin: 2px;
+    transition: all .2s linear;
+}
+
+.toggle-button:hover .toggle-button-dot {
+    background: #cecece;
+}
+
+.toggle-button.active {
+    border-color: #FA9F32;
+}
+
+    .toggle-button.active .toggle-button-dot {
+        background: #FA9F32;
+        margin-left: 18px;
+    }

@@ -1,0 +1,29 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="pipeline-job-parameters-table-outer">
+    <table class="pipeline-job-parameters-table">
+        <thead>
+            <tr>
+                <th colspan="2" class="table-header">
+                    <svg t="1669807628241" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="20752" data-spm-anchor-id="a313x.7781069.0.i12" width="20" height="20"><path d="M128 0m22.308571 0l65.097143 0q22.308571 0 22.308572 22.308571l0 588.617143q0 22.308571-22.308572 22.308572l-65.097143 0q-22.308571 0-22.308571-22.308572l0-588.617143q0-22.308571 22.308571-22.308571Z" p-id="20753" data-spm-anchor-id="a313x.7781069.0.i18" class="" fill="#8961ec"></path><path d="M128 776.228571m22.308571 0l65.097143 0q22.308571 0 22.308572 22.308572l0 203.154286q0 22.308571-22.308572 22.308571l-65.097143 0q-22.308571 0-22.308571-22.308571l0-203.154286q0-22.308571 22.308571-22.308572Z" p-id="20754" data-spm-anchor-id="a313x.7781069.0.i19" class="" fill="#8961ec"></path><path d="M786.285714 0m22.308572 0l65.097143 0q22.308571 0 22.308571 22.308571l0 584.228572q0 22.308571-22.308571 22.308571l-65.097143 0q-22.308571 0-22.308572-22.308571l0-584.228572q0-22.308571 22.308572-22.308571Z" p-id="20755" data-spm-anchor-id="a313x.7781069.0.i10" class="" fill="#8961ec"></path><path d="M786.285714 779.154286m22.308572 0l65.097143 0q22.308571 0 22.308571 22.308571l0 200.228572q0 22.308571-22.308571 22.308571l-65.097143 0q-22.308571 0-22.308572-22.308571l0-200.228572q0-22.308571 22.308572-22.308571Z" p-id="20756" data-spm-anchor-id="a313x.7781069.0.i11" class="" fill="#8961ec"></path><path d="M457.142857 390.948571m22.308572 0l65.097142 0q22.308571 0 22.308572 22.308572l0 588.434286q0 22.308571-22.308572 22.308571l-65.097142 0q-22.308571 0-22.308572-22.308571l0-588.434286q0-22.308571 22.308572-22.308572Z" p-id="20757" data-spm-anchor-id="a313x.7781069.0.i13" class="" fill="#8961ec"></path><path d="M182.857143 713.142857m-128 0a128 128 0 1 0 256 0 128 128 0 1 0-256 0Z" p-id="20758" data-spm-anchor-id="a313x.7781069.0.i23" class="selected" fill="#009edc"></path><path d="M512 306.285714m-128 0a128 128 0 1 0 256 0 128 128 0 1 0-256 0Z" p-id="20759" data-spm-anchor-id="a313x.7781069.0.i25" class="selected" fill="#009edc"></path><path d="M841.142857 713.142857m-128 0a128 128 0 1 0 256 0 128 128 0 1 0-256 0Z" p-id="20760" data-spm-anchor-id="a313x.7781069.0.i26" class="selected" fill="#009edc"></path><path d="M457.142857 0m22.308572 0l65.097142 0q22.308571 0 22.308572 22.308571l0 180.48q0 22.308571-22.308572 22.308572l-65.097142 0q-22.308571 0-22.308572-22.308572l0-180.48q0-22.308571 22.308572-22.308571Z" p-id="20761" data-spm-anchor-id="a313x.7781069.0.i21" class="selected" fill="#009edc"></path></svg>
+                    <span>#{{ job.number }} · {{ job.name }}</span>
+                </th>
+            </tr>
+            <tr>
+                <th>{{ $root.localization.sr('PIPELINE_PARAMS_KEY') }}</th>
+                <th>{{ $root.localization.sr('PIPELINE_PARAMS_VALUE') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="variable in variables">
+                <td>{{ variable.name }}</td>
+                <td class="table-value">{{ variable.value }}</td>
+            </tr>
+            <tr v-if="!variables.length">
+                <td colspan="2">{{ $root.localization.sr('PIPELINE_PARAMS_NO_RESULT') }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

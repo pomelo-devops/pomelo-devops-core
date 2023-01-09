@@ -1,0 +1,15 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div v-if="step && step.method == 'Execute Cmd File'" class="form">
+    <div>
+        <small class="form-text text-muted">Script Path</small>
+        <div class="form-group mb-4">
+            <input type="text" v-model="step.arguments.CMD_SCRIPT_PATH" class="form-control">
+        </div>
+    </div>
+</div>
+<div v-if="step.method == 'Execute Inline Cmd Script'" class="cm-outer">
+    <textarea v-if="step" id="cm-cmd-content" v-model="step.arguments.CMD_SCRIPT_CONTENT"></textarea>
+</div>

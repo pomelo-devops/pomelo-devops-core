@@ -1,0 +1,34 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sign In</title>
+</head>
+<body>
+    <div class="login" v-if="provider">
+        <img v-bind:src="provider.loginBackgroundUrl" class="left" />
+        <div class="right">
+            <div class="sign-in-title">{{ provider.name || 'Sign In' }}</div>
+            <div class="group">
+                <small>Username</small>
+                <input type="text" v-model="login.username" class="textbox" v-bind:placeholder="provider.userNamePlaceholder" />
+            </div>
+            <div class="group">
+                <small>Password</small>
+                <input type="password" v-model="login.password" class="textbox" placeholder="Input password..." />
+            </div>
+            <div class="group center">
+                <a class="sign-in-button" v-on:click="signIn">Sign In</a>
+            </div>
+            <div class="group hint">
+                {{ provider.hint }}
+            </div>
+        </div>
+    </div>
+    <notification></notification>
+</body>
+</html>

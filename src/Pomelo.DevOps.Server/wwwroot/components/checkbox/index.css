@@ -1,0 +1,50 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.check-box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+    .check-box-outer:hover {
+        color: #FA9F32;
+    }
+
+.check-box-inner {
+    width: 14px;
+    height: 14px;
+    background: #FA9F32;
+    margin: 3px;
+    display: none;
+}
+
+.check-box.active, .check-box:hover, .check-box-outer:hover .check-box {
+    border-color: #FA9F32;
+}
+
+    .check-box.active .check-box-inner {
+        display: block;
+    }
+
+.check-box-outer {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+    padding: 5px 0;
+}
+
+    .check-box-outer > * {
+        vertical-align: middle;
+    }
+
+.check-box-title {
+    font-weight: normal;
+    margin-right: 8px;
+}

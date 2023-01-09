@@ -1,0 +1,50 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Sign In</title>
+</head>
+<body>
+    <div class="login">
+        <img src="/assets/img/login-sidebar.png" class="left" />
+        <div class="right"
+             v-if="providers"
+             v-bind:class="{ 'no-3p-login': providers.filter(x => x.mode != 'Local').length == 0 }">
+            <div class="sign-in-title">Sign in</div>
+            <template v-if="localProvider">
+                <div class="group">
+                    <small>Username</small>
+                    <input v-model="form.username" type="text" class="textbox" placeholder="Input username..." />
+                </div>
+                <div class="group">
+                    <small>Password</small>
+                    <input v-model="form.password"
+                           v-on:keyup.enter="submit"
+                           type="password"
+                           class="textbox"
+                           placeholder="Input password..." />
+                </div>
+                <div class="group center">
+                    <a class="sign-in-button" v-on:click="submit">Sign In</a>
+                    <a v-if="localProvider.allowRegister" href="/register" class="sign-in-button register">Register</a>
+                </div>
+            </template>
+            <div class="group" style="margin-top: 35px" v-if="providers.filter(x => x.mode != 'Local').length">
+                <small style="margin-bottom: 10px">{{ localProvider ? 'Other Options' : 'Sign-in Options' }}</small>
+                <a class="login-option"
+                   v-bind:href="`/login/${provider.mode}/${provider.id}`"
+                   v-for="provider in providers.filter(x => x.mode != 'Local')"
+                   v-bind:title="provider.name">
+                    <img v-bind:src="provider.iconUrl" />
+                    <span>{{ provider.name }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <notification></notification>
+</body>
+</html>

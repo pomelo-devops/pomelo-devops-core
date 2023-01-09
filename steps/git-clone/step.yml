@@ -1,0 +1,11 @@
+id: git-clone
+name: Git Clone
+version: 0.9.2
+type: Runner
+description: Clone a git repo (Windows only)
+dependencies: 
+methods:
+  - name: Clone
+    entry: 
+      windows: powershell -File clone.ps1
+website: ''

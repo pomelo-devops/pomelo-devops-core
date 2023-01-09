@@ -1,0 +1,208 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.login-provider-list-outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    border-right: 1px solid #ddd;
+    background: #fafafa;
+    overflow-y: auto;
+}
+
+.login-provider-list-item {
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    display: block;
+}
+
+    .login-provider-list-item > img, .login-provider-list-item > svg {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+        fill: #666;
+    }
+
+    .login-provider-list-item > * {
+        vertical-align: middle;
+    }
+
+    .login-provider-list-item:hover, .login-provider-list-item.active {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+        .login-provider-list-item:hover > svg, .login-provider-list-item.active > svg {
+            fill: #fff;
+        }
+
+#login-provider-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 241px;
+    overflow-y: auto;
+    padding: 0 30px;
+}
+
+    #login-provider-container > .form {
+        margin: 30px auto 0 auto;
+        margin-top: 30px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,.05);
+        margin-bottom: 30px;
+        max-width: 540px;
+    }
+
+        #login-provider-container > .form input.form-control {
+            color: #666;
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+            outline: 0;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            line-height: 30px;
+        }
+
+            #login-provider-container > .form input.form-control:focus {
+                border-color: #FA9F32;
+            }
+
+            #login-provider-container > .form input.form-control::placeholder {
+                color: #bbb;
+            }
+
+        #login-provider-container > .form small, #login-provider-container > .form label {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        #login-provider-container > .form textarea.form-control {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            outline: 0;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        #login-provider-container > .form h1, #login-provider-container > .form h2 {
+            margin: 0;
+            padding: 0 0 10px 0;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+            #login-provider-container > .form h1 > img, #login-provider-container > .form h2 > img {
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+
+        #login-provider-container > .form .form-group {
+            margin-bottom: 15px;
+        }
+
+
+    #login-provider-container .form .danger {
+        color: #dc1600;
+    }
+
+.submit {
+    font-size: 18px;
+    margin-top: 15px;
+    display: inline-block;
+    color: #fff;
+    background: #FA9F32;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 8px;
+}
+
+    .submit > * {
+        vertical-align: middle;
+    }
+
+    .submit svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+    }
+
+        .submit svg path {
+            fill: #fff;
+        }
+
+    .submit span {
+        margin-left: 10px;
+    }
+
+    .submit:hover {
+        background: #ffaa45;
+    }
+
+
+    .submit.danger {
+        background: #dc1600;
+        color: #fff !important;
+    }
+
+        .submit.danger:hover {
+            background: #ef3c28;
+        }
+
+.footer {
+    text-align: center;
+}
+
+input[type="text"].table-textbox {
+    border: none;
+    outline: 0;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background: none;
+    border-bottom: 1px solid rgba(0,0,0,0);
+    line-height: 20px;
+    color: #666;
+}
+
+    input[type="text"].table-textbox:hover {
+        border-bottom: 1px solid #FA9F32;
+    }
+
+    input[type="text"].table-textbox::placeholder {
+        color: #bbb;
+    }
+
+.no-wrap {
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+    .no-wrap > * {
+        vertical-align: middle;
+    }
+
+
+.login-provider-container-footer {
+    margin-top: 25px;
+    text-align: center;
+}

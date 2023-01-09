@@ -1,0 +1,13 @@
+id: run-cmd-script
+name: Run Cmd Script
+version: 1.0.1
+description: Run Cmd Script on Windows
+dependencies: 
+methods:
+  - name: Execute Cmd File
+    entry: 
+      windows: cmd /c $(CMD_SCRIPT_PATH)
+  - name: Execute Inline Cmd Script
+    entry: 
+      windows: powershell -File run-inline-cmd.ps1
+website: ''

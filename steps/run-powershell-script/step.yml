@@ -1,0 +1,17 @@
+id: run-powershell-script
+name: Run Powershell Script
+version: 1.0.1
+description: Run Powershell Script
+dependencies: 
+methods:
+  - name: Execute Powershell File
+    entry: 
+      windows: powershell -File $(POWERSHELL_SCRIPT_PATH)
+      linux: pwsh -File $(POWERSHELL_SCRIPT_PATH)
+      mac: pwsh -File $(POWERSHELL_SCRIPT_PATH)
+  - name: Execute Inline Powershell Script
+    entry: 
+      windows: powershell -File run-inline-powershell.ps1
+      linux: pwsh -File run-inline-powershell.ps1
+      mac: pwsh -File run-inline-powershell.ps1
+website: ''

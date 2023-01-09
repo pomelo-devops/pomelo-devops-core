@@ -1,0 +1,53 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.pipeline-job-parameters-table-outer {
+    margin: 30px auto;
+    padding: 0 30px;
+    max-width: 640px;
+}
+
+.pipeline-job-parameters-table {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    border-radius: 15px;
+    border-collapse: collapse;
+}
+
+    .pipeline-job-parameters-table th {
+        font-weight: bold;
+        text-align: left;
+        font-size: 12px;
+        padding: 15px;
+        padding-bottom: 6px;
+    }
+
+    .pipeline-job-parameters-table .table-header {
+        font-size: 18px;
+        font-weight: normal;
+    }
+
+    .pipeline-job-parameters-table .table-header > * {
+        vertical-align: middle;
+    }
+
+    .pipeline-job-parameters-table .table-header > svg {
+        height: 32px;
+        width: 32px;
+        margin-right: 10px;
+    }
+
+    .pipeline-job-parameters-table td {
+        padding: 15px;
+    }
+
+.pipeline-job-parameters-table tbody tr {
+    border-top: .5px solid #ddd;
+}
+
+    .pipeline-job-parameters-table .table-value {
+        word-break: break-all;
+    }

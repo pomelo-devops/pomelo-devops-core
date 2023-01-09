@@ -1,0 +1,85 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dashboard-container" v-if="project">
+    <div>
+        <div v-for="row in matrix" v-if="editing" class="dashboard-matrix-row">
+            <div class="dashboard-placeholder"
+                 v-for="cell in row"
+                 v-bind:class="{ active: selectedCell == cell }"
+                 v-on:click="popCreateWidgetSidebar(cell)">
+                <!--{{ cell.x }}, {{ cell.y }}-->
+            </div>
+        </div>
+        <div class="dashboard-widget"
+             v-show="!loading"
+             v-bind:id="`${widget.id}`"
+             v-bind:class="{ active: editingWidget == widget }"
+             v-for="widget in project.dashboard.items"
+             v-bind:style="`top: ${30 + widget.y * 110}px; left: ${30 + widget.x * 110}px; width: ${widget.width * 110 - 10}px; height: ${widget.height * 110 - 10}px;`">
+        </div>
+        <div class="dashboard-widget-cover"
+             v-if="editing"
+             v-for="widget in project.dashboard.items"
+             v-bind:style="`top: ${30 + widget.y * 110}px; left: ${30 + widget.x * 110}px; width: ${widget.width * 110 - 10}px; height: ${widget.height * 110 - 10}px;`">
+            <a class="first" v-on:click="popEditDialog(widget)">
+                <svg t="1671933071284" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14487" width="20" height="20"><path d="M853.333333 501.333333c-17.066667 0-32 14.933333-32 32v320c0 6.4-4.266667 10.666667-10.666666 10.666667H170.666667c-6.4 0-10.666667-4.266667-10.666667-10.666667V213.333333c0-6.4 4.266667-10.666667 10.666667-10.666666h320c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32H170.666667c-40.533333 0-74.666667 34.133333-74.666667 74.666666v640c0 40.533333 34.133333 74.666667 74.666667 74.666667h640c40.533333 0 74.666667-34.133333 74.666666-74.666667V533.333333c0-17.066667-14.933333-32-32-32z" fill="#666666" p-id="14488"></path><path d="M405.333333 484.266667l-32 125.866666c-2.133333 10.666667 0 23.466667 8.533334 29.866667 6.4 6.4 14.933333 8.533333 23.466666 8.533333h8.533334l125.866666-32c6.4-2.133333 10.666667-4.266667 14.933334-8.533333l300.8-300.8c38.4-38.4 38.4-102.4 0-140.8-38.4-38.4-102.4-38.4-140.8 0L413.866667 469.333333c-4.266667 4.266667-6.4 8.533333-8.533334 14.933334z m59.733334 23.466666L761.6 213.333333c12.8-12.8 36.266667-12.8 49.066667 0 12.8 12.8 12.8 36.266667 0 49.066667L516.266667 558.933333l-66.133334 17.066667 14.933334-68.266667z" fill="#666666" p-id="14489"></path></svg>
+            </a>
+            <a class="second" v-on:click="deleteWidget(widget)">
+                <svg t="1671873260530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="26596" width="20" height="20"><path d="M928.16 144H736V64a32 32 0 0 0-32-32H320a32 32 0 0 0-32 32v80H95.84a32 32 0 0 0 0 64H129.6l77.92 698.656A96 96 0 0 0 302.912 992h418.144a96.032 96.032 0 0 0 95.424-85.344L894.4 208h33.728a32 32 0 0 0 0.032-64zM352 96h320v48H352V96z m400.896 803.552a32 32 0 0 1-31.808 28.448H302.912a32 32 0 0 1-31.808-28.448L193.984 208h636.032l-77.12 691.552z" p-id="26597"></path><path d="M608 820.928a32 32 0 0 0 32-32V319.104a32 32 0 0 0-64 0v469.824a32 32 0 0 0 32 32zM432 820.928a32 32 0 0 0 32-32V319.104a32 32 0 0 0-64 0v469.824a32 32 0 0 0 32 32z" p-id="26598"></path></svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-management-buttons" v-if="$root.hasPermissionToProject(projectId, true)">
+    <a class="dashboard-management-button" v-if="!editing" v-on:click="editing = true">
+        <svg t="1671933071284" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14487" width="20" height="20"><path d="M853.333333 501.333333c-17.066667 0-32 14.933333-32 32v320c0 6.4-4.266667 10.666667-10.666666 10.666667H170.666667c-6.4 0-10.666667-4.266667-10.666667-10.666667V213.333333c0-6.4 4.266667-10.666667 10.666667-10.666666h320c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32H170.666667c-40.533333 0-74.666667 34.133333-74.666667 74.666666v640c0 40.533333 34.133333 74.666667 74.666667 74.666667h640c40.533333 0 74.666667-34.133333 74.666666-74.666667V533.333333c0-17.066667-14.933333-32-32-32z" fill="#666666" p-id="14488"></path><path d="M405.333333 484.266667l-32 125.866666c-2.133333 10.666667 0 23.466667 8.533334 29.866667 6.4 6.4 14.933333 8.533333 23.466666 8.533333h8.533334l125.866666-32c6.4-2.133333 10.666667-4.266667 14.933334-8.533333l300.8-300.8c38.4-38.4 38.4-102.4 0-140.8-38.4-38.4-102.4-38.4-140.8 0L413.866667 469.333333c-4.266667 4.266667-6.4 8.533333-8.533334 14.933334z m59.733334 23.466666L761.6 213.333333c12.8-12.8 36.266667-12.8 49.066667 0 12.8 12.8 12.8 36.266667 0 49.066667L516.266667 558.933333l-66.133334 17.066667 14.933334-68.266667z" fill="#666666" p-id="14489"></path></svg>
+        <span>{{ $root.localization.sr('PROJECT_DASHBOARD_EDIT') }}</span>
+    </a>
+    <template v-else-if="!sidebar">
+        <div>
+            <a class="dashboard-management-button" v-on:click="saveDashboard">
+                <svg t="1669804635301" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10225" width="20" height="20"><path d="M725.4 105.7H151.8c-27.1 0-49.2 22-49.2 49.1v711.8c0 27.1 22.1 49.1 49.2 49.1H866c27.1 0 49.2-22 49.2-49.1V294.8L725.4 105.7z m-399.4 40h338.8v241.9c0 12.9-10.5 23.3-23.5 23.3H349.5c-12.9 0-23.5-10.5-23.5-23.3V145.7z m5.4 727.6V612.5c0-4.1 3.4-7.4 7.5-7.4h363.4c4.1 0 7.5 3.3 7.5 7.4v260.8H331.4z m543.8-6.8c0 4.9-4.2 9.1-9.2 9.1H749.9V612.5c0-26.1-21.3-47.4-47.5-47.4H339c-26.2 0-47.5 21.3-47.5 47.4v263.2H151.8c-5 0-9.2-4.2-9.2-9.1V154.8c0-4.9 4.2-9.1 9.2-9.1H286v241.9c0 34.9 28.5 63.3 63.5 63.3h291.8c35 0 63.5-28.4 63.5-63.3V145.7h4l166.4 165.8v555z" fill="#403E3E" p-id="10226"></path><path d="M638.4 664H400.8c-11 0-20 9-20 20s9 20 20 20h237.6c11 0 20-9 20-20s-8.9-20-20-20zM638.4 765.1H400.8c-11 0-20 9-20 20s9 20 20 20h237.6c11 0 20-9 20-20s-8.9-20-20-20z" fill="#403E3E" p-id="10227"></path></svg>
+                <span>{{ $root.localization.sr('PROJECT_DASHBOARD_SAVE') }}</span>
+            </a>
+        </div>
+        <div>
+            <a class="dashboard-management-button" v-on:click="exitEditingMode">
+                <svg t="1671934006770" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15492" width="20" height="20"><path d="M800 480H268.8l233.6-233.6c12.8-12.8 12.8-32 0-44.8-12.8-12.8-32-12.8-44.8 0l-284.8 288c-12.8 12.8-12.8 32 0 44.8h3.2l284.8 288c6.4 6.4 16 9.6 22.4 9.6 9.6 0 16-3.2 22.4-9.6 12.8-12.8 12.8-32 0-44.8L272 544H800c19.2 0 32-12.8 32-32s-16-32-32-32z" fill="#666666" p-id="15493"></path></svg>
+                <span>{{ $root.localization.sr('PROJECT_DASHBOARD_BACK') }}</span>
+            </a>
+        </div>
+    </template>
+</div>
+
+<div class="dashboard-edit-sidebar dialog" v-show="sidebar">
+    <div class="dialog-header" v-if="!editingWidget">
+        <svg t="1671796753368" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6084" width="20" height="20"><path d="M793.6 563.2H179.2c-15.36 0-25.6 10.24-25.6 25.6v204.8H128c-15.36 0-25.6-10.24-25.6-25.6V230.4c0-15.36 10.24-25.6 25.6-25.6h640c15.36 0 25.6 10.24 25.6 25.6v332.8z" fill="#A9CFFF" p-id="6085"></path><path d="M230.4 614.4h691.2c15.36 0 25.6 10.24 25.6 25.6v179.2c0 15.36-10.24 25.6-25.6 25.6H230.4c-15.36 0-25.6-10.24-25.6-25.6v-179.2c0-15.36 10.24-25.6 25.6-25.6z m128 76.8v76.8h76.8v-76.8h-76.8z m179.2 0v76.8h76.8v-76.8h-76.8z m179.2 0v76.8h76.8v-76.8h-76.8z" fill="#2589FF" p-id="6086"></path></svg>
+        <span>{{ $root.localization.sr('PROJECT_DASHBOARD_ADD_WIDGET') }}</span>
+    </div>
+    <div class="dialog-header" v-else>
+        <img v-bind:src="`/api/widget/${editingWidget.widgetId}/resource/${widgets[editingWidget.widgetId].iconUrl}`" />
+        <span>{{ widgets[editingWidget.widgetId].name }}</span>
+    </div>
+    <div class="dialog-search" v-if="addWidget">
+        <input type="text" v-model="search" v-bind:placeholder="$root.localization.sr('PROJECT_DASHBOARD_SEARCH_WIDGET')" />
+    </div>
+    <div class="dialog-body" style="top: 92px" v-if="addWidget">
+        <div class="widget-list-item" v-for="widget in widgetResults" v-on:click="addWidgetIntoDashboard(widget)">
+            <img class="widget-list-item-icon" v-bind:src="`/api/widget/${widget.id}/resource/${widget.iconUrl}`">
+            <div class="widget-list-item-text">
+                <span>{{ widget.name }}</span>
+                <br />
+                <span class="description">{{ widget.description }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-body" v-show="!addWidget" id="widget-edit-container"></div>
+
+    <div class="dialog-footer">
+        <a class="button" v-on:click="hideSidebar" v-if="addWidget">{{ $root.localization.sr('PROJECT_DASHBOARD_CLOSE') }}</a>
+        <a class="button" v-on:click="hideSidebar" v-else>{{ $root.localization.sr('PROJECT_DASHBOARD_OK') }}</a>
+    </div>
+</div>

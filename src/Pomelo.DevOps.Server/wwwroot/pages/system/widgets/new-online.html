@@ -1,0 +1,28 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dialog">
+    <a class="back-button" href="/system/widgets/new">
+        <svg t="1669790068549" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6528" width="20" height="20"><path d="M710.153924 8.980397L266.007127 460.692524a81.118646 81.118646 0 0 0 0.861532 114.476097l446.192936 441.050666a26.922883 26.922883 0 0 0 37.853573-38.284339L304.722232 536.884282a27.27288 27.27288 0 0 1-0.323074-38.445877L748.545955 46.726278A26.922883 26.922883 0 1 0 710.180847 9.00732z" p-id="6529"></path></svg>
+    </a>
+    <div class="dialog-header">
+        <svg t="1671796753368" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6084" width="20" height="20"><path d="M793.6 563.2H179.2c-15.36 0-25.6 10.24-25.6 25.6v204.8H128c-15.36 0-25.6-10.24-25.6-25.6V230.4c0-15.36 10.24-25.6 25.6-25.6h640c15.36 0 25.6 10.24 25.6 25.6v332.8z" fill="#A9CFFF" p-id="6085"></path><path d="M230.4 614.4h691.2c15.36 0 25.6 10.24 25.6 25.6v179.2c0 15.36-10.24 25.6-25.6 25.6H230.4c-15.36 0-25.6-10.24-25.6-25.6v-179.2c0-15.36 10.24-25.6 25.6-25.6z m128 76.8v76.8h76.8v-76.8h-76.8z m179.2 0v76.8h76.8v-76.8h-76.8z m179.2 0v76.8h76.8v-76.8h-76.8z" fill="#2589FF" p-id="6086"></path></svg>
+        <span>{{ $root.localization.sr('SYSTEM_WIDGET_CREATE_WIDGET') }}</span>
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('SYSTEM_WIDGET_WIDGET_ID') }}</b>
+        <input type="text" class="dialog-textbox" v-model="form.id" v-bind:placeholder="$root.localization.sr('SYSTEM_WIDGET_WIDGET_ID_PLACEHOLDER')" />
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('SYSTEM_WIDGET_WIDGET_NAME') }}</b>
+        <input type="text" class="dialog-textbox" v-model="form.name" v-bind:placeholder="$root.localization.sr('SYSTEM_WIDGET_WIDGET_NAME_PLACEHOLDER')" />
+    </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('SYSTEM_WIDGET_WIDGET_DESCRIPTION') }}</b>
+        <input type="text" class="dialog-textbox" v-model="form.description" v-bind:placeholder="$root.localization.sr('SYSTEM_WIDGET_WIDGET_DESCRIPTION_PLACEHOLDER')" />
+    </div>
+    <div class="footer">
+        <a class="button" v-on:click="create">{{ $root.localization.sr('SYSTEM_WIDGET_CREATE') }}</a>
+    </div>
+</div>

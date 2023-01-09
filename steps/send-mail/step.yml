@@ -1,0 +1,18 @@
+id: send-mail
+name: Send Email
+version: 0.9.4
+type: Runner
+description: Send a email
+dependencies: 
+methods:
+  - name: Send Inline Mail
+    entry: 
+      windows: powershell -File send-inline.ps1
+      linux: powershell -File send-inline.ps1
+      mac: powershell -File send-inline.ps1
+  - name: Send Mail From File
+    entry: 
+      windows: powershell -File send-from-file-body.ps1
+      linux: powershell -File send-from-file-body.ps1
+      mac: powershell -File send-from-file-body.ps1
+website: ''

@@ -1,0 +1,208 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.gallery-search-outer {
+    padding: 15px;
+    background: #fff;
+    display: block;
+    border-radius: 50px;
+    box-shadow: 0 0 15px rgba(0,0,0,.05);
+    margin: 30px auto;
+    width: 480px;
+}
+
+.gallery-search-platform-button {
+    border-bottom: 3px solid #fff;
+    margin: 0 5px;
+    padding: 3px;
+    cursor: pointer;
+}
+
+    .gallery-search-platform-button:hover, .gallery-search-platform-button.active {
+        border-color: #FA9F32
+    }
+
+.gallery-search-textbox {
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    line-height: 32px;
+    color: #666;
+}
+
+.gallery-search-wrap {
+    float: right;
+    display: inline-block;
+    margin-top: calc(-15px + 6.5px);
+    margin-bottom: -15px;
+}
+
+    .gallery-search-wrap > * {
+        vertical-align: top;
+    }
+
+.gallery-search-button {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    background: #FA9F32;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+    .gallery-search-button:hover {
+        background: #ffaa45;
+    }
+
+    .gallery-search-button.blue {
+        background: #2c87ff;
+    }
+
+        .gallery-search-button.blue:hover {
+            background: #62a6ff;
+        }
+
+    .gallery-search-button svg {
+        width: 24px;
+        height: 24px;
+        margin: 5.5px;
+    }
+
+        .gallery-search-button svg path {
+            fill: #fff;
+        }
+
+.gallery-package-outer {
+    background: #fff;
+    padding: 15px;
+    margin: 0 30px;
+    box-shadow: 0 0 15px rgba(0,0,0,.05);
+    border-radius: 15px;
+}
+
+.gallery-package-item {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.gallery-package-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.gallery-package-status svg {
+    fill: #666;
+}
+
+.gallery-package-title {
+    font-size: 16px;
+    font-weight: normal
+}
+
+.gallery-package-status * {
+    vertical-align: middle;
+}
+
+.gallery-package-status > span {
+    margin-right: 10px;
+}
+
+.gallery-package-icon {
+    text-align: center;
+}
+
+.gallery-package-icon svg {
+    fill: #888;
+}
+
+.gallery-package-icon {
+    padding-right: 15px;
+}
+
+.gallery-package-padding-left {
+    padding-left: 15px;
+}
+
+.gallery-package-status {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.gallery-package-action {
+    padding-left: 15px;
+    padding-top: 31px;
+}
+
+.gallery-package-action-button {
+    line-height: 32px;
+    background: #FA9F32;
+    border-radius: 32px;
+    color: #fff;
+    padding: 7px 9px;
+    cursor: pointer;
+}
+
+    .gallery-package-action-button:hover {
+        background: #ffaa45;
+    }
+
+.gallery-package-nav {
+    list-style: none;
+    padding: 0;
+    background: #fff;
+    line-height: 32px;
+    border-radius: 32px;
+    box-shadow: 0 0 15px rgba(0,0,0,.05);
+    text-align: center;
+    margin: 30px auto;
+    width: fit-content;
+    overflow: hidden;
+}
+
+
+.gallery-package-nav li {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .gallery-package-nav li:hover, .gallery-package-nav li.active {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+.gallery-package-item tbody tr:first-child {
+    border-top: .5px solid #ddd;
+}
+
+.gallery-package-item .no-border > tr {
+    border: none!important;
+}
+
+.gallery-package-icon {
+    padding: 15px 0;
+}
+
+.gallery-package-title {
+    padding-top: 15px;
+}
+
+.package-description {
+    padding-bottom: 15px;
+}
+
+.gallery-package-icon img {
+    margin-bottom: 5px;
+}
+
+.vertical-top {
+    vertical-align: top;
+}

@@ -1,0 +1,123 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+#pipeline-settings {
+    position: absolute;
+    top: 51px;
+    left: 30px;
+    right: 30px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+    #pipeline-settings > .form {
+        margin: 30px auto 0 auto;
+        margin-top: 30px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,.05);
+        margin-bottom: 30px;
+        max-width: 540px;
+    }
+
+        #pipeline-settings > .form input.form-control {
+            color: #666;
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+            outline: 0;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            line-height: 30px;
+        }
+
+            #pipeline-settings > .form input.form-control:focus {
+                border-color: #FA9F32;
+            }
+
+        #pipeline-settings > .form small, #pipeline-settings > .form label {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        #pipeline-settings > .form textarea.form-control {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            outline: 0;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        #pipeline-settings > .form h1, #pipeline-settings > .form h2 {
+            margin: 0;
+            padding: 0 0 10px 0;
+            font-size: 18px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+            #pipeline-settings > .form h1 > svg, #pipeline-settings > .form h2 > svg {
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+
+        #pipeline-settings > .form .form-group {
+            margin-bottom: 15px;
+        }
+
+
+    #pipeline-settings .form .danger {
+        color: #dc1600;
+    }
+
+.submit {
+    font-size: 18px;
+    margin-top: 15px;
+    display: inline-block;
+    color: #fff;
+    background: #FA9F32;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+    .submit > * {
+        vertical-align: middle;
+    }
+
+    .submit svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+    }
+
+    .submit span {
+        margin-left: 10px;
+    }
+
+    .submit:hover {
+        background: #ffaa45;
+    }
+
+
+    .submit.danger {
+        background: #dc1600;
+        color: #fff !important;
+    }
+
+        .submit.danger:hover {
+            background: #ef3c28;
+        }
+
+.footer {
+    text-align: center;
+}

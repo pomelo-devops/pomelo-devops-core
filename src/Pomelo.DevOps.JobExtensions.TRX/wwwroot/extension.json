@@ -1,0 +1,8 @@
+﻿{
+  "id": "Pomelo.DevOps.JobExtensions.TRX",
+  "name": "VS Test Result",
+  "description": "TRX Test Result Provider",
+  "icon": "/assets/img/icon.svg",
+  "view": "/pages/case/index",
+  "settings": "/pages/settings/index"
+}

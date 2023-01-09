@@ -1,0 +1,25 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dialog">
+    <a class="back-button" href="/system/widgets/new">
+        <svg t="1669790068549" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6528" width="20" height="20"><path d="M710.153924 8.980397L266.007127 460.692524a81.118646 81.118646 0 0 0 0.861532 114.476097l446.192936 441.050666a26.922883 26.922883 0 0 0 37.853573-38.284339L304.722232 536.884282a27.27288 27.27288 0 0 1-0.323074-38.445877L748.545955 46.726278A26.922883 26.922883 0 1 0 710.180847 9.00732z" p-id="6529"></path></svg>
+    </a>
+    <div class="dialog-header">
+        <svg t="1671796753368" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6084" width="20" height="20"><path d="M793.6 563.2H179.2c-15.36 0-25.6 10.24-25.6 25.6v204.8H128c-15.36 0-25.6-10.24-25.6-25.6V230.4c0-15.36 10.24-25.6 25.6-25.6h640c15.36 0 25.6 10.24 25.6 25.6v332.8z" fill="#A9CFFF" p-id="6085"></path><path d="M230.4 614.4h691.2c15.36 0 25.6 10.24 25.6 25.6v179.2c0 15.36-10.24 25.6-25.6 25.6H230.4c-15.36 0-25.6-10.24-25.6-25.6v-179.2c0-15.36 10.24-25.6 25.6-25.6z m128 76.8v76.8h76.8v-76.8h-76.8z m179.2 0v76.8h76.8v-76.8h-76.8z m179.2 0v76.8h76.8v-76.8h-76.8z" fill="#2589FF" p-id="6086"></path></svg>
+        <span>{{ $root.localization.sr('SYSTEM_WIDGET_IMPORT_JSON') }}</span>
+    </div>
+    <div class="field" style="text-align: center">
+        <div>
+            <div class="widget-upload-box" v-on:click="selectFile">
+                <svg t="1670585564399" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11442" width="200" height="200"><path d="M182.272 443.904H368.64v328.704c0 12.288 9.728 22.016 22.016 22.016h243.2c12.288 0 22.016-9.728 22.016-22.016V443.904h186.368c17.408 0 26.624-19.968 15.36-33.28L527.36 22.016c-8.192-9.728-23.04-9.728-30.72 0L166.912 410.624c-11.264 12.8-2.048 33.28 15.36 33.28z" p-id="11443"></path><path d="M956.416 637.952c-24.576 0-44.544 19.968-44.544 44.544v237.056H112.128v-237.056c0-24.576-19.968-44.544-44.544-44.544-24.576 0-44.544 19.968-44.544 44.544V936.96c0 39.936 32.256 72.192 72.192 72.192h833.536c39.936 0 72.192-32.256 72.192-72.192v-254.464c0-24.576-19.968-44.544-44.544-44.544z" p-id="11444"></path></svg>
+            </div>
+        </div>
+        <div style="margin-top: 30px;">
+            <a v-if="fileName" v-on:click="importWidget" class="button">Upload {{ fileName }}</a>
+            <span v-else>{{ $root.localization.sr('SYSTEM_WIDGET_IMPORT_JSON_CLICK') }}</span>
+        </div>
+    </div>
+    <input type="file" id="widget-file-uploader" style="display: none" v-on:change="onFileSelected" />
+</div>

@@ -1,0 +1,47 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.date-picker-outer > * {
+    vertical-align: middle;
+}
+
+.date-picker-outer > a > svg {
+    width: 26px;
+    height: 26px;
+    fill: #666;
+}
+
+.date-picker-outer > a {
+    cursor: pointer;
+}
+
+    .date-picker-outer > a:hover svg {
+        fill: #FA9F32;
+    }
+
+.date-picker-textbox {
+    color: #666;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    line-height: 30px;
+    width: calc(100% - 30px);
+    display: inline-block;
+}
+
+    .date-picker-textbox:focus, .date-picker-textbox:hover {
+        border-color: #FA9F32;
+    }
+
+.mc-calendar--modal .mc-display, .mc-date--active.mc-date--picked {
+    background-color: #fa9f32;
+}
+
+.mc-table__weekday, .mc-btn--success {
+    color: #FA9F32;
+}

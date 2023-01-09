@@ -1,0 +1,45 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.input-number-button {
+    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: #eee;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+    .input-number-button:hover {
+        background-color: #FA9F32;
+        color: #fff;
+    }
+
+.input-number-textbox {
+    outline: 0;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #ddd;
+    margin: 0 8px;
+    padding: 0 5px;
+    width: 50px;
+    text-align: center;
+}
+
+.input-number > * {
+    vertical-align: middle;
+}
+
+.input-number-textbox:focus {
+    border-color: #FA9F32;
+}
+
+.input-number {
+    display: inline-block;
+}

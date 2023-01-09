@@ -1,0 +1,71 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div v-if="step" class="form form-send-mail">
+    <small class="form-text text-muted">Sender Display Name</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_SENDER_NAME" class="form-control">
+    </div>
+    <small class="form-text text-muted">Sender Username</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_SENDER_USER" class="form-control">
+    </div>
+    <small class="form-text text-muted">Sender Mail Address (Example: somebody@pomelo.cloud)</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_SENDER_ADDR" class="form-control">
+    </div>
+    <small class="form-text text-muted">Sender Password</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_SENDER_PASS" class="form-control">
+    </div>
+    <small class="form-text text-muted">SMTP Server Address</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_SMTP" class="form-control">
+    </div>
+    <small class="form-text text-muted">SMTP Server Port</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_SMTP_PORT" class="form-control">
+    </div>
+    <small class="form-text text-muted">Use SSL</small>
+    <div class="form-group mb-4">
+        <toggle-button v-model="step.arguments.SEND_EMAIL_USE_SSL"></toggle-button>
+    </div>
+    <small class="form-text text-muted">Subject</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_SUBJECT" class="form-control">
+    </div>
+    <small class="form-text text-muted">To (Use , to split addresses)</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_TO" class="form-control">
+    </div>
+    <small class="form-text text-muted">CC (Use , to split addresses)</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_CC" class="form-control">
+    </div>
+    <small class="form-text text-muted">BCC (Use , to split addresses)</small>
+    <div class="form-group mb-4">
+        <input type="text" v-model="step.arguments.SEND_EMAIL_BCC" class="form-control">
+    </div>
+    <div v-show="step.method == 'Send Inline Mail'">
+        <small class="form-text text-muted">Body</small>
+        <div class="form-group mb-4">
+            <codemirror v-model="step.arguments.SEND_EMAIL_BODY_TEXT" disableLineNumber="true" mode="htmlmixed"></codemirror>
+        </div>
+    </div>
+    <template v-if="step.method == 'Send Mail From File'">
+        <small class="form-text text-muted">Content Path</small>
+        <div class="form-group mb-4">
+            <input type="text" v-model="step.arguments.SEND_EMAIL_BODY_PATH" class="form-control">
+        </div>
+    </template>
+    <small class="form-text text-muted">Body Type</small>
+    <div class="form-group mb-4">
+        <radio-button value="Plain Text" v-model="step.arguments.SEND_EMAIL_BODY_TYPE"></radio-button>
+        <radio-button value="HTML" v-model="step.arguments.SEND_EMAIL_BODY_TYPE"></radio-button>
+    </div>
+    <small class="form-text text-muted">Attachment Path (For each line per file)</small>
+    <div class="form-group mb-4">
+        <textarea class="form-control" style="height: 80px" v-model="step.arguments.SEND_EMAIL_ATTACHMENTS"></textarea>
+    </div>
+</div>

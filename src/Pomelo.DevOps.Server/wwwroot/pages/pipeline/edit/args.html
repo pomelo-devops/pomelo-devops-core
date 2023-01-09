@@ -1,0 +1,66 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div id="pipeline-arguments">
+    <div class="form">
+        <h2>
+            <svg t="1669807628241" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="20752" data-spm-anchor-id="a313x.7781069.0.i12" width="20" height="20"><path d="M128 0m22.308571 0l65.097143 0q22.308571 0 22.308572 22.308571l0 588.617143q0 22.308571-22.308572 22.308572l-65.097143 0q-22.308571 0-22.308571-22.308572l0-588.617143q0-22.308571 22.308571-22.308571Z" p-id="20753" data-spm-anchor-id="a313x.7781069.0.i18" class="" fill="#8961ec"></path><path d="M128 776.228571m22.308571 0l65.097143 0q22.308571 0 22.308572 22.308572l0 203.154286q0 22.308571-22.308572 22.308571l-65.097143 0q-22.308571 0-22.308571-22.308571l0-203.154286q0-22.308571 22.308571-22.308572Z" p-id="20754" data-spm-anchor-id="a313x.7781069.0.i19" class="" fill="#8961ec"></path><path d="M786.285714 0m22.308572 0l65.097143 0q22.308571 0 22.308571 22.308571l0 584.228572q0 22.308571-22.308571 22.308571l-65.097143 0q-22.308571 0-22.308572-22.308571l0-584.228572q0-22.308571 22.308572-22.308571Z" p-id="20755" data-spm-anchor-id="a313x.7781069.0.i10" class="" fill="#8961ec"></path><path d="M786.285714 779.154286m22.308572 0l65.097143 0q22.308571 0 22.308571 22.308571l0 200.228572q0 22.308571-22.308571 22.308571l-65.097143 0q-22.308571 0-22.308572-22.308571l0-200.228572q0-22.308571 22.308572-22.308571Z" p-id="20756" data-spm-anchor-id="a313x.7781069.0.i11" class="" fill="#8961ec"></path><path d="M457.142857 390.948571m22.308572 0l65.097142 0q22.308571 0 22.308572 22.308572l0 588.434286q0 22.308571-22.308572 22.308571l-65.097142 0q-22.308571 0-22.308572-22.308571l0-588.434286q0-22.308571 22.308572-22.308572Z" p-id="20757" data-spm-anchor-id="a313x.7781069.0.i13" class="" fill="#8961ec"></path><path d="M182.857143 713.142857m-128 0a128 128 0 1 0 256 0 128 128 0 1 0-256 0Z" p-id="20758" data-spm-anchor-id="a313x.7781069.0.i23" class="selected" fill="#009edc"></path><path d="M512 306.285714m-128 0a128 128 0 1 0 256 0 128 128 0 1 0-256 0Z" p-id="20759" data-spm-anchor-id="a313x.7781069.0.i25" class="selected" fill="#009edc"></path><path d="M841.142857 713.142857m-128 0a128 128 0 1 0 256 0 128 128 0 1 0-256 0Z" p-id="20760" data-spm-anchor-id="a313x.7781069.0.i26" class="selected" fill="#009edc"></path><path d="M457.142857 0m22.308572 0l65.097142 0q22.308571 0 22.308572 22.308571l0 180.48q0 22.308571-22.308572 22.308572l-65.097142 0q-22.308571 0-22.308572-22.308572l0-180.48q0-22.308571 22.308572-22.308571Z" p-id="20761" data-spm-anchor-id="a313x.7781069.0.i21" class="selected" fill="#009edc"></path></svg>
+            <span>{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS') }}</span>
+        </h2>
+        <table class="pipeline-arguments-table">
+            <thead>
+                <tr>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_NAME') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_DESCRIPTION') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_TYPE') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_EXT') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_DEFAULT_VALUE') }}</th>
+                    <th>{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_ACTIONS') }}</th>
+                </tr>
+            </thead>
+            <tbody v-if="pipeline.arguments" id="pipeline-argument-rows">
+                <tr class="pipeline-argument-row" v-for="arg in pipeline.arguments" v-bind:data-arg="arg.argument">
+                    <td><input class="table-textbox" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_NAME_PLACEHOLDER')" v-model="arg.argument" /></td>
+                    <td><input class="table-textbox" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_DESCRIPTION_PLACEHOLDER')" v-model="arg.description" /></td>
+                    <td>
+                        <select v-model="arg.type" class="table-select">
+                            <option value="Text">{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_TYPE_TEXT') }}</option>
+                            <option value="Option">{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_TYPE_OPTION') }}</option>
+                            <option value="ToggleButton">{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_TYPE_TOGGLE_BUTTON') }}</option>
+                            <option value="Number">{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_TYPE_NUMBER') }}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="table-textbox" v-if="arg.type == 'Text'" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_REGEX_PLACEHOLDER')" v-model="arg.validateRegex" />
+                        <input class="table-textbox"
+                               v-if="arg.type == 'Option'"
+                               type="text"
+                               v-bind:title="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_OPTION_PLACEHOLDER')"
+                               v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_OPTION_PLACEHOLDER')"
+                               v-model="arg.options" />
+                        <span v-if="arg.type == 'ToggleButton'">-</span>
+                        <input class="table-textbox" v-if="arg.type == 'Number'" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_NUMBER_MIN_PLACEHOLDER')" type="text" v-model="arg.numberMin" />
+                        <input class="table-textbox" v-if="arg.type == 'Number'" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_NUMBER_MAX_PLACEHOLDER')" type="text" v-model="arg.numberMax" />
+                        <input class="table-textbox" v-if="arg.type == 'Number'" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_NUMBER_STEP_PLACEHOLDER')" type="text" v-model="arg.numberStep" />
+                    </td>
+                    <td><input class="table-textbox" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_EDIT_ARGUMENTS_DEFAULT_VALUE_PLACEHOLDER')" v-model="arg.default" /></td>
+                    <td class="actions no-wrap">
+                        <a class="table-button small danger" v-on:click="removeArgument(arg)">{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_REMOVE') }}</a>
+                        <a class="pipeline-argument-dragula-anchor">
+                            <svg t="1670225900830" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4437" width="200" height="200"><path d="M886.186667 328.533333c5.546667 0 9.813333-6.826667 9.813333-14.08V240.213333c0-7.68-4.266667-14.08-9.813333-14.08H137.813333c-5.546667 0-9.813333 6.826667-9.813333 14.08v74.24c0 7.68 4.266667 14.08 9.813333 14.08zM128 549.12c0 7.68 4.266667 14.08 9.813333 14.08h748.373334c5.546667 0 9.813333-6.826667 9.813333-14.08v-74.24c0-7.68-4.266667-14.08-9.813333-14.08H137.813333c-5.546667 0-9.813333 6.826667-9.813333 14.08z m0 234.666667c0 7.68 4.266667 14.08 9.813333 14.08h748.373334c5.546667 0 9.813333-6.826667 9.813333-14.08v-74.24c0-7.68-4.266667-14.08-9.813333-14.08H137.813333c-5.546667 0-9.813333 6.826667-9.813333 14.08z" p-id="4438"></path></svg>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr v-if="!pipeline.arguments.length">
+                    <td colspan="5">{{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_NO_RESULT') }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5"><a class="table-button" v-on:click="addArgument">+ {{ $root.localization.sr('PIPELINE_EDIT_ARGUMENTS_ADD_ARGUMENT') }}</a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

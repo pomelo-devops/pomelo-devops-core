@@ -1,0 +1,78 @@
+/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.pipeline-trigger-instance-list {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 280px;
+    background: #fefefe;
+    border-right: 1px solid #ddd;
+}
+
+.pipeline-trigger-instance-add {
+    display: block;
+    margin: 15px !important;
+    padding: 15px !important;
+    background: #fff;
+    border-radius: 15px;
+    border: 0.5px solid #e7e7e7;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+    .pipeline-trigger-instance-add > svg {
+        width: 32px;
+        height: 32px;
+        fill: #666;
+        margin-right: 10px;
+    }
+
+    .pipeline-trigger-instance-add:hover {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+        .pipeline-trigger-instance-add:hover > svg {
+            fill: #fff;
+        }
+
+.pipeline-trigger-instance-add > * {
+    vertical-align: middle;
+}
+
+#trigger-main {
+    position: absolute;
+    top: 0;
+    left: 281px;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.pipeline-trigger-instance-item {
+    border: 0.5px solid #e7e7e7;
+    margin: 15px !important;
+    padding: 15px !important;
+    background: #fff;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+    .pipeline-trigger-instance-item:hover, .pipeline-trigger-instance-item.active {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+    .pipeline-trigger-instance-item img {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+    }
+
+.pipeline-trigger-instance-item > * {
+    vertical-align: middle;
+}

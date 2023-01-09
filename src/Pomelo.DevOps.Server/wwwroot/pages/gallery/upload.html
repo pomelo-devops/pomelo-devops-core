@@ -1,0 +1,16 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="row container">
+    <div class="gallery-package-upload-box" v-on:click="selectFile()">
+        <svg t="1670585564399" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11442" width="200" height="200"><path d="M182.272 443.904H368.64v328.704c0 12.288 9.728 22.016 22.016 22.016h243.2c12.288 0 22.016-9.728 22.016-22.016V443.904h186.368c17.408 0 26.624-19.968 15.36-33.28L527.36 22.016c-8.192-9.728-23.04-9.728-30.72 0L166.912 410.624c-11.264 12.8-2.048 33.28 15.36 33.28z" p-id="11443"></path><path d="M956.416 637.952c-24.576 0-44.544 19.968-44.544 44.544v237.056H112.128v-237.056c0-24.576-19.968-44.544-44.544-44.544-24.576 0-44.544 19.968-44.544 44.544V936.96c0 39.936 32.256 72.192 72.192 72.192h833.536c39.936 0 72.192-32.256 72.192-72.192v-254.464c0-24.576-19.968-44.544-44.544-44.544z" p-id="11444"></path></svg>
+    </div>
+    <div style="text-align: center; margin-top: 15px;">
+        {{ name || 'Click above button to upload package.' }}
+    </div>
+    <form v-bind:action="`/api/gallery/form?session=${token}`" method="post" enctype="multipart/form-data" class="gallery-package-upload-form" v-show="name">
+        <input type="file" name="package" id="file-upload" v-on:change="onFileSelectorChanged" style="display: none" />
+        <input type="submit" value="Upload" class="gallery-package-upload-button" />
+    </form>
+</div>

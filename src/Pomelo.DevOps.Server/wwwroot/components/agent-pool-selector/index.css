@@ -1,0 +1,166 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.agent-pool-selector-shadow {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,.2);
+    z-index: 101;
+}
+
+.agent-pool-selector-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 560px;
+    height: 480px;
+    background: #fff;
+    margin-top: -240px;
+    margin-left: -280px;
+    z-index: 102;
+    border-radius: 15px;
+    box-shadow: rgba(0,0,0,.2);
+}
+
+.agent-pool-selector-dialog-header {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.agent-pool-selector-dialog-header > * {
+    vertical-align: middle;
+}
+
+.agent-pool-selector-dialog-header > svg {
+    width: 32px;
+    height: 32px;
+}
+
+.agent-pool-selector-dialog-header > span {
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+.agent-pool-selector-dialog-body {
+    position: absolute;
+    top: 63px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+.agent-pool-selector-dialog-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 59px;
+    border-top: 1px solid #ddd;
+    padding: 7.85px 15px;
+}
+
+.agent-pool-selector-dialog-search {
+    outline: 0;
+    font-size: 16px;
+    color: #666;
+    font-weight: lighter;
+    border: none;
+    border-bottom: 1px solid #ffffffff;
+    float: right;
+    line-height: 22px;
+    margin: 5px 0;
+}
+
+    .agent-pool-selector-dialog-search:focus {
+        border-bottom: 1px solid #ddd;
+    }
+
+svg.search {
+    fill: #666;
+    width: 20px;
+    height: 20px;
+    margin: 6px 0;
+    margin-right: 5px;
+}
+
+.agent-pool-selector-dialog-item-outer {
+    padding: 10px;
+    padding-top: 0;
+}
+
+.agent-pool-selector-dialog-item {
+    font-size: 16px;
+    padding: 8px 7px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+    .agent-pool-selector-dialog-item:hover {
+        background: #fff7ee;
+    }
+
+    .agent-pool-selector-dialog-item > svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .agent-pool-selector-dialog-item > span {
+        margin-left: 8px;
+    }
+
+    .agent-pool-selector-dialog-item > * {
+        vertical-align: middle;
+    }
+
+    .agent-pool-selector-dialog-item > span > small {
+        color: #aaa;
+    }
+
+svg.checked {
+    width: 20px;
+    height: 20px;
+    float: right;
+    margin: 6px 0;
+}
+
+
+.agent-pool-selector-button {
+    font-size: 18px;
+    display: inline-block;
+    color: #fff;
+    background: #ccc;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+    .agent-pool-selector-button.primary {
+        background: #FA9F32;
+    }
+
+    .agent-pool-selector-button > * {
+        vertical-align: middle;
+    }
+
+    .agent-pool-selector-button svg {
+        fill: #fff;
+    }
+
+    .agent-pool-selector-button span {
+        margin-left: 10px;
+    }
+
+    .agent-pool-selector-button:hover {
+        background: #e0e0e0;
+    }
+
+    .agent-pool-selector-button.primary:hover {
+        background: #ffaa45;
+    }

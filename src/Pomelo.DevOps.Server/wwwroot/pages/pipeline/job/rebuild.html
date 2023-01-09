@@ -1,0 +1,31 @@
+<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div id="pipeline-job-new" v-if="originalJob && pipeline">
+    <div class="form">
+        <h2>
+            <svg t="1670486358433" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9956" width="20" height="20"><path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01" p-id="9957"></path><path d="M273.066667 614.4a136.533333 136.533333 0 0 1 136.533333-136.533333h204.8a136.533333 136.533333 0 0 1 136.533333 136.533333v238.933333a136.533333 136.533333 0 0 1-136.533333 136.533334h-204.8a136.533333 136.533333 0 0 1-136.533333-136.533334v-238.933333z" fill="#FFAA44" p-id="9958"></path><path d="M341.333333 59.0848A34.133333 34.133333 0 0 0 290.133333 29.525333L136.567467 118.135467A136.533333 136.533333 0 0 0 68.266667 236.407467v251.904a136.533333 136.533333 0 0 0 68.3008 118.237866l307.2 177.220267a136.533333 136.533333 0 0 0 136.465066 0l307.2-177.220267A136.533333 136.533333 0 0 0 955.733333 488.277333v-251.904a136.533333 136.533333 0 0 0-68.3008-118.237866l-153.6-88.610134A34.133333 34.133333 0 0 0 682.666667 59.0848V232.789333a68.266667 68.266667 0 0 1-31.4368 57.480534l-102.4 65.570133a68.266667 68.266667 0 0 1-73.659734 0l-102.4-65.570133A68.266667 68.266667 0 0 1 341.333333 232.7552V59.050667z" fill="#FF7744" p-id="9959"></path><path d="M392.533333 512a51.2 51.2 0 0 1 51.2-51.2h136.533334a51.2 51.2 0 0 1 0 102.4h-136.533334a51.2 51.2 0 0 1-51.2-51.2z" fill="#FFFFFF" p-id="9960"></path></svg>
+            <span>{{ $root.localization.sr('PIPELINE_REBUILD') }}</span>
+        </h2>
+
+        <div class="form-group">
+            <small>{{ $root.localization.sr('PIPELINE_REBUILD_JOB_NAME') }}</small>
+            <input class="form-control" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_REBUILD_JOB_NAME_PLACEHOLDER')" v-model="job.name" />
+        </div>
+
+        <div class="form-group">
+            <small>{{ $root.localization.sr('PIPELINE_REBUILD_JOB_DESCRIPTION') }}</small>
+            <input class="form-control" type="text" v-bind:placeholder="$root.localization.sr('PIPELINE_REBUILD_JOB_DESCRIPTION_PLACEHOLDER')" v-model="job.description" />
+        </div>
+
+        <pipeline-arguments-form v-model="job.arguments" v-bind:projectId="projectId" v-bind:pipelineId="pipelineId"></pipeline-arguments-form>
+
+        <div class="pipeline-job-new-footer">
+            <a class="submit" v-on:click="startJob">
+                <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+                <span>{{ $root.localization.sr('PIPELINE_REBUILD') }}</span>
+            </a>
+        </div>
+    </div>
+</div>
