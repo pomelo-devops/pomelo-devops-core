@@ -15935,6 +15935,9 @@ var Vue = (function (exports) {
 }({}));
 
 // Pomelo
+// Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+// Licensed under the MIT. See LICENSE in the project root for license information.
+
 var Pomelo = (function (exports, options) {
     // Options
     var _options = {
@@ -16122,7 +16125,9 @@ var Pomelo = (function (exports, options) {
                 }
 
                 return promise.then(function (template) {
-                    component.template = template;
+                    if (!component.template) {
+                        component.template = template;
+                    }
                     return Promise.resolve(component);
                 });
             })
@@ -16997,7 +17002,9 @@ var Pomelo = (function (exports, options) {
                 eval(comJs + '\r\n//# sourceURL=' + c + ".js");
                 subComponentRefs = _opt.components;
                 hookMountedAndUnmounted(_opt, c);
-                _opt.template = _html;
+                if (!_opt.template) {
+                    _opt.template = _html;
+                }
                 return _resolveModules(_opt.modules, c);
             }).then(function () {
                 ret.push({ name: _name, options: _opt });
