@@ -440,22 +440,26 @@ namespace Pomelo.DevOps.Agent
 
             foreach (var feed in _feeds)
             {
-                var info = await DownloadStepAsync(feed, step, version);
-                if (info != null)
+                try
                 {
-                    if (info.Dependencies != null)
+                    var info = await DownloadStepAsync(feed, step, version);
+                    if (info != null)
                     {
-                        foreach (var dependency in info.Dependencies)
+                        if (info.Dependencies != null)
                         {
-                            await DownloadStepAsync(dependency.Key, dependency.Value, variable, logFunc);
+                            foreach (var dependency in info.Dependencies)
+                            {
+                                await DownloadStepAsync(dependency.Key, dependency.Value, variable, logFunc);
+                            }
                         }
+                        if (info.Install != null && info.InstallTimeout.HasValue)
+                        {
+                            await InstallStepAsync(step, version, variable, info.InstallTimeout.Value, logFunc);
+                        }
+                        return info;
                     }
-                    if (info.Install != null && info.InstallTimeout.HasValue)
-                    {
-                        await InstallStepAsync(step, version, variable, info.InstallTimeout.Value, logFunc);
-                    }
-                    return info;
                 }
+                catch { }
             }
 
             throw new StepPackageNotFoundException(_feeds, step, version);
