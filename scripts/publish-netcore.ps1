@@ -43,7 +43,7 @@ For($i = 0; $i -lt $items.Length; ++$i) {
         }
         
         $dest = Join-Path $bin ($items[$i].Name + "-" + $platforms[$j])
-        dotnet publish -c Release -r $platforms[$j] --self-contained -p:PublishTrimmed=true
+        dotnet publish -c Release -r $platforms[$j] --self-contained
         
         [System.IO.Directory]::Move($outputDir, $dest);
         If ($items[$i].Name.EndsWith(".Agent")) {
