@@ -18,4 +18,7 @@ Remove-Item -Path (Join-Path $agentSvc 'process.json')
 Copy-Item -Path (Join-Path $root 'scripts/process-agent.json') -Destination (Join-Path $agentSvc 'process.json')
 Set-Content -Path (Join-Path $agentSvc 'build.txt') -Value $env:BUILD_VERSION -Force
 Set-Content -Path (Join-Path $agentSvc 'arch.txt') -Value 'win-x64' -Force
+
+Compress-Archive -Path ($agentSvc + '/**') -DestinationPath ($agentSvc + ".zip")
+
 Set-Location $root

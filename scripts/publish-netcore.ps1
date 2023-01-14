@@ -9,6 +9,8 @@ $pdb = Join-Path $root 'pdb'
 $src = Join-Path $root 'src'
 $cliProject = 'Pomelo.DevOps.Agent.CLI'
 $cli = Join-Path $src $cliProject
+$daemonProject = 'Pomelo.DevOps.Daemon'
+$daemon = Join-Path $src $daemonProject
 
 If (Test-Path $bin) {
     Remove-Item -Path $bin -Force -Recurse
@@ -26,10 +28,21 @@ For ($j = 0; $j -lt $platforms.Length; ++$j) {
     [System.IO.Directory]::Move($outputDir, $dest);
 }
 
+Set-Location $daemon
+For ($j = 0; $j -lt $platforms.Length; ++$j) {
+    $outputDir = Join-Path $daemon ("bin/Release/net6.0/" + $platforms[$j] + "/publish")
+    If (Test-Path $outputDir) {
+        Remove-Item -Path $outputDir -Force -Recurse
+    }
+    dotnet publish -c Release -r $platforms[$j] --self-contained -p:PublishTrimmed=true -p:PublishSingleFile=true
+    $dest = Join-Path $bin ($daemonProject + "-" + $platforms[$j])
+    [System.IO.Directory]::Move($outputDir, $dest);
+}
+
 Set-Location $src
 $items = Get-ChildItem
 For($i = 0; $i -lt $items.Length; ++$i) {
-    If ($items[$i].Name.Contains("Models") -or $items[$i].Name.Contains("Shared") -or $items[$i].Name.Contains(".CLI") -or $items[$i].Name.Contains(".Wi")) {
+    If ($items[$i].Name.Contains("Models") -or $items[$i].Name.Contains("Shared") -or $items[$i].Name.Contains(".CLI") -or $items[$i].Name.Contains(".WindowsService") -or $items[$i].Name.Contains(".Daemon")) {
         Continue;
     }
 

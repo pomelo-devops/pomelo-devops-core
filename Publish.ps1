@@ -11,5 +11,6 @@ $env:BUILD_VERSION = $versionPrefix + '-' + $env:JOB_NUMBER
 .\scripts\publish-netcore.ps1
 .\scripts\publish-winsvc.ps1
 .\scripts\publish-agent-service-win-x64.ps1
+.\scripts\publish-daemon.ps1
 
-Set-Content -Path (Join-Path (Get-Location) 'bin/build.txt') -Value $env:VERSION -Force
+Set-Content -Path (Join-Path (Get-Location) 'bin/build.txt') -Value $env:BUILD_VERSION -Force

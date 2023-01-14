@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pomelo.DevOps.Agent.CLI", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.DevOps.WindowsService", "src\Pomelo.DevOps.WindowsService\Pomelo.DevOps.WindowsService.csproj", "{C30449EE-EA4A-4B92-93E9-C8FB7489335A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pomelo.DevOps.Daemon", "src\Pomelo.DevOps.Daemon\Pomelo.DevOps.Daemon.csproj", "{2FF89CC1-564E-40D7-BC4A-D404530C9D64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{C30449EE-EA4A-4B92-93E9-C8FB7489335A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C30449EE-EA4A-4B92-93E9-C8FB7489335A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C30449EE-EA4A-4B92-93E9-C8FB7489335A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FF89CC1-564E-40D7-BC4A-D404530C9D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FF89CC1-564E-40D7-BC4A-D404530C9D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FF89CC1-564E-40D7-BC4A-D404530C9D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FF89CC1-564E-40D7-BC4A-D404530C9D64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{E9FEE2C3-FD35-4F20-A5F7-28DF9FC13F74} = {842C83A7-7A3C-42D7-9487-184394488213}
 		{59FF45A9-3071-41E5-8381-4A5BEF41DD09} = {842C83A7-7A3C-42D7-9487-184394488213}
 		{C30449EE-EA4A-4B92-93E9-C8FB7489335A} = {842C83A7-7A3C-42D7-9487-184394488213}
+		{2FF89CC1-564E-40D7-BC4A-D404530C9D64} = {842C83A7-7A3C-42D7-9487-184394488213}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55D2925D-EC34-4669-BDC3-EEA5517D6588}

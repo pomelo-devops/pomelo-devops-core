@@ -2,6 +2,13 @@ Write-Host 'Upgrading agent...'
 
 $global:ProgressPreference = 'SilentlyContinue'
 
+If (Test-Path '../install.ps1') {
+	$agentType = 'Service'
+} 
+Else {
+	$agentType = 'Daemon'
+}
+
 $appSettings = Get-Content -Path 'appsettings.json' | ConvertFrom-Json
 $server = $appSettings.Server
 If ([System.String]::IsNullOrEmpty($server)) {
@@ -33,7 +40,7 @@ if (-Not (Test-Path '../arch.txt')) {
 $arch = Get-Content -Path '../arch.txt' -Raw
 $arch = $arch.Trim();
 
-$agentPackage = $server + '/agent/Agent-' + $arch + '.zip'
+$agentPackage = $server + '/agent/Agent-' + $agentType + '-' + $arch + '.zip'
 
 If (Test-Path '../tmp') {
 	Remove-Item -Path '../tmp' -Recurse -Force
