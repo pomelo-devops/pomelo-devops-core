@@ -32,7 +32,7 @@ namespace Pomelo.DevOps.Shared
 
             if (methodsHasBody.Contains(ret.Method.Method.ToUpper()))
             {
-                if (request.ContentType.Contains("multipart", StringComparison.OrdinalIgnoreCase))
+                if (request.ContentType != null && request.ContentType.Contains("multipart", StringComparison.OrdinalIgnoreCase))
                 {
                     if (!request.ContentType.StartsWith("multipart/form-data", StringComparison.OrdinalIgnoreCase))
                     {
