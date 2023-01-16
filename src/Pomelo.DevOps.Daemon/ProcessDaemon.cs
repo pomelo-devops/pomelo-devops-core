@@ -33,14 +33,12 @@ namespace Pomelo.DevOps.Daemon
             if (!Path.IsPathRooted(proc.FileName))
             {
                 proc.FileName = Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     proc.FileName);
             }
 
             if (proc.WorkingDirectory != null && !Path.IsPathRooted(proc.WorkingDirectory))
             {
                 proc.WorkingDirectory = Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     proc.WorkingDirectory);
             }
 
@@ -92,14 +90,12 @@ namespace Pomelo.DevOps.Daemon
             if (!Path.IsPathRooted(proc.FileName))
             {
                 proc.FileName = Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     proc.FileName);
             }
 
             if (proc.WorkingDirectory != null && !Path.IsPathRooted(proc.WorkingDirectory))
             {
                 proc.WorkingDirectory = Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     proc.WorkingDirectory);
             }
 
@@ -142,9 +138,7 @@ namespace Pomelo.DevOps.Daemon
 
         public void OnStart(string[] args)
         {
-            var jsonPath = Path.Combine(
-                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                "process.json");
+            var jsonPath = "process.json";
 
             if (!File.Exists(jsonPath))
             {
@@ -157,7 +151,6 @@ namespace Pomelo.DevOps.Daemon
                 Console.WriteLine($"Starting {proc.FileName}...");
                 var path = proc.LogsOutputDirectory
                     ?? Path.Combine(
-                        Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                         "Logs",
                         Path.GetFileNameWithoutExtension(proc.FileName));
                 path = Path.Combine(path, DateTime.UtcNow.Ticks + ".log");
