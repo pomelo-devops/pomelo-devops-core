@@ -84,7 +84,7 @@ namespace Pomelo.DevOps.Agent
                     {
                         nextStep.PipelineJobStageId = _stage.Id;
                         await _connector.UpdateStepStatusAsync(_stage, nextStep);
-                        await _log.LogAsync(_stage, "step-" + nextStep.Id, "Starting step...", LogLevel.Information);
+                        _log.LogAsync(_stage, "step-" + nextStep.Id, "Starting step...", LogLevel.Information);
                     }
 
                     StepExecuteResult result;
@@ -94,7 +94,7 @@ namespace Pomelo.DevOps.Agent
                         {
                             await _gallery.DownloadStepAsync(nextStep.StepId, nextStep.Version, _variable, (message, isError) =>
                             {
-                                _log.LogAsync(_stage, "step-" + nextStep.Id, message, isError ? LogLevel.Error : LogLevel.Information).GetAwaiter().GetResult();
+                                _log.LogAsync(_stage, "step-" + nextStep.Id, message, isError ? LogLevel.Error : LogLevel.Information);
                             });
                             result = new StepExecuteResult
                             {
@@ -121,7 +121,7 @@ namespace Pomelo.DevOps.Agent
                             _variable,
                             (message, isError) =>
                             {
-                                _log.LogAsync(_stage, "step-" + nextStep.Id, message, isError ? LogLevel.Error : LogLevel.Information).GetAwaiter().GetResult();
+                                _log.LogAsync(_stage, "step-" + nextStep.Id, message, isError ? LogLevel.Error : LogLevel.Information);
                             },
                             nextStep.Id,
                             nextStep.Timeout);
@@ -149,7 +149,7 @@ namespace Pomelo.DevOps.Agent
                                 nextStep.Status = PipelineJobStatus.Waiting;
                                 nextStep.StartedAt = null;
                                 await _connector.UpdateStepStatusAsync(_stage, nextStep);
-                                await _log.LogAsync(_stage, "step-" + nextStep.Id, "The step has failed, retrying...", LogLevel.Warning);
+                                _log.LogAsync(_stage, "step-" + nextStep.Id, "The step has failed, retrying...", LogLevel.Warning);
                                 continue;
                             }
                             break;
@@ -164,7 +164,7 @@ namespace Pomelo.DevOps.Agent
                         await _connector.UpdateStepStatusAsync(_stage, nextStep);
                     }
 
-                    await _log.LogAsync(_stage, "step-" + nextStep.Id, "The step is finished", LogLevel.Information);
+                    _log.LogAsync(_stage, "step-" + nextStep.Id, "The step is finished", LogLevel.Information);
                     await UpdateCurrentStateAsync();
                 }
             }
@@ -197,7 +197,7 @@ namespace Pomelo.DevOps.Agent
                 {
                     if (step.Condition == RunCondition.CheckVariable && _variable.GetVariable(step.ConditionVariable).ToLower() != "true")
                     {
-                        await _log.LogAsync(_stage, "stage-" + _stage.Id, $"Checking step {step.Name} condition variable {step.ConditionVariable}, the variable value is {_variable.GetVariable(step.ConditionVariable).ToLower() }", LogLevel.Information);
+                        _log.LogAsync(_stage, "stage-" + _stage.Id, $"Checking step {step.Name} condition variable {step.ConditionVariable}, the variable value is {_variable.GetVariable(step.ConditionVariable).ToLower() }", LogLevel.Information);
                         step.Status = PipelineJobStatus.Skipped;
                         step.StartedAt = DateTime.UtcNow;
                         step.FinishedAt = DateTime.UtcNow;
@@ -235,7 +235,7 @@ namespace Pomelo.DevOps.Agent
                 {
                     if (step.Condition == RunCondition.CheckVariable)
                     {
-                        await _log.LogAsync(_stage, "stage-" + _stage.Id, $"Checking step {step.Name} condition variable {step.ConditionVariable}, the variable value is {_variable.GetVariable(step.ConditionVariable).ToLower() }", LogLevel.Information);
+                        _log.LogAsync(_stage, "stage-" + _stage.Id, $"Checking step {step.Name} condition variable {step.ConditionVariable}, the variable value is {_variable.GetVariable(step.ConditionVariable).ToLower() }", LogLevel.Information);
                     }
                     step.Status = PipelineJobStatus.Skipped;
 

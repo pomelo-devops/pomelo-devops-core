@@ -137,7 +137,7 @@ namespace Pomelo.DevOps.Agent
                         stage.Status = PipelineJobStatus.Failed;
                         stage.FinishedAt = DateTime.UtcNow;
                         await _connector.UpdateStageStatusAsync(stage);
-                        await _log.LogAsync(stage, "stage-" + stage.Id, ex.ToString(), LogLevel.Error);
+                        _log.LogAsync(stage, "stage-" + stage.Id, ex.ToString(), LogLevel.Error);
                         Console.Error.WriteLine(ex.ToString());
                     }
                     catch { }
