@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Pomelo.DevOps.Models.LoginProviders;
+using Pomelo.Workflow.Models.EntityFramework;
+using Pomelo.Workflow.Storage;
 
 namespace Pomelo.DevOps.Models
 {
-    public class PipelineContext : DbContext
+    public class PipelineContext : DbContext, IWorkflowDbContext
     {
         public PipelineContext(DbContextOptions<PipelineContext> options) : base(options)
         { 
@@ -67,6 +69,10 @@ namespace Pomelo.DevOps.Models
         public DbSet<UserSession> UserSessions { get; set; }
 
         public DbSet<Widget> Widgets { get; set; }
+        public DbSet<DbWorkflow> Workflows { get; set; }
+        public DbSet<DbWorkflowVersion> WorkflowVersions { get; set; }
+        public DbSet<DbWorkflowInstance> WorkflowInstances { get; set; }
+        public DbSet<DbStep> WorkflowInstanceSteps { get; set; }
 
         public async ValueTask InstallSampleDataAsync(CancellationToken cancellationToken = default)
         {
@@ -165,6 +171,8 @@ namespace Pomelo.DevOps.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.SetupWorkflow();
 
             builder.Entity<Addin>(e =>
             {

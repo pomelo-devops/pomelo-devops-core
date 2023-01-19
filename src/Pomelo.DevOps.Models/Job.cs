@@ -33,6 +33,8 @@ namespace Pomelo.DevOps.Models
 
         public PipelineJobTriggerType TriggerType { get; set; }
 
+        public PipelineType Type { get; set; }
+
         [MaxLength(64)]
         [ForeignKey(nameof(Pipeline))]
         public string PipelineId { get; set; }
@@ -57,7 +59,9 @@ namespace Pomelo.DevOps.Models
 
         public int CurrentStageOrder { get; set; } = 0;
 
-        public virtual ICollection<JobStage> Stages { get; set; }
+        public 
+
+        public virtual ICollection<JobStage> Stages { get; set; } // Only for linear
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<JobVariable> Variables { get; set; }

@@ -7,6 +7,12 @@ using YamlDotNet.Serialization;
 
 namespace Pomelo.DevOps.Models
 {
+    public enum PipelineType
+    {
+        Linear,
+        Diagram
+    }
+
     public class Pipeline
     {
         [YamlIgnore]
@@ -28,6 +34,8 @@ namespace Pomelo.DevOps.Models
 
         [YamlIgnore]
         public virtual User User { get; set; }
+
+        public PipelineType Type { get; set; }
 
         [YamlIgnore]
         public string Name { get; set; }
