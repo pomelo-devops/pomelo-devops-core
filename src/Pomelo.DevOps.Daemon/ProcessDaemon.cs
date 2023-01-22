@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Reflection;
 using System.Security;
 using Newtonsoft.Json;
 
@@ -205,9 +204,9 @@ namespace Pomelo.DevOps.Daemon
                 {
                     if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                     {
-#pragma warning disable SYSLIB0006 // 类型或成员已过时
+#pragma warning disable SYSLIB0006
                         t.Abort();
-#pragma warning restore SYSLIB0006 // 类型或成员已过时
+#pragma warning restore SYSLIB0006
                     }
                 }
                 catch { }
