@@ -54,9 +54,12 @@
       "destination": "wwwroot/assets/js/js-yaml/"
     },
     {
-      "provider": "unpkg",
       "library": "mimetypes@0.1.1",
       "destination": "wwwroot/assets/js/mimetypes/"
+    },
+    {
+      "library": "pomelo-workflow-pomelo-vue@1.0.2",
+      "destination": "wwwroot/assets/js/pomelo-workflow-pomelo-vue/"
     }
   ]
 }

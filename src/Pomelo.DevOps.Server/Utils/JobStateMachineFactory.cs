@@ -103,7 +103,7 @@ namespace Pomelo.DevOps.Server.Utils
             await GetJobAsync();
             if (_stages.Count == 0 
                 || job.Status == PipelineJobStatus.Skipped
-                || job.Stages.All(x => x.Status >= PipelineJobStatus.Failed))
+                || job.LinearStages.All(x => x.Status >= PipelineJobStatus.Failed))
             {
                 await OnJobFinishedAsync();
                 return true;
@@ -150,9 +150,9 @@ namespace Pomelo.DevOps.Server.Utils
             using var _db = scope.ServiceProvider.GetRequiredService<PipelineContext>();
             job = await _db.Jobs
                 .AsNoTracking()
-                .Include(x => x.Stages)
+                .Include(x => x.LinearStages)
                 .ThenInclude(x => x.Steps)
-                .Include(x => x.Stages)
+                .Include(x => x.LinearStages)
                 .SingleAsync(x => x.Id == _jobId);
         }
 
@@ -166,7 +166,7 @@ namespace Pomelo.DevOps.Server.Utils
                 return;
             }
 
-            var stages = job.Stages.Where(x => x.Order == job.CurrentStageOrder);
+            var stages = job.LinearStages.Where(x => x.Order == job.CurrentStageOrder);
             foreach (var stage in stages)
             {
                 if (stage.Status >= PipelineJobStatus.Failed)
@@ -219,7 +219,7 @@ namespace Pomelo.DevOps.Server.Utils
                 return true;
             }
 
-            var stages = job.Stages.Where(x => x.Order == job.CurrentStageOrder); // Find current stages
+            var stages = job.LinearStages.Where(x => x.Order == job.CurrentStageOrder); // Find current stages
             if (stages.Any(x => x.Status < PipelineJobStatus.Failed))
             {
                 // Stages not finished
@@ -250,7 +250,7 @@ namespace Pomelo.DevOps.Server.Utils
 
             var needTransitAgain = false;
             await GetJobAsync();
-            var stages = job.Stages.Where(x => x.Order == job.CurrentStageOrder);
+            var stages = job.LinearStages.Where(x => x.Order == job.CurrentStageOrder);
 
             List<JobVariable> variables = null;
 
@@ -260,7 +260,7 @@ namespace Pomelo.DevOps.Server.Utils
 
             foreach (var x in stages)
             {
-                var prevStages = job.Stages.Where(x => x.Order == job.CurrentStageOrder - 1);
+                var prevStages = job.LinearStages.Where(x => x.Order == job.CurrentStageOrder - 1);
                 if (x.AgentPoolId == null)
                 {
                     needTransitAgain = true;
@@ -392,8 +392,8 @@ namespace Pomelo.DevOps.Server.Utils
                 Dispose();
                 return;
             }
-            else if (job.Stages.Count == 0 
-                || job.Stages.All(x => x.Status == PipelineJobStatus.Skipped 
+            else if (job.LinearStages.Count == 0 
+                || job.LinearStages.All(x => x.Status == PipelineJobStatus.Skipped 
                     || x.Status == PipelineJobStatus.Succeeded))
             {
                 await _db.Jobs

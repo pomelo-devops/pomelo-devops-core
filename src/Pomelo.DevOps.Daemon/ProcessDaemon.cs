@@ -53,12 +53,18 @@ namespace Pomelo.DevOps.Daemon
                     RedirectStandardOutput = true,
                     CreateNoWindow = true,
                     UserName = proc.Username,
-                    Password = password,
                     UseShellExecute = false,
                     WorkingDirectory = proc.WorkingDirectory
                 }
             })
             {
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                {
+#pragma warning disable CA1416
+                    process.StartInfo.Password = password;
+#pragma warning restore CA1416
+                }
+
                 processBag.Add(process);
                 process.OutputDataReceived += (sender, e) => { log.WriteLine($"[{DateTime.Now}] {e.Data}"); log.Flush(); };
                 process.ErrorDataReceived += (sender, e) => { log.WriteLine($"[{DateTime.Now}] {e.Data}"); log.Flush(); };
@@ -110,12 +116,18 @@ namespace Pomelo.DevOps.Daemon
                     RedirectStandardOutput = true,
                     CreateNoWindow = true,
                     UserName = proc.Username,
-                    Password = password,
                     UseShellExecute = false,
                     WorkingDirectory = proc.WorkingDirectory
                 }
             })
             {
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                {
+#pragma warning disable CA1416
+                    process.StartInfo.Password = password;
+#pragma warning restore CA1416
+                }
+
                 processBag.Add(process);
                 process.OutputDataReceived += (sender, e) => { log.WriteLine($"[{DateTime.Now}] {e.Data}"); log.Flush(); };
                 process.ErrorDataReceived += (sender, e) => { log.WriteLine($"[{DateTime.Now}] {e.Data}"); log.Flush(); };
@@ -191,7 +203,9 @@ namespace Pomelo.DevOps.Daemon
             {
                 try
                 {
-                    t.Abort();
+#if WIN32
+                    t.Abort
+#endif
                 }
                 catch { }
             }

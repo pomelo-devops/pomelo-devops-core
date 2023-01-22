@@ -282,7 +282,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToProjectAsync(db, projectId, ProjectMemberRole.Admin, cancellationToken))
             {
-                return ApiResult(401, $"You don't have the permission to project '{projectId}'");
+                return ApiResult(403, $"You don't have the permission to project '{projectId}'");
             }
 
             await db.PipelineTriggers
@@ -333,17 +333,96 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
             {
-                return ApiResult<List<string>>(401, $"You don't have the permission to this pipeline");
+                return ApiResult<List<string>>(403, $"You don't have the permission to this pipeline");
             }
 
             var labels = await db.JobLabels
                 .Where(x => x.Job.PipelineId == pipeline)
                 .GroupBy(x => x.Label)
                 .Select(x => x.Key)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return ApiResult(labels);
         }
+
+        #region Diagram Stages
+        [HttpGet("{pipeline}/diagram-stages")]
+        public async ValueTask<ApiResult<List<PipelineDiagramStage>>> GetDiagramStages(
+            [FromServices] PipelineContext db,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromQuery] string name = null,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<List<PipelineDiagramStage>>(403, $"You don't have the permission to this pipeline");
+            }
+
+            IQueryable<PipelineDiagramStage> stages = db.PipelineDiagramStages;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                stages = stages.Where(x => x.Workflow.Name.Contains(name));
+            }
+
+            return ApiResult(await stages.ToListAsync(cancellationToken));
+        }
+
+        [HttpGet("{pipeline}/diagram-stages/{diagramStageId:Guid}")]
+        public async ValueTask<ApiResult<PipelineDiagramStage>> GetDiagramStage(
+            [FromServices] PipelineContext db,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid diagramStageId,
+            [FromQuery] string name = null,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<PipelineDiagramStage>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var stage = await db.PipelineDiagramStages
+                .Include(x => x.Workflow)
+                .FirstOrDefaultAsync(x => x.PipelineId == pipeline 
+                    && x.Id == diagramStageId, cancellationToken);
+
+            if (stage == null)
+            {
+                return ApiResult<PipelineDiagramStage>(404, $"The specified diagram stage was not found.");
+            }
+
+            return ApiResult(stage);
+        }
+
+        [HttpDelete("{pipeline}/diagram-stages/{diagramStageId:Guid}")]
+        public async ValueTask<ApiResult<PipelineDiagramStage>> DeleteDiagramStage(
+            [FromServices] PipelineContext db,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid diagramStageId,
+            [FromQuery] string name = null,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<PipelineDiagramStage>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var stage = await db.PipelineDiagramStages
+                .Include(x => x.Workflow)
+                .FirstOrDefaultAsync(x => x.PipelineId == pipeline
+                    && x.Id == diagramStageId, cancellationToken);
+
+            if (stage == null)
+            {
+                return ApiResult<PipelineDiagramStage>(404, $"The specified diagram stage was not found.");
+            }
+
+            return ApiResult(stage);
+        }
+        #endregion
 
         #region Pipeline Access
         [HttpGet("{pipeline}/access")]

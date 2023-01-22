@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Pomelo.DevOps.Shared;
+using System.Reflection.Metadata.Ecma335;
+using Pomelo.Workflow.Models;
 
 namespace Pomelo.DevOps.Server.Controllers
 {
@@ -78,7 +80,7 @@ namespace Pomelo.DevOps.Server.Controllers
 
             var _job = await db.Jobs
                 .Include(x => x.Variables)
-                .Include(x => x.Stages)
+                .Include(x => x.LinearStages)
                 .ThenInclude(x => x.Steps)
                 .SingleOrDefaultAsync(x => x.Number == jobNumber
                     && x.PipelineId == pipeline, cancellationToken);
@@ -88,8 +90,8 @@ namespace Pomelo.DevOps.Server.Controllers
                 return ApiResult<Job>(404, $"The pipeline job #{jobNumber} has not been found");
             }
 
-            _job.Stages = _job.Stages.OrderBy(x => x.Order).ToList();
-            foreach (var x in _job.Stages)
+            _job.LinearStages = _job.LinearStages.OrderBy(x => x.Order).ToList();
+            foreach (var x in _job.LinearStages)
             {
                 x.Steps = x.Steps.OrderBy(x => x.Order).ToList();
             }
@@ -120,6 +122,24 @@ namespace Pomelo.DevOps.Server.Controllers
             if (_pipeline == null)
             {
                 return ApiResult<Job>(404, "The pipeline has not been found");
+            }
+
+            if (_pipeline.Type == PipelineType.Diagram)
+            {
+                // Check pipeline workflow
+                if (!await db.WorkflowVersions.AnyAsync(x => x.Status == WorkflowVersionStatus.Available
+                    && x.WorkflowId == _pipeline.WorkflowId, cancellationToken))
+                {
+                    return ApiResult<Job>(400, "The pipeline workflow is in-design, cannot start job.");
+                }
+
+                // Check stage workflow
+                if (!await db.PipelineDiagramStages
+                    .Where(x => x.PipelineId == pipeline)
+                    .AllAsync(x => x.Workflow.Versions.Any(y => y.Status == WorkflowVersionStatus.Available), cancellationToken))
+                {
+                    return ApiResult<Job>(400, "Some of stage workflows are in-design, cannot start job.");
+                }
             }
 
             // Prepare variables
@@ -182,9 +202,18 @@ namespace Pomelo.DevOps.Server.Controllers
                 TriggerType = body.TriggerType,
                 TriggerName = body.TriggerName,
                 Name = body.Name,
-                Stages = stages,
                 Variables = variables
             };
+
+            if (_pipeline.Type == PipelineType.Linear)
+            {
+                job.LinearStages = stages;
+            }
+            else 
+            {
+                // TODO: Generate workflow instance
+            }
+
             job.Number = await db.Jobs.Where(x => x.PipelineId == pipeline).CountAsync() + 1;
             db.Jobs.Add(job);
             await db.SaveChangesAsync();
@@ -617,7 +646,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             var job = await db.Jobs
                 .Include(x => x.Pipeline)
-                .Include(x => x.Stages)
+                .Include(x => x.LinearStages)
                 .Where(x => x.Number == jobNumber && x.PipelineId == pipeline)
                 .SingleOrDefaultAsync(cancellationToken);
 
@@ -648,7 +677,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             var job = await db.Jobs
                 .Include(x => x.Pipeline)
-                .Include(x => x.Stages)
+                .Include(x => x.LinearStages)
                 .Include(x => x.Labels)
                 .Where(x => x.Number == jobNumber && x.PipelineId == pipeline)
                 .SingleOrDefaultAsync(cancellationToken);

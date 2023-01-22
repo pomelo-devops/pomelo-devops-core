@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Pomelo.Workflow.Models.EntityFramework;
 
 namespace Pomelo.DevOps.Models
 {
@@ -57,11 +58,18 @@ namespace Pomelo.DevOps.Models
 
         public int CurrentStageOrder { get; set; } = 0;
 
-        public virtual ICollection<JobStage> Stages { get; set; }
+        [ForeignKey(nameof(Instance))]
+        public Guid? PipelineWorkflowInstanceId { get; set; }
+
+        public virtual DbWorkflowInstance Instance { get; set; }
+
+        public virtual ICollection<JobStage> LinearStages { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<JobVariable> Variables { get; set; }
 
         public virtual ICollection<JobLabel> Labels { get; set; }
+
+        public virtual ICollection<JobWorkflowStage> WorkflowStages { get; set; }
     }
 }

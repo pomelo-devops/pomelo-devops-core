@@ -18,6 +18,8 @@ using Pomelo.DevOps.Server.MetricsManager;
 using System.Diagnostics.CodeAnalysis;
 using Pomelo.Vue.Middleware;
 using Pomelo.DevOps.Server.UserManager;
+using Pomelo.Workflow.Storage;
+using Pomelo.Workflow;
 
 namespace Pomelo.DevOps.Server
 {
@@ -107,6 +109,8 @@ namespace Pomelo.DevOps.Server
             services.AddTimeKeeper();
             services.AddDbUserManager();
             services.AddWidgetLruCache();
+            services.AddDbWorkflowStorageProvider<PipelineContext>();
+            services.AddWorkflowManager();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pomelo DevOps", Version = "v1" });

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pomelo.DevOps.Models;
 
@@ -10,9 +11,10 @@ using Pomelo.DevOps.Models;
 namespace Pomelo.DevOps.Models.Migrations
 {
     [DbContext(typeof(PipelineContext))]
-    partial class PipelineContextModelSnapshot : ModelSnapshot
+    [Migration("20230122065705_AddWorkflowTables")]
+    partial class AddWorkflowTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,9 +226,6 @@ namespace Pomelo.DevOps.Models.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.Property<Guid?>("PipelineWorkflowInstanceId")
-                        .HasColumnType("char(36)");
-
                     b.Property<DateTime?>("StartedAt")
                         .HasColumnType("datetime(6)");
 
@@ -247,8 +246,6 @@ namespace Pomelo.DevOps.Models.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PipelineWorkflowInstanceId");
 
                     b.HasIndex("Status");
 
@@ -353,9 +350,6 @@ namespace Pomelo.DevOps.Models.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PipelineDiagramStageId")
-                        .HasColumnType("char(36)");
-
                     b.Property<Guid>("PipelineJobId")
                         .HasColumnType("char(36)");
 
@@ -373,8 +367,6 @@ namespace Pomelo.DevOps.Models.Migrations
                     b.HasIndex("AgentId");
 
                     b.HasIndex("AgentPoolId");
-
-                    b.HasIndex("PipelineDiagramStageId");
 
                     b.HasIndex("PipelineJobId");
 
@@ -464,21 +456,6 @@ namespace Pomelo.DevOps.Models.Migrations
                     b.HasKey("PipelineJobId", "Name");
 
                     b.ToTable("JobVariables");
-                });
-
-            modelBuilder.Entity("Pomelo.DevOps.Models.JobWorkflowStage", b =>
-                {
-                    b.Property<Guid>("JobId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("WorkflowInstanceId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("JobId", "WorkflowInstanceId");
-
-                    b.HasIndex("WorkflowInstanceId");
-
-                    b.ToTable("JobWorkflowStages");
                 });
 
             modelBuilder.Entity("Pomelo.DevOps.Models.Log", b =>
@@ -1187,12 +1164,6 @@ namespace Pomelo.DevOps.Models.Migrations
                         .HasForeignKey("PipelineId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Pomelo.Workflow.Models.EntityFramework.DbWorkflowInstance", "Instance")
-                        .WithMany()
-                        .HasForeignKey("PipelineWorkflowInstanceId");
-
-                    b.Navigation("Instance");
-
                     b.Navigation("Pipeline");
                 });
 
@@ -1219,12 +1190,8 @@ namespace Pomelo.DevOps.Models.Migrations
                         .HasForeignKey("AgentPoolId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Pomelo.DevOps.Models.PipelineDiagramStage", "PipelineDiagramStage")
-                        .WithMany()
-                        .HasForeignKey("PipelineDiagramStageId");
-
                     b.HasOne("Pomelo.DevOps.Models.Job", "PipelineJob")
-                        .WithMany("LinearStages")
+                        .WithMany("Stages")
                         .HasForeignKey("PipelineJobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1232,8 +1199,6 @@ namespace Pomelo.DevOps.Models.Migrations
                     b.Navigation("Agent");
 
                     b.Navigation("AgentPool");
-
-                    b.Navigation("PipelineDiagramStage");
 
                     b.Navigation("PipelineJob");
                 });
@@ -1258,25 +1223,6 @@ namespace Pomelo.DevOps.Models.Migrations
                         .IsRequired();
 
                     b.Navigation("PipelineJob");
-                });
-
-            modelBuilder.Entity("Pomelo.DevOps.Models.JobWorkflowStage", b =>
-                {
-                    b.HasOne("Pomelo.DevOps.Models.Job", "Job")
-                        .WithMany("WorkflowStages")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Pomelo.Workflow.Models.EntityFramework.DbWorkflowInstance", "WorkflowInstance")
-                        .WithMany()
-                        .HasForeignKey("WorkflowInstanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-
-                    b.Navigation("WorkflowInstance");
                 });
 
             modelBuilder.Entity("Pomelo.DevOps.Models.PersonalAccessToken", b =>
@@ -1335,7 +1281,7 @@ namespace Pomelo.DevOps.Models.Migrations
             modelBuilder.Entity("Pomelo.DevOps.Models.PipelineDiagramStage", b =>
                 {
                     b.HasOne("Pomelo.DevOps.Models.Pipeline", "Pipeline")
-                        .WithMany("Stages")
+                        .WithMany()
                         .HasForeignKey("PipelineId");
 
                     b.HasOne("Pomelo.Workflow.Models.EntityFramework.DbWorkflow", "Workflow")
@@ -1506,11 +1452,9 @@ namespace Pomelo.DevOps.Models.Migrations
                 {
                     b.Navigation("Labels");
 
-                    b.Navigation("LinearStages");
+                    b.Navigation("Stages");
 
                     b.Navigation("Variables");
-
-                    b.Navigation("WorkflowStages");
                 });
 
             modelBuilder.Entity("Pomelo.DevOps.Models.JobExtension", b =>
@@ -1533,8 +1477,6 @@ namespace Pomelo.DevOps.Models.Migrations
                     b.Navigation("Accesses");
 
                     b.Navigation("Jobs");
-
-                    b.Navigation("Stages");
 
                     b.Navigation("Triggers");
                 });

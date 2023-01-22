@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Pomelo.DevOps.Models.LoginProviders;
+using Pomelo.Workflow.Models.EntityFramework;
+using Pomelo.Workflow.Storage;
 
 namespace Pomelo.DevOps.Models
 {
-    public class PipelineContext : DbContext
+    public class PipelineContext : DbContext, IWorkflowDbContext
     {
         public PipelineContext(DbContextOptions<PipelineContext> options) : base(options)
-        { 
+        {
         }
 
         public DbSet<Addin> Addins { get; set; }
@@ -42,6 +44,8 @@ namespace Pomelo.DevOps.Models
 
         public DbSet<PipelineAccess> PipelineAccesses { get; set; }
 
+        public DbSet<PipelineDiagramStage> PipelineDiagramStages { get; set; }
+
         public DbSet<Job> Jobs { get; set; }
 
         public DbSet<JobExtension> JobExtensions { get; set; }
@@ -51,7 +55,7 @@ namespace Pomelo.DevOps.Models
         public DbSet<JobVariable> JobVariables { get; set; }
 
         public DbSet<JobStep> JobSteps { get; set; }
-        
+
         public DbSet<JobLabel> JobLabels { get; set; }
 
         public DbSet<PipelineTrigger> PipelineTriggers { get; set; }
@@ -67,6 +71,18 @@ namespace Pomelo.DevOps.Models
         public DbSet<UserSession> UserSessions { get; set; }
 
         public DbSet<Widget> Widgets { get; set; }
+
+        public DbSet<DbWorkflow> Workflows { get; set; }
+
+        public DbSet<DbWorkflowVersion> WorkflowVersions { get; set; }
+
+        public DbSet<DbWorkflowInstance> WorkflowInstances { get; set; }
+
+        public DbSet<DbStep> WorkflowInstanceSteps { get; set; }
+
+        public DbSet<DbWorkflowInstanceConnection> WorkflowInstanceConnections { get; set; }
+
+        public DbSet<JobWorkflowStage> JobWorkflowStages { get; set; }
 
         public async ValueTask InstallSampleDataAsync(CancellationToken cancellationToken = default)
         {
@@ -165,6 +181,8 @@ namespace Pomelo.DevOps.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.SetupWorkflow();
 
             builder.Entity<Addin>(e =>
             {
@@ -297,6 +315,11 @@ namespace Pomelo.DevOps.Models
             builder.Entity<User>(e =>
             {
                 e.HasIndex(x => new { x.LoginProviderId, x.Username }).IsUnique();
+            });
+
+            builder.Entity<JobWorkflowStage>(e =>
+            {
+                e.HasKey(x => new { x.JobId, x.WorkflowInstanceId });
             });
 
             var restricts = builder.Model.GetEntityTypes()

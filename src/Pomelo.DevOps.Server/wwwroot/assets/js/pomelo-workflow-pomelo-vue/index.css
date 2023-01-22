@@ -1,0 +1,32 @@
+﻿.pomelo-wf-diagram {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pomelo-wf-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pomelo-wf-node:active {
+    cursor: grabbing;
+}
+
+[pomelo-wf-anchor] {
+    cursor: pointer;
+}
+
+.pomelo-wf-diagram {
+    position: absolute;
+    top: 0;
+    lefT: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+svg, svg * {
+    pointer-events: all!important;
+}

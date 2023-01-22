@@ -46,7 +46,7 @@ namespace Pomelo.DevOps.Server.Utils
         {
             var jobs = await _db.Jobs
                 .AsNoTracking()
-                .Include(x => x.Stages)
+                .Include(x => x.LinearStages)
                 .ThenInclude(x => x.Steps)
                 .Where(x => x.Status == PipelineJobStatus.Running)
                 .Where(x => x.Timeout != -1)
@@ -92,9 +92,9 @@ namespace Pomelo.DevOps.Server.Utils
         {
             job.FinishedAt = DateTime.UtcNow;
             job.Status = PipelineJobStatus.Failed;
-            if (job.Stages != null)
+            if (job.LinearStages != null)
             {
-                foreach (var x in job.Stages)
+                foreach (var x in job.LinearStages)
                 {
                     x.PipelineJob = job;
                     await SetStageTimeoutAsync(x, false, cancellationToken);

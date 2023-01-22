@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Pomelo.DevOps.Models.ViewModels;
+using Pomelo.Workflow.Models;
 using YamlDotNet.Serialization;
 
 namespace Pomelo.DevOps.Models
@@ -31,6 +32,10 @@ namespace Pomelo.DevOps.Models
         [NotMapped]
         [YamlMember(Alias = "pipeline", Order = 2, DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
         public string Pipeline { get; set; }
+
+        [NotMapped]
+        [YamlMember(Alias = "type", Order = 2, DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
+        public PipelineType Type { get; set; }
 
         [YamlIgnore]
         [Newtonsoft.Json.JsonIgnore]
@@ -80,7 +85,18 @@ namespace Pomelo.DevOps.Models
         [YamlMember(Alias = "identifier", Order = 8)]
         public int? Identifier { get; set; } = null;
 
-        [YamlMember(Alias = "steps", Order = 9)]
+        [YamlMember(Alias = "steps", Order = 9, DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
         public virtual ICollection<JobStep> Steps { get; set; }
+
+        [YamlIgnore]
+        [ForeignKey(nameof(PipelineDiagramStage))]
+        public Guid? PipelineDiagramStageId { get; set; }
+
+        [YamlIgnore]
+        public virtual PipelineDiagramStage PipelineDiagramStage { get; set; }
+
+        [NotMapped]
+        [YamlMember(Alias = "diagram", Order = 9, DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
+        public virtual Diagram Diagram { get; set; }
     }
 }

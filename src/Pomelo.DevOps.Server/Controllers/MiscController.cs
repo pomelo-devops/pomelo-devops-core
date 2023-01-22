@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Pipelines.Sockets.Unofficial.Arenas;
 using System.Net.Sockets;
 using System.Collections.Generic;
+using Pomelo.Workflow;
 
 namespace Pomelo.DevOps.Server.Controllers
 {
@@ -28,6 +29,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPost("execute-job")]
         public async ValueTask<IActionResult> ExecuteJob(
             [FromServices] PipelineContext db,
+            [FromServices] WorkflowManager wf,
             [FromBody] ExecuteJobRequest body,
             CancellationToken cancellationToken = default)
         {
@@ -54,10 +56,15 @@ namespace Pomelo.DevOps.Server.Controllers
                 .Include(x => x.PipelineJob)
                 .ThenInclude(x => x.Pipeline)
                 .Include(x => x.Steps)
+                .Include(x => x.PipelineDiagramStage)
                 .Where(x => x.PipelineJob.Status != PipelineJobStatus.Skipped)
                 .Where(x => x.AgentPoolId == agent.AgentPoolId)
                 .Where(x => x.Status == PipelineJobStatus.Waiting
-                        || x.Status == PipelineJobStatus.Running && x.AgentId == body.AgentId && !body.ProhibitStages.Contains(x.Id));
+                        || x.Status == PipelineJobStatus.Running && x.AgentId == body.AgentId && !body.ProhibitStages.Contains(x.Id))
+                .Where(x => x.Type == PipelineType.Linear 
+                    || x.Type == PipelineType.Diagram 
+                        && x.PipelineJob.Pipeline.Workflow.Versions.Any(y => y.Status == Pomelo.Workflow.Models.WorkflowVersionStatus.Available)
+                        && x.PipelineJob.Pipeline.Stages.All(y => y.Workflow.Versions.Any(z => z.Status == Pomelo.Workflow.Models.WorkflowVersionStatus.Available)));
 
             if (body.IsParallel)
             {
@@ -107,7 +114,7 @@ namespace Pomelo.DevOps.Server.Controllers
                 {
                     return Forbid();
                 }
-
+                
                 db.Jobs
                     .Where(x => x.Id == stage.PipelineJobId)
                     .Where(x => x.Status <= PipelineJobStatus.Waiting)
@@ -125,7 +132,22 @@ namespace Pomelo.DevOps.Server.Controllers
                 stage.JobNumber = stage.PipelineJob.Number;
                 stage.Project = stage.PipelineJob.Pipeline.ProjectId;
                 stage.Pipeline = stage.PipelineJob.PipelineId;
-                stage.Steps = stage.Steps.OrderBy(x => x.Order).ToList();
+                if (stage.PipelineJob.Pipeline.Type == PipelineType.Linear)
+                {
+                    stage.Type = PipelineType.Linear;
+                    stage.Steps = stage.Steps.OrderBy(x => x.Order).ToList();
+                    stage.Diagram = null;
+                }
+                else
+                {
+                    var workflowVersion = db.WorkflowVersions
+                        .First(x => x.WorkflowId == stage.PipelineDiagramStage.WorkflowId
+                            && x.Status == Pomelo.Workflow.Models.WorkflowVersionStatus.Available);
+
+                    stage.Type = PipelineType.Diagram;
+                    stage.Steps = null;
+                    stage.Diagram = workflowVersion.Diagram; // TODO: Serialize diagram into YAML?
+                }
                 db.SaveChanges();
                 return Content(YamlSerializer.Serialize(stage), "application/yaml");
             }
@@ -157,7 +179,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             var job = await db.Jobs
                 .Include(x => x.Pipeline)
-                .Include(x => x.Stages)
+                .Include(x => x.LinearStages)
                 .Where(x => x.Id == request.JobId)
                 .SingleOrDefaultAsync(cancellationToken);
 
@@ -171,7 +193,7 @@ namespace Pomelo.DevOps.Server.Controllers
                 return ApiResult(403, "No permission");
             }
 
-            foreach (var stage in job.Stages.Where(x => x.Name == request.StageName))
+            foreach (var stage in job.LinearStages.Where(x => x.Name == request.StageName))
             {
                 stage.AgentPoolId = request.AgentPool;
             }
