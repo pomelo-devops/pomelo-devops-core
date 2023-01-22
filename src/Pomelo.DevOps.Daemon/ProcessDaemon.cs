@@ -203,9 +203,12 @@ namespace Pomelo.DevOps.Daemon
             {
                 try
                 {
-#if WIN32
-                    t.Abort
-#endif
+                    if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                    {
+#pragma warning disable SYSLIB0006 // 类型或成员已过时
+                        t.Abort();
+#pragma warning restore SYSLIB0006 // 类型或成员已过时
+                    }
                 }
                 catch { }
             }
