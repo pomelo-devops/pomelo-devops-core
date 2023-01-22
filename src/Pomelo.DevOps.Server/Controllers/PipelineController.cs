@@ -12,6 +12,9 @@ using Pomelo.DevOps.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.Workflow;
+using Pomelo.Workflow.Models;
+using Pomelo.Workflow.Models.ViewModels;
 
 namespace Pomelo.DevOps.Server.Controllers
 {
@@ -346,7 +349,7 @@ namespace Pomelo.DevOps.Server.Controllers
         }
 
         #region Diagram Stages
-        [HttpGet("{pipeline}/diagram-stages")]
+        [HttpGet("{pipeline}/diagram-stage")]
         public async ValueTask<ApiResult<List<PipelineDiagramStage>>> GetDiagramStages(
             [FromServices] PipelineContext db,
             [FromRoute] string projectId,
@@ -369,7 +372,7 @@ namespace Pomelo.DevOps.Server.Controllers
             return ApiResult(await stages.ToListAsync(cancellationToken));
         }
 
-        [HttpGet("{pipeline}/diagram-stages/{diagramStageId:Guid}")]
+        [HttpGet("{pipeline}/diagram-stage/{diagramStageId:Guid}")]
         public async ValueTask<ApiResult<PipelineDiagramStage>> GetDiagramStage(
             [FromServices] PipelineContext db,
             [FromRoute] string projectId,
@@ -396,7 +399,7 @@ namespace Pomelo.DevOps.Server.Controllers
             return ApiResult(stage);
         }
 
-        [HttpDelete("{pipeline}/diagram-stages/{diagramStageId:Guid}")]
+        [HttpDelete("{pipeline}/diagram-stage/{diagramStageId:Guid}")]
         public async ValueTask<ApiResult<PipelineDiagramStage>> DeleteDiagramStage(
             [FromServices] PipelineContext db,
             [FromRoute] string projectId,
@@ -405,7 +408,7 @@ namespace Pomelo.DevOps.Server.Controllers
             [FromQuery] string name = null,
             CancellationToken cancellationToken = default)
         {
-            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
             {
                 return ApiResult<PipelineDiagramStage>(403, $"You don't have the permission to this pipeline");
             }
@@ -421,6 +424,37 @@ namespace Pomelo.DevOps.Server.Controllers
             }
 
             return ApiResult(stage);
+        }
+
+        [HttpPost("{pipeline}/diagram-stage")]
+        public async ValueTask<ApiResult<PipelineDiagramStage>> PostDiagramStage(
+            [FromServices] PipelineContext db,
+            [FromServices] WorkflowManager wf,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromBody] CreateWorkflowRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
+            {
+                return ApiResult<PipelineDiagramStage>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var workflow = await wf.CreateWorkflowAsync(new CreateWorkflowRequest
+            {
+                Description = request.Description,
+                Name = request.Name
+            }, true, cancellationToken);
+
+            var pipelineDiagramStage = new PipelineDiagramStage
+            {
+                PipelineId = pipeline,
+                WorkflowId = workflow
+            };
+            db.PipelineDiagramStages.Add(pipelineDiagramStage);
+
+            await db.SaveChangesAsync(cancellationToken);
+            return ApiResult(pipelineDiagramStage);
         }
         #endregion
 

@@ -21,7 +21,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft" Version="6.0.2" />
-		<PackageReference Include="Pomelo.Workflow" Version="1.0.0-r20230121122017" />
+		<PackageReference Include="Pomelo.Workflow" Version="1.0.0-r20230122104606" />
 		<PackageReference Include="YamlDotNet" Version="12.2.1" />
 	</ItemGroup>
 
