@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
 namespace Pomelo.DevOps.Models.ViewModels
@@ -18,8 +19,14 @@ namespace Pomelo.DevOps.Models.ViewModels
 
     public record PipelineDefinition
     {
-        [YamlMember(Alias = "stages", Order = 1)]
+        [YamlMember(Alias = "type", Order = 0, DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
+        public PipelineType Type { get; set; }
+
+        [YamlMember(Alias = "stages", Order = 1, DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
         public List<PipelineStage> Stages { get; set; } = new List<PipelineStage>();
+
+        [YamlMember(Alias = "pipeline_workflow_id", Order = 1, DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
+        public Guid? PipelineWorkflowId { get; set; }
 
         [YamlMember(Alias = "arguments", Order = 2)]
         public List<PipelineArgument> Arguments { get; set; } = new List<PipelineArgument>();

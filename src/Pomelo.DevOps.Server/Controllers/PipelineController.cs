@@ -181,6 +181,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPatch("{pipeline}")]
         public async ValueTask<ApiResult<Pipeline>> Put(
             [FromServices] PipelineContext db,
+            [FromServices] WorkflowManager wf,
             [FromRoute] string projectId,
             [FromRoute] string pipeline,
             [FromBody] PutPipelineRequest request,
@@ -206,7 +207,25 @@ namespace Pomelo.DevOps.Server.Controllers
                 _pipeline.Id = pipeline;
                 _pipeline.UserId = Guid.Parse(User.Identity.Name);
                 _pipeline.ProjectId = projectId;
+                _pipeline.Type = request.Type;
+
+                if (request.Type == PipelineType.Diagram)
+                {
+                    var workflow = await wf.CreateWorkflowAsync(
+                        new CreateWorkflowRequest { Name = "", Description = "" }, 
+                        true, 
+                        cancellationToken);
+                    _pipeline.WorkflowId = workflow;
+                }
+
                 db.Pipelines.Add(_pipeline);
+            }
+            else
+            {
+                if (_pipeline.Type != request.Type)
+                {
+                    return ApiResult<Pipeline>(400, "You cannot change pipeline type.");
+                }
             }
 
             if (!isYaml)
@@ -215,35 +234,39 @@ namespace Pomelo.DevOps.Server.Controllers
                 _pipeline.Visibility = request.Visibility;
             }
 
-            // Checks
-            if (request.Stages.Count > 0)
+            if (_pipeline.Type == PipelineType.Linear)
             {
-                var minOrder = request.Stages.Min(x => x.Order);
-                var maxOrder = request.Stages.Max(x => x.Order);
-                if (minOrder != 1)
+                // Checks
+                if (request.Stages.Count > 0)
                 {
-                    return ApiResult<Pipeline>(400, "Stage min order must be 1");
-                }
-
-                for (var i = 1; i < maxOrder; ++i)
-                { 
-                    if (!request.Stages.Any(x => x.Order == i))
+                    var minOrder = request.Stages.Min(x => x.Order);
+                    var maxOrder = request.Stages.Max(x => x.Order);
+                    if (minOrder != 1)
                     {
-                        return ApiResult<Pipeline>(400, "Stage order missing: " + i);
+                        return ApiResult<Pipeline>(400, "Stage min order must be 1");
+                    }
+
+                    for (var i = 1; i < maxOrder; ++i)
+                    {
+                        if (!request.Stages.Any(x => x.Order == i))
+                        {
+                            return ApiResult<Pipeline>(400, "Stage order missing: " + i);
+                        }
+                    }
+
+                    var emptyStages = request.Stages
+                        .Where(x => x.Steps.Count == 0)
+                        .ToList();
+
+                    if (emptyStages.Count > 0)
+                    {
+                        return ApiResult<Pipeline>(400, $"Missing step in those stage(s): {string.Join(", ", emptyStages.Select(x => x.Name))}");
                     }
                 }
 
-                var emptyStages = request.Stages
-                    .Where(x => x.Steps.Count == 0)
-                    .ToList();
-
-                if (emptyStages.Count > 0)
-                {
-                    return ApiResult<Pipeline>(400, $"Missing step in those stage(s): {string.Join(", ", emptyStages.Select(x => x.Name))}");
-                }
+                _pipeline.PipelineBody = YamlSerializer.Serialize(request);
             }
-
-            _pipeline.PipelineBody = YamlSerializer.Serialize(request);
+            
 
             await db.SaveChangesAsync();
             return ApiResult(_pipeline);
@@ -252,6 +275,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPut("{pipeline}.yml")]
         public async ValueTask<ApiResult<Pipeline>> Put(
             [FromServices] PipelineContext db,
+            [FromServices] WorkflowManager wf,
             [FromRoute] string projectId,
             [FromRoute] string pipeline,
             [FromQuery] string name,
@@ -272,7 +296,7 @@ namespace Pomelo.DevOps.Server.Controllers
                 {
                     _pipeline.Visibility = visibility.Value;
                 }
-                return await Put(db, projectId, pipeline, _pipeline, false, cancellationToken);
+                return await Put(db, wf, projectId, pipeline, _pipeline, false, cancellationToken);
             }
         }
 
