@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.DevOps.Models;
 using Pomelo.Workflow;
 using Pomelo.Workflow.Models;
 using Pomelo.Workflow.Models.ViewModels;
@@ -36,15 +37,23 @@ namespace Pomelo.DevOps.Server.Workflow
             }
         }
 
-        public override Task OnStepStatusChangedAsync(
+        public override async Task OnStepStatusChangedAsync(
             StepStatus newStatus, 
             StepStatus previousStatus,
             CancellationToken cancellationToken)
         {
+            using var db = scope.ServiceProvider.GetRequiredService<PipelineContext>();
+
             switch (CurrentStep.Status)
             {
                 case StepStatus.InProgress:
-                    // TOOD: Create stage
+                    var instance = await WorkflowManager
+                        .GetWorkflowInstanceAsync(CurrentStep.WorkflowInstanceId);
+                    var workflowId = CurrentStep.Arguments["StageWorkflowId"].ToObject<Guid>();
+                    db.JobWorkflowStages.Add(new JobWorkflowStage 
+                    {
+                        
+                    });
                     break;
             }
 
