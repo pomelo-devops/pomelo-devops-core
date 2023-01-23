@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using Pomelo.Workflow;
 using Pomelo.Workflow.Models;
 using Pomelo.Workflow.Models.ViewModels;
+using System.Security.Cryptography.Xml;
+using Pomelo.DevOps.Server.Workflow;
 
 namespace Pomelo.DevOps.Server.Controllers
 {
@@ -43,7 +45,7 @@ namespace Pomelo.DevOps.Server.Controllers
 
             if (!await HasPermissionToProjectAsync(db, projectId, ProjectMemberRole.Member, cancellationToken))
             {
-                return ApiResult<List<Models.Pipeline>>(401, $"You don't have the permission to project '{projectId}'");
+                return ApiResult<List<Models.Pipeline>>(403, $"You don't have the permission to project '{projectId}'");
             }
 
             var ret = await db.Pipelines
@@ -102,7 +104,7 @@ namespace Pomelo.DevOps.Server.Controllers
 
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
             {
-                return ApiResult<GetPipelineResponse>(401, $"You don't have the permission to this pipeline");
+                return ApiResult<GetPipelineResponse>(403, $"You don't have the permission to this pipeline");
             }
 
             var _pipeline = await db.Pipelines
@@ -119,7 +121,9 @@ namespace Pomelo.DevOps.Server.Controllers
                 Name = _pipeline.Name,
                 ProjectId = _pipeline.ProjectId,
                 UserId = _pipeline.UserId,
-                Visibility = _pipeline.Visibility
+                Visibility = _pipeline.Visibility,
+                PipelineWorkflowId = _pipeline.WorkflowId,
+                Type = _pipeline.Type
             };
 
             ret.Stages = ret.Stages.Select(x =>
@@ -159,6 +163,49 @@ namespace Pomelo.DevOps.Server.Controllers
             }
         }
 
+        [HttpGet("{pipeline}/diagram")]
+        [HttpGet("{pipeline}/diagram/{version:int?}")]
+        public async ValueTask<ApiResult<WorkflowVersion>> GetPipelineDiagram(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager workflowManager,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] int? version = null,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<WorkflowVersion>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var _pipeline = await db.Pipelines
+                .FirstOrDefaultAsync(x => x.Id == pipeline, cancellationToken);
+
+            if (_pipeline == null || !_pipeline.WorkflowId.HasValue)
+            {
+                return ApiResult<WorkflowVersion>(403, $"The specified diagram was not found");
+            }
+
+            var draftMax = await workflowManager.GetLatestVersionAsync(
+                _pipeline.WorkflowId.Value,
+                WorkflowVersionStatus.Draft,
+                cancellationToken);
+
+            var availableMax = await workflowManager.GetLatestVersionAsync(
+                    _pipeline.WorkflowId.Value,
+                    cancellationToken: cancellationToken);
+
+            version = version 
+                ?? Math.Max(draftMax.Value, availableMax.Value);
+
+            var workflowVersion = await workflowManager.GetWorkflowVersionAsync(
+                _pipeline.WorkflowId.Value,
+                version.Value,
+                cancellationToken);
+
+            return ApiResult(workflowVersion);
+        }
+
         [HttpGet("{pipeline}/constant")]
         public async ValueTask<ApiResult<List<PipelineConstants>>> GetConstant(
             [FromServices] PipelineContext db,
@@ -168,7 +215,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
             {
-                return ApiResult<List<PipelineConstants>>(401, $"You don't have the permission to this pipeline");
+                return ApiResult<List<PipelineConstants>>(403, $"You don't have the permission to this pipeline");
             }
 
             var items = (await Get(db, pipeline, projectId, cancellationToken)).Data.Constants;
@@ -181,7 +228,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPatch("{pipeline}")]
         public async ValueTask<ApiResult<Pipeline>> Put(
             [FromServices] PipelineContext db,
-            [FromServices] WorkflowManager wf,
+            [FromServices] DevOpsWorkflowManager wf,
             [FromRoute] string projectId,
             [FromRoute] string pipeline,
             [FromBody] PutPipelineRequest request,
@@ -274,7 +321,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPut("{pipeline}.yml")]
         public async ValueTask<ApiResult<Pipeline>> Put(
             [FromServices] PipelineContext db,
-            [FromServices] WorkflowManager wf,
+            [FromServices] DevOpsWorkflowManager wf,
             [FromRoute] string projectId,
             [FromRoute] string pipeline,
             [FromQuery] string name,
@@ -385,7 +432,8 @@ namespace Pomelo.DevOps.Server.Controllers
                 return ApiResult<List<PipelineDiagramStage>>(403, $"You don't have the permission to this pipeline");
             }
 
-            IQueryable<PipelineDiagramStage> stages = db.PipelineDiagramStages;
+            IQueryable<PipelineDiagramStage> stages = db.PipelineDiagramStages
+                .Include(x => x.Workflow);
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -452,7 +500,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPost("{pipeline}/diagram-stage")]
         public async ValueTask<ApiResult<PipelineDiagramStage>> PostDiagramStage(
             [FromServices] PipelineContext db,
-            [FromServices] WorkflowManager wf,
+            [FromServices] DevOpsWorkflowManager wf,
             [FromRoute] string projectId,
             [FromRoute] string pipeline,
             [FromBody] CreateWorkflowRequest request,

@@ -20,4 +20,8 @@
         <span>Stage</span>
     </a>
 </div>
-<pomelo-workflow id="pipeline-diagram-panel" class="pipeline-diagram-panel" v-bind:edit="true"></pomelo-workflow>
+<pomelo-workflow id="pipeline-diagram-panel" 
+                 class="pipeline-diagram-panel" 
+                 v-bind:edit="true" 
+                 v-if="workflowVersion"
+                 v-model:diagramModel="workflowVersion.diagram" />

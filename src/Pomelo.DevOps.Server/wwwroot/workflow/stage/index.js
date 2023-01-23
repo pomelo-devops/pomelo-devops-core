@@ -3,6 +3,7 @@ Component('stage', {
     props: ['shape', 'arguments'],
     data() {
         return {
+            stages: []
         };
     },
     computed: {
@@ -17,6 +18,17 @@ Component('stage', {
             this.shape.createAnchor(.5, 1);
             this.shape.createAnchor(0, .5);
         }
+
+        var self = this;
+        if (!this.shape.arguments) {
+            this.shape.arguments = {};
+        }
+        if (!this.shape.arguments.StageWorkflowId) {
+            this.shape.arguments.StageWorkflowId = null;
+        }
+        Pomelo.CQ.CreateView(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage`, {}, 60000).fetch(function (result) {
+            self.stages = result.data;
+        });
     },
     methods: {
         onClicked(event) {

@@ -58,7 +58,7 @@
       "destination": "wwwroot/assets/js/mimetypes/"
     },
     {
-      "library": "pomelo-workflow-pomelo-vue@1.0.2",
+      "library": "pomelo-workflow-pomelo-vue@1.0.3",
       "destination": "wwwroot/assets/js/pomelo-workflow-pomelo-vue/"
     }
   ]

@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Pipelines.Sockets.Unofficial.Arenas;
 using System.Net.Sockets;
 using System.Collections.Generic;
-using Pomelo.Workflow;
+using Pomelo.DevOps.Server.Workflow;
 
 namespace Pomelo.DevOps.Server.Controllers
 {
@@ -29,7 +29,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPost("execute-job")]
         public async ValueTask<IActionResult> ExecuteJob(
             [FromServices] PipelineContext db,
-            [FromServices] WorkflowManager wf,
+            [FromServices] DevOpsWorkflowManager wf,
             [FromBody] ExecuteJobRequest body,
             CancellationToken cancellationToken = default)
         {
