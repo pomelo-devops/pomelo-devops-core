@@ -1,0 +1,143 @@
+.start-node {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 120px;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    background: #FA9F32;
+    color: #fff;
+    line-height: 40px;
+    padding: 0 15px;
+}
+
+    .start-node > svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .start-node > svg, .start-node > svg path {
+        fill: #fff !important;
+    }
+
+    .start-node > * {
+        vertical-align: middle;
+    }
+
+.start-node-title {
+    display: inline-block;
+    width: calc(100% - 32px);
+    font-size: 16px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.start-node-anchor, .start-node-anchor-arrow {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #777;
+    position: absolute;
+    margin-top: -3px;
+    margin-left: -3px;
+    box-sizing: border-box;
+}
+
+.start-node-anchor-arrow {
+    font-size: 12px;
+    line-height: 12px;
+    height: 12px;
+    width: 12px;
+    text-align: center;
+    margin-top: -6px;
+    margin-left: -6px;
+    border: none;
+}
+
+.start-node-anchor-arrow.connecting:hover {
+    color: #1A76C6;
+}
+
+.start-node-anchor.connecting:hover {
+    background: #1A76C6;
+}
+
+.start-node-anchor-arrow.active {
+    color: #FF7B15!important;
+}
+
+.start-node-anchor.active {
+    background: #FF7B15!important;
+}
+
+.start-node-settings {
+    position: fixed;
+    top: 120px;
+    bottom: 30px;
+    right: 30px;
+    width: 280px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    z-index: 10;
+    color: #777;
+    line-height: initial;
+}
+
+.start-node-settings-header {
+    border-bottom: 1px solid #ddd;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+    .start-node-settings-header > svg {
+        height: 40px;
+        width: 40px;
+        margin-right: 5px;
+    }
+
+.start-node-settings-header > * {
+    vertical-align: middle;
+}
+
+.start-node-settings-footer {
+    position: absolute;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 10px;
+}
+
+.start-node-settings-footer-button {
+    background: #EE8236;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 8px;
+}
+
+.start-node-settings-body {
+    padding: 10px;
+}
+
+.start-node-settings-body-section-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.start-node-settings-body-textbox {
+    display: block;
+    box-sizing: border-box;
+    outline: 0;
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    width: 100%;
+}

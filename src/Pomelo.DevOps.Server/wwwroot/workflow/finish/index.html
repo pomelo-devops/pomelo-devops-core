@@ -1,0 +1,21 @@
+<div class="finish-node" v-on:click="onClicked">
+    <svg t="1674462188334" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18752" width="20" height="20"><path d="M850.130248 906.087914H176.86813c-30.959148 0-56.029916-25.179143-56.029916-56.138291V176.687504c0-30.959148 25.106893-56.138291 56.029916-56.138291h673.262118c31.031398 0 56.138291 25.179143 56.138291 56.138291v673.262119c0 30.959148-25.070768 56.138291-56.138291 56.138291z m0-701.403514a28.033021 28.033021 0 0 0-28.033021-28.033021H204.9734c-15.569886 0-28.105271 12.535384-28.10527 28.033021v617.232202c0 15.497636 12.535384 28.033021 28.10527 28.033021h617.123827c15.497636 0 28.033021-12.535384 28.033021-28.033021V204.6844z" fill="#EE7F51" p-id="18753"></path></svg>
+    <span class="finish-node-title">{{ shape.name || 'Finish' }}</span>
+    <template v-for="(anchor, i) in shape.anchors">
+        <a class="finish-node-anchor-arrow" v-bind:class="{ active: $parent.connectFrom == anchor, connecting: $parent.mode == 'connect' }" v-on:click="link(anchor)" pomelo-wf-anchor v-bind:style="'color: ' + shape.diagram.connectPolylines.filter(x => x.getDestinationAnchor() == anchor)[0].getColor()" v-if="shape.diagram.connectPolylines.some(x => x.getDestinationAnchor() == anchor)" v-bind:style="`top: ${anchor.yPercentage * 100}%; left: ${anchor.xPercentage * 100}%; transform: rotate(${90 * i}deg);`">▼</a>
+        <a class="finish-node-anchor" v-bind:class="{ active: $parent.connectFrom == anchor, connecting: $parent.mode == 'connect' }" v-on:click="link(anchor)" pomelo-wf-anchor v-else-if="active || $parent.mode == 'connect'" v-bind:style="`top: ${anchor.yPercentage * 100}%; left: ${anchor.xPercentage * 100}%`"></a>
+    </template>
+    <div class="finish-node-settings" v-if="active && !$parent.dragStart">
+        <div class="finish-node-settings-header">
+            <svg t="1674462188334" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="18752" width="20" height="20"><path d="M850.130248 906.087914H176.86813c-30.959148 0-56.029916-25.179143-56.029916-56.138291V176.687504c0-30.959148 25.106893-56.138291 56.029916-56.138291h673.262118c31.031398 0 56.138291 25.179143 56.138291 56.138291v673.262119c0 30.959148-25.070768 56.138291-56.138291 56.138291z m0-701.403514a28.033021 28.033021 0 0 0-28.033021-28.033021H204.9734c-15.569886 0-28.105271 12.535384-28.10527 28.033021v617.232202c0 15.497636 12.535384 28.033021 28.10527 28.033021h617.123827c15.497636 0 28.033021-12.535384 28.033021-28.033021V204.6844z" fill="#EE7F51" p-id="18753"></path></svg>
+            <span>Finish</span>
+        </div>
+        <div class="finish-node-settings-body">
+            <div class="finish-node-settings-body-section-title">Name</div>
+            <div><input class="finish-node-settings-body-textbox" v-model="shape.name" placeholder="Please input name..." /></div>
+        </div>
+        <div class="finish-node-settings-footer">
+            <a class="finish-node-settings-footer-button" v-on:click="blur">OK</a>
+        </div>
+    </div>
+</div>

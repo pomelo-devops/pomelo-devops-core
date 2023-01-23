@@ -1,0 +1,41 @@
+﻿.pipeline-diagram-panel {
+    position: absolute;
+    top: 38px;
+    bottom: 0;
+    left: 81px;
+    right: 0;
+    background: #fff;
+}
+
+.pipeline-diagram-node-menu {
+    position: absolute;
+    top: 38px;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    background: #fcfcfc;
+    border-right: 1px solid #ddd;
+    text-align: center;
+}
+
+.pipeline-diagram-node-item {
+    display: block;
+    color: #777;
+    cursor: pointer;
+    margin: 8px 0;
+}
+
+    .pipeline-diagram-node-item > * {
+        vertical-align: middle;
+        font-size: 16px;
+    }
+
+    .pipeline-diagram-node-item > svg {
+        height: 32px;
+        width: 32px;
+    }
+
+    .pipeline-diagram-node-item > span {
+        font-size: 12px;
+        display: block;
+    }
