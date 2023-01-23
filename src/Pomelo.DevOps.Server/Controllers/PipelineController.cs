@@ -163,6 +163,32 @@ namespace Pomelo.DevOps.Server.Controllers
             }
         }
 
+        [HttpGet("{pipeline}/diagram/version")]
+        public async ValueTask<ApiResult<List<int>>> GetVersions(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<List<int>>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var _pipeline = await db.Pipelines
+                .FirstOrDefaultAsync(x => x.Id == pipeline, cancellationToken);
+
+            if (_pipeline == null || !_pipeline.WorkflowId.HasValue)
+            {
+                return ApiResult<List<int>>(403, $"The specified diagram was not found");
+            }
+
+            var versions = await wf.GetWorkflowVersionsAsync(_pipeline.WorkflowId.Value, cancellationToken);
+
+            return ApiResult(versions.Select(x => x.Version).ToList());
+        }
+
         [HttpGet("{pipeline}/diagram")]
         [HttpGet("{pipeline}/diagram/version/{version:int?}")]
         public async ValueTask<ApiResult<WorkflowVersion>> GetPipelineDiagram(

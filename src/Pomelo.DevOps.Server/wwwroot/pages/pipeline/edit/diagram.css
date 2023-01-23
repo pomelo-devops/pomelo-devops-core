@@ -42,7 +42,7 @@
     }
 
 .pomelo-wf-diagram {
-    position: relative!important;
+    position: relative !important;
 }
 
 .pipeline-diagram-menu {
@@ -89,3 +89,18 @@
         .pipeline-diagram-menu-button:hover svg path, .pipeline-diagram-menu-button.active svg path {
             fill: #fff;
         }
+
+.pipeline-diagram-menu-right {
+    float: right;
+}
+
+.pipeline-diagram-version-selector {
+    padding: 0 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    line-height: 30px;
+    height: 26px;
+    min-width: 60px;
+    color: #777;
+    outline: 0;
+}
