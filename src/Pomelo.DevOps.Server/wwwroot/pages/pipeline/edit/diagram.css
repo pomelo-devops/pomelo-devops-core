@@ -5,6 +5,7 @@
     left: 81px;
     right: 0;
     background: #fff;
+    overflow: auto;
 }
 
 .pipeline-diagram-node-menu {
@@ -39,3 +40,7 @@
         font-size: 12px;
         display: block;
     }
+
+.pomelo-wf-diagram {
+    position: relative!important;
+}
