@@ -29,16 +29,16 @@ Page({
         // TODO: Fetch pipeline;
         this.pipeline.id = this.pipelineId;
         this.$root.data.currentPipeline = this.pipeline;
-
-        if (this.func == null) {
-            Pomelo.Redirect(`/project/${this.projectId}/pipeline/${this.pipelineId}/edit/playbook`, { pipeline: this.pipeline });
-            return;
-        }
     },
     async mounted() {
         var pipeline = await pipelineClient.getPipeline(this.projectId, this.pipelineId);
         if (pipeline) {
             this.pipeline = pipeline;
+        }
+
+        if (this.func == null) {
+            Pomelo.Redirect(`/project/${this.projectId}/pipeline/${this.pipelineId}/edit/${this.pipeline.type == 'Linear' ? 'playbook' : 'diagram'}`, { pipeline: this.pipeline });
+            return;
         }
 
         if (this.func) {
