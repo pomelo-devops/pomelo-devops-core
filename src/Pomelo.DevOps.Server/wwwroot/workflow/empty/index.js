@@ -1,4 +1,4 @@
-Component('stage', {
+Component('empty', {
     style: true,
     props: ['shape', 'arguments'],
     data() {
@@ -20,12 +20,6 @@ Component('stage', {
         }
 
         var self = this;
-        if (!this.shape.arguments) {
-            this.shape.arguments = {};
-        }
-        if (!this.shape.arguments.StageWorkflowId) {
-            this.shape.arguments.StageWorkflowId = null;
-        }
         Pomelo.CQ.CreateView(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage`, {}, 60000).fetch(function (result) {
             self.stages = result.data;
         });
@@ -51,20 +45,12 @@ Component('stage', {
         },
         link(anchor) {
             if (this.$parent.isDeparture()) {
-                if (this.shape.getOutgoingConnectedPolylines().length >= 2) {
+                if (this.shape.getOutgoingConnectedPolylines().length) {
                     notification.push('Pipeline Diagram', 'You cannot add more connections to other nodes.', 'error');
                     this.$parent.cancelOperations();
                     return;
                 }
-
-                var polylines = this.shape.getOutgoingConnectedPolylines();
-
-                if (!polylines.some(x => x.getType() == 'default')) {
-                    this.$parent.link(anchor, '#1ca725', 'default');
-                } else {
-                    this.$parent.link(anchor, '#d81e06', 'failed');
-                }
-
+                this.$parent.link(anchor);
             } else {
                 if (this.shape.getIncomingConnectedPolylines().length) {
                     notification.push('Pipeline Diagram', 'This node cannot be connected by any other nodes', 'error');
