@@ -3,13 +3,17 @@
 
 Page({
     layout: '/shared/devops',
+    components: [
+        '/components/radio-button/index'
+    ],
     style: true,
     data() {
         return {
             projectId: null,
             form: {
                 id: null,
-                name: null
+                name: null,
+                type: 'Linear'
             }
         };
     },
@@ -36,6 +40,8 @@ Page({
                 notification.push('Error', 'The pipeline ID is already taken.', 'error');
                 return;
             }
+
+            await Pomelo.CQ.Post(`/api/project/${this.projectId}/pipeline/${this.form.id}`, this.form);
 
             Pomelo.Redirect(`/project/${this.projectId}/pipeline/${this.form.id}/edit`);
         }

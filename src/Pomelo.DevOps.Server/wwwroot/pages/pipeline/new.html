@@ -18,6 +18,11 @@
         <b>{{ $root.localization.sr('PIPELINE_PIPELINE_ID') }}</b>
         <input v-model="form.id" v-bind:placeholder="$root.localization.sr('PIPELINE_PIPELINE_ID_PLACEHOLDER')" class="dialog-textbox" />
     </div>
+    <div class="field">
+        <b>{{ $root.localization.sr('PIPELINE_PIPELINE_TYPE') }}</b>
+        <radio-button v-model="form.type" v-bind:title="$root.localization.sr('PIPELINE_PIPELINE_TYPE_LINEAR')" v-bind:hint="$root.localization.sr('PIPELINE_PIPELINE_TYPE_LINEAR_DESCRIPTION')" value="Linear"></radio-button>
+        <radio-button v-model="form.type" v-bind:title="$root.localization.sr('PIPELINE_PIPELINE_TYPE_DIAGRAM')" v-bind:hint="$root.localization.sr('PIPELINE_PIPELINE_TYPE_DIAGRAM_DESCRIPTION')" value="Diagram"></radio-button>
+    </div>
     <div class="footer">
         <a class="submit" v-on:click="create">
             <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>

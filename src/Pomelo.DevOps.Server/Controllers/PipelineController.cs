@@ -263,10 +263,9 @@ namespace Pomelo.DevOps.Server.Controllers
                         return ApiResult<Pipeline>(400, $"Missing step in those stage(s): {string.Join(", ", emptyStages.Select(x => x.Name))}");
                     }
                 }
-
-                _pipeline.PipelineBody = YamlSerializer.Serialize(request);
             }
-            
+
+            _pipeline.PipelineBody = YamlSerializer.Serialize(request);
 
             await db.SaveChangesAsync();
             return ApiResult(_pipeline);
