@@ -1,29 +1,47 @@
-.sync-node {
+.stage-node {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    line-height: 40px;
+    width: 120px;
+    height: 40px;
+    box-sizing: border-box;
     background: #4785F7;
-    text-align: center;
+    color: #fff;
+    padding: 0 15px;
 }
 
-    .sync-node > * {
-        vertical-align: middle;
+    .stage-node > svg {
+        width: 28px;
+        height: 28px;
     }
 
-    .sync-node > svg {
-        width: 32px;
-        height: 32px;
+    .stage-node > svg, .stage-node > svg path {
         fill: #fff !important;
     }
 
-        .sync-node > svg path {
-            fill: #fff;
-        }
+    .stage-node > * {
+        vertical-align: middle;
+    }
 
-.sync-node-anchor, .sync-node-anchor-arrow {
+.stage-node-title {
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+    height: 40px;
+    vertical-align: top;
+    margin: 0;
+    width: calc(100% - 6px);
+    line-height: 40px;
+}
+
+.stage-node-anchor, .stage-node-anchor-arrow {
     display: inline-block;
     width: 6px;
     height: 6px;
@@ -34,7 +52,7 @@
     box-sizing: border-box;
 }
 
-.sync-node-anchor-arrow {
+.stage-node-anchor-arrow {
     font-size: 12px;
     line-height: 12px;
     height: 12px;
@@ -45,23 +63,23 @@
     border: none;
 }
 
-    .sync-node-anchor-arrow.connecting:hover {
-        color: #1A76C6;
-    }
+.stage-node-anchor-arrow.connecting:hover {
+    color: #1A76C6;
+}
 
-.sync-node-anchor.connecting:hover {
+.stage-node-anchor.connecting:hover {
     background: #1A76C6;
 }
 
-.sync-node-anchor-arrow.active {
-    color: #FF7B15 !important;
+.stage-node-anchor-arrow.active {
+    color: #FF7B15!important;
 }
 
-.sync-node-anchor.active {
-    background: #FF7B15 !important;
+.stage-node-anchor.active {
+    background: #FF7B15!important;
 }
 
-.sync-node-settings {
+.stage-node-settings {
     position: fixed;
     top: 120px;
     bottom: 30px;
@@ -71,28 +89,28 @@
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0,0,0,.1);
     z-index: 10;
-    text-align: left;
+    color: #777;
     line-height: initial;
 }
 
-.sync-node-settings-header {
+.stage-node-settings-header {
     border-bottom: 1px solid #ddd;
     height: 40px;
     padding: 10px;
     font-size: 16px;
 }
 
-    .sync-node-settings-header > * {
-        vertical-align: middle;
-    }
-
-    .sync-node-settings-header > svg {
-        width: 40px;
+    .stage-node-settings-header > svg {
         height: 40px;
+        width: 40px;
         margin-right: 5px;
     }
 
-.sync-node-settings-footer {
+.stage-node-settings-header > * {
+    vertical-align: middle;
+}
+
+.stage-node-settings-footer {
     position: absolute;
     border-top: 1px solid #ddd;
     bottom: 0;
@@ -101,7 +119,7 @@
     padding: 15px 10px;
 }
 
-.sync-node-settings-footer-button {
+.stage-node-settings-footer-button {
     background: #EE8236;
     border-radius: 5px;
     color: #fff;
@@ -109,17 +127,17 @@
     padding: 5px 8px;
 }
 
-.sync-node-settings-body {
+.stage-node-settings-body {
     padding: 10px;
 }
 
-.sync-node-settings-body-section-title {
+.stage-node-settings-body-section-title {
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.sync-node-settings-body-textbox {
+.stage-node-settings-body-textbox {
     display: block;
     box-sizing: border-box;
     outline: 0;
