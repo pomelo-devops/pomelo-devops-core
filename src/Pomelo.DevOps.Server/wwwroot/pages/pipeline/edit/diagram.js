@@ -22,8 +22,25 @@ Page({
         this.$root.ui.active = null;
     },
     methods: {
-        async getWorkflowVersion() {
-            this.workflowVersion = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram`)).data;
+        discard() {
+            window.location.reload();
+        },
+        async save() {
+            var notify = notification.push('Pipeline Diagram', 'Saving pipeline diagram...');
+            try {
+                var version = (await Pomelo.CQ.Post(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram`, this.workflowVersion.diagram)).data;
+                await this.getWorkflowVersion(version);
+                notify.type = 'success';
+                notify.message = 'Pipeline diagram saved';
+                notify.time = 10;
+            } catch (ex) {
+                notify.type = 'error';
+                notify.message = ex.message;
+                notify.time = 10;
+            }
+        },
+        async getWorkflowVersion(version) {
+            this.workflowVersion = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram${((!version) ? '' : `/version/${version}`)}`)).data;
         },
         add(node, width, height) {
             console.log(lifecycleManager.getById('pipeline-diagram-panel'));

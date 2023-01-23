@@ -164,10 +164,10 @@ namespace Pomelo.DevOps.Server.Controllers
         }
 
         [HttpGet("{pipeline}/diagram")]
-        [HttpGet("{pipeline}/diagram/{version:int?}")]
+        [HttpGet("{pipeline}/diagram/version/{version:int?}")]
         public async ValueTask<ApiResult<WorkflowVersion>> GetPipelineDiagram(
             [FromServices] PipelineContext db,
-            [FromServices] DevOpsWorkflowManager workflowManager,
+            [FromServices] DevOpsWorkflowManager wf,
             [FromRoute] string projectId,
             [FromRoute] string pipeline,
             [FromRoute] int? version = null,
@@ -186,24 +186,51 @@ namespace Pomelo.DevOps.Server.Controllers
                 return ApiResult<WorkflowVersion>(403, $"The specified diagram was not found");
             }
 
-            var draftMax = await workflowManager.GetLatestVersionAsync(
+            var draftMax = await wf.GetLatestVersionAsync(
                 _pipeline.WorkflowId.Value,
                 WorkflowVersionStatus.Draft,
                 cancellationToken);
 
-            var availableMax = await workflowManager.GetLatestVersionAsync(
+            var availableMax = await wf.GetLatestVersionAsync(
                     _pipeline.WorkflowId.Value,
                     cancellationToken: cancellationToken);
 
             version = version 
                 ?? Math.Max(draftMax.Value, availableMax.Value);
 
-            var workflowVersion = await workflowManager.GetWorkflowVersionAsync(
+            var workflowVersion = await wf.GetWorkflowVersionAsync(
                 _pipeline.WorkflowId.Value,
                 version.Value,
                 cancellationToken);
 
             return ApiResult(workflowVersion);
+        }
+
+        [HttpPost("{pipeline}/diagram")]
+        public async ValueTask<ApiResult<int>> PostPipelineDiagram(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromBody] Diagram diagram,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
+            {
+                return ApiResult<int>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var _pipeline = await db.Pipelines
+                .FirstOrDefaultAsync(x => x.Id == pipeline, cancellationToken);
+
+            if (_pipeline == null || !_pipeline.WorkflowId.HasValue)
+            {
+                return ApiResult<int>(403, $"The specified diagram was not found");
+            }
+
+            var version = await wf.CreateWorkflowVersionAsync(_pipeline.WorkflowId.Value, diagram, cancellationToken);
+
+            return ApiResult(version);
         }
 
         [HttpGet("{pipeline}/constant")]
@@ -393,6 +420,8 @@ namespace Pomelo.DevOps.Server.Controllers
             await db.Pipelines
                 .Where(x => x.Id == pipeline)
                 .DeleteAsync(cancellationToken);
+
+            // TODO: Delete workflow
 
             return ApiResult(200, $"The specified pipeline '{pipeline}' has been removed successfully");
         }
