@@ -3,7 +3,8 @@
     style: true,
     data() {
         return {
-            stages: []
+            stages: [],
+            active: null
         };
     },
     mounted() {
@@ -21,7 +22,7 @@
             this.stages = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage`)).data;
         },
         editStage(stage) {
-
+            this.$containers[0].open('/pages/pipeline/edit/diagram', { isStage: true, diagramStageId: stage.id });
         },
         createStage() {
             this.$containers[0].open('/pages/pipeline/edit/stages-create');

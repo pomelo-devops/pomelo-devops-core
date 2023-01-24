@@ -8,6 +8,8 @@ Page({
     style: true,
     data() {
         return {
+            isStage: false, // Only for stage diagram
+            diagramStageId: null, // Only for stage diagram
             pipeline: null,
             workflowVersion: null,
             versions: [],
@@ -30,10 +32,18 @@ Page({
         }
     },
     mounted() {
-        this.$root.ui.active = 'pipeline-diagram';
+        if (this.isStage) {
+            this.$parent.active = this.diagramStageId;
+            this.$root.ui.active = 'pipeline-stages';
+        } else {
+            this.$root.ui.active = 'pipeline-diagram';
+        }
     },
     unmounted() {
         this.$root.ui.active = null;
+        if (this.isStage) {
+            this.$parent.active = null;
+        }
     },
     watch: {
         version() {
@@ -60,26 +70,49 @@ Page({
             window.location.reload();
         },
         async save() {
-            var notify = notification.push('Pipeline Diagram', 'Saving pipeline diagram...');
-            try {
-                var version = (await Pomelo.CQ.Post(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram`, this.workflowVersion.diagram)).data;
-                await this.getWorkflowVersion(version);
-                notify.type = 'success';
-                notify.message = 'Pipeline diagram saved';
-                notify.time = 10;
-            } catch (ex) {
-                notify.type = 'error';
-                notify.message = ex.message;
-                notify.time = 10;
+            if (!this.isStage) {
+                var notify = notification.push('Pipeline Diagram', 'Saving pipeline diagram...');
+                try {
+                    var version = (await Pomelo.CQ.Post(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram`, this.workflowVersion.diagram)).data;
+                    await this.getWorkflowVersion(version);
+                    notify.type = 'success';
+                    notify.message = 'Pipeline diagram saved';
+                    notify.time = 10;
+                } catch (ex) {
+                    notify.type = 'error';
+                    notify.message = ex.message;
+                    notify.time = 10;
+                }
+            } else {
+                var notify = notification.push('Stage Diagram', 'Saving stage diagram...');
+                try {
+                    var version = (await Pomelo.CQ.Post(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage/${this.diagramStageId}/version`, this.workflowVersion.diagram)).data;
+                    await this.getWorkflowVersion(version);
+                    notify.type = 'success';
+                    notify.message = 'Stage diagram saved';
+                    notify.time = 10;
+                } catch (ex) {
+                    notify.type = 'error';
+                    notify.message = ex.message;
+                    notify.time = 10;
+                }
             }
         },
         async getWorkflowVersion(version) {
             this.workflowVersion = null;
-            this.workflowVersion = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram${((!version) ? '' : `/version/${version}`)}`)).data;
+            if (!this.isStage) {
+                this.workflowVersion = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram${((!version) ? '' : `/version/${version}`)}`)).data;
+            } else {
+                this.workflowVersion = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage/${this.diagramStageId}${((!version) ? '' : `/version/${version}`)}`)).data;
+            }
             this.version = this.workflowVersion.version;
         },
         async getWorkflowVersions() {
-            this.versions = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram/version`)).data;
+            if (!this.isStage) {
+                this.versions = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram/version`)).data;
+            } else {
+                this.versions = (await Pomelo.CQ.Get(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage/${this.diagramStageId}/version`)).data;
+            }
         },
         add(node, width, height) {
             console.log(lifecycleManager.getById('pipeline-diagram-panel'));

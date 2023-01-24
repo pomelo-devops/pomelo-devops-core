@@ -498,60 +498,6 @@ namespace Pomelo.DevOps.Server.Controllers
             return ApiResult(await stages.ToListAsync(cancellationToken));
         }
 
-        [HttpGet("{pipeline}/diagram-stage/{diagramStageId:Guid}")]
-        public async ValueTask<ApiResult<PipelineDiagramStage>> GetDiagramStage(
-            [FromServices] PipelineContext db,
-            [FromRoute] string projectId,
-            [FromRoute] string pipeline,
-            [FromRoute] Guid diagramStageId,
-            [FromQuery] string name = null,
-            CancellationToken cancellationToken = default)
-        {
-            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
-            {
-                return ApiResult<PipelineDiagramStage>(403, $"You don't have the permission to this pipeline");
-            }
-
-            var stage = await db.PipelineDiagramStages
-                .Include(x => x.Workflow)
-                .FirstOrDefaultAsync(x => x.PipelineId == pipeline 
-                    && x.Id == diagramStageId, cancellationToken);
-
-            if (stage == null)
-            {
-                return ApiResult<PipelineDiagramStage>(404, $"The specified diagram stage was not found.");
-            }
-
-            return ApiResult(stage);
-        }
-
-        [HttpDelete("{pipeline}/diagram-stage/{diagramStageId:Guid}")]
-        public async ValueTask<ApiResult<PipelineDiagramStage>> DeleteDiagramStage(
-            [FromServices] PipelineContext db,
-            [FromRoute] string projectId,
-            [FromRoute] string pipeline,
-            [FromRoute] Guid diagramStageId,
-            [FromQuery] string name = null,
-            CancellationToken cancellationToken = default)
-        {
-            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
-            {
-                return ApiResult<PipelineDiagramStage>(403, $"You don't have the permission to this pipeline");
-            }
-
-            var stage = await db.PipelineDiagramStages
-                .Include(x => x.Workflow)
-                .FirstOrDefaultAsync(x => x.PipelineId == pipeline
-                    && x.Id == diagramStageId, cancellationToken);
-
-            if (stage == null)
-            {
-                return ApiResult<PipelineDiagramStage>(404, $"The specified diagram stage was not found.");
-            }
-
-            return ApiResult(stage);
-        }
-
         [HttpPost("{pipeline}/diagram-stage")]
         public async ValueTask<ApiResult<PipelineDiagramStage>> PostDiagramStage(
             [FromServices] PipelineContext db,
@@ -581,6 +527,105 @@ namespace Pomelo.DevOps.Server.Controllers
 
             await db.SaveChangesAsync(cancellationToken);
             return ApiResult(pipelineDiagramStage);
+        }
+
+        [HttpGet("{pipeline}/diagram-stage/{stageId:Guid}")]
+        [HttpGet("{pipeline}/diagram-stage/{stageId:Guid}/version/{version:int?}")]
+        public async ValueTask<ApiResult<WorkflowVersion>> GetDiagramStageWorkflowVersion(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid stageId,
+            [FromRoute] int? version,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<WorkflowVersion>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var diagramStage = await db.PipelineDiagramStages
+                .FirstOrDefaultAsync(x => x.Id == stageId, cancellationToken);
+
+            if (diagramStage == null)
+            {
+                return ApiResult<WorkflowVersion>(403, $"The specified diagram was not found");
+            }
+
+            var draftMax = await wf.GetLatestVersionAsync(
+                diagramStage.WorkflowId,
+                WorkflowVersionStatus.Draft,
+                cancellationToken);
+
+            var availableMax = await wf.GetLatestVersionAsync(
+                    diagramStage.WorkflowId,
+                    cancellationToken: cancellationToken);
+
+            version = version
+                ?? Math.Max(draftMax.Value, availableMax.Value);
+
+            var workflowVersion = await wf.GetWorkflowVersionAsync(
+                diagramStage.WorkflowId,
+                version.Value,
+                cancellationToken);
+
+            return ApiResult(workflowVersion);
+        }
+
+        [HttpGet("{pipeline}/diagram-stage/{stageId:Guid}/version")]
+        public async ValueTask<ApiResult<List<int>>> GetDiagramStageVersions(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid stageId,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<List<int>>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var diagramStage = await db.PipelineDiagramStages
+                .FirstOrDefaultAsync(x => x.Id == stageId, cancellationToken);
+
+            if (diagramStage == null)
+            {
+                return ApiResult<List<int>>(403, $"The specified diagram was not found");
+            }
+
+            var versions = await wf.GetWorkflowVersionsAsync(diagramStage.WorkflowId, cancellationToken);
+
+            return ApiResult(versions.Select(x => x.Version).ToList());
+        }
+
+        [HttpPost("{pipeline}/diagram-stage/{stageId:Guid}/version")]
+        public async ValueTask<ApiResult<int>> PostDiagramStageDiagram(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid stageId,
+            [FromBody] Diagram diagram,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
+            {
+                return ApiResult<int>(403, $"You don't have the permission to this pipeline");
+            }
+
+            var diagramStage = await db.PipelineDiagramStages
+                .FirstOrDefaultAsync(x => x.Id == stageId, cancellationToken);
+
+            if (diagramStage == null)
+            {
+                return ApiResult<int>(403, $"The specified diagram was not found");
+            }
+
+            var version = await wf.CreateWorkflowVersionAsync(diagramStage.WorkflowId, diagram, cancellationToken);
+
+            return ApiResult(version);
         }
         #endregion
 

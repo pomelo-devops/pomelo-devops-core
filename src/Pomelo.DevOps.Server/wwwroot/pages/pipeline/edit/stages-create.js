@@ -4,16 +4,22 @@
         return {
             form: {
                 name: null,
-                description: null
+                description: null,
+                active: null
             }
         };
+    },
+    mounted() {
+        this.$root.ui.active = 'pipeline-stages';
+    },
+    unmounted() {
+        this.$root.ui.active = null;
     },
     created() {
         this.form.name = this.$root.localization.sr('PIPELINE_EDIT_PLAYBOOK_ADD_STAGE_DEFAULT');
     },
     methods: {
         async create() {
-
             if (!this.form.name) {
                 notification.push('Create Stage Definition', 'Name cannot be empty', 'error');
                 return;

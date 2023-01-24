@@ -30,7 +30,7 @@
     white-space: nowrap;
 }
 
-    .pipeline-stages-list-item:hover {
+    .pipeline-stages-list-item:hover, .pipeline-stages-list-item.active {
         background: #FA9F32;
         color: #fff;
     }
