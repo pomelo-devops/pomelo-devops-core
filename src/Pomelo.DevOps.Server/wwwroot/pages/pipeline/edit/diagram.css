@@ -104,3 +104,7 @@
     color: #777;
     outline: 0;
 }
+
+.pipeline-diagram-menu-button.disabled {
+    opacity: 0.5;
+}

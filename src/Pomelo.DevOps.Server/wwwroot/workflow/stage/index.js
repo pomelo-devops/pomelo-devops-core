@@ -6,6 +6,18 @@ Component('stage', {
             stages: []
         };
     },
+    watch: {
+        settingsActive() {
+            if (!this.settingsActive) {
+                this.$parent.$parent.active = null;
+            }
+        },
+        settingsActive() {
+            return this.active
+                && !this.$parent.dragStart
+                && this.$parent.$parent.active == this.shape;
+        }
+    },
     computed: {
         active() {
             return this.$parent.active == this.shape;
@@ -75,7 +87,7 @@ Component('stage', {
             }
         },
         blur() {
-            this.$parent.cancelOperations();
+            this.$parent.$parent.active = null;
         }
     }
 });

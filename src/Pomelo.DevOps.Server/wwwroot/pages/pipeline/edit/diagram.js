@@ -11,12 +11,23 @@ Page({
             pipeline: null,
             workflowVersion: null,
             versions: [],
-            version: null
+            version: null,
+            active: null
         };
     },
     created() {
         this.getWorkflowVersions();
         this.getWorkflowVersion();
+    },
+    computed: {
+        innerActive() {
+            var com = lifecycleManager.getById('pipeline-diagram-panel');
+            if (!com) {
+                return null;
+            }
+
+            return com.active;
+        }
     },
     mounted() {
         this.$root.ui.active = 'pipeline-diagram';
@@ -30,6 +41,21 @@ Page({
         }
     },
     methods: {
+        getLifecycleManager() {
+            return lifecycleManager;
+        },
+        settings() {
+            if (this.active) {
+                this.active = null;
+                return;
+            }
+
+            if (!lifecycleManager.getById('pipeline-diagram-panel').active) {
+                return;
+            }
+
+            this.active = lifecycleManager.getById('pipeline-diagram-panel').active;
+        },
         discard() {
             window.location.reload();
         },
