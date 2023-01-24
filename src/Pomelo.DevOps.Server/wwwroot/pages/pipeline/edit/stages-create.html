@@ -1,0 +1,24 @@
+﻿<!--
+    Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+    Licensed under the MIT. See LICENSE in the project root for license information.
+-->
+<div class="dialog">
+    <div class="dialog-header">
+        <svg t="1674478182138" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2137" width="20" height="20"><path d="M1024 1024H0V512h284.444444V284.444444h227.555556V0h512v1024zM113.777778 910.222222h796.444444V113.777778h-284.444444v284.444444H398.222222v227.555556H113.777778v284.444444z" fill="#EE7F51" p-id="2138" data-spm-anchor-id="a313x.7781069.0.i0" class=""></path><path d="M568.888889 568.888889h227.555555v113.777778h-227.555555z" fill="#EDA34A" p-id="2139" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path></svg>
+        <span>Create Stage Definition</span>
+    </div>
+    <div class="field">
+        <b>Stage Name</b>
+        <input v-model="form.name" v-bind:placeholder="null" class="dialog-textbox" />
+    </div>
+    <div class="field">
+        <b>Description</b>
+        <textarea class="textarea" v-model="form.description"></textarea>
+    </div>
+    <div class="footer">
+        <a class="submit" v-on:click="create">
+            <svg t="1669721300083" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3094" width="20" height="20"><path d="M683.968 534.944H544v139.968a32 32 0 0 1-64 0v-139.968h-139.968a32 32 0 0 1 0-64H480v-139.968a32 32 0 0 1 64 0v139.968h139.968a32 32 0 0 1 0 64M512 128C300.256 128 128 300.288 128 512c0 211.744 172.256 384 384 384s384-172.256 384-384c0-211.712-172.256-384-384-384" p-id="3095"></path></svg>
+            <span>Create Stage</span>
+        </a>
+    </div>
+</div>

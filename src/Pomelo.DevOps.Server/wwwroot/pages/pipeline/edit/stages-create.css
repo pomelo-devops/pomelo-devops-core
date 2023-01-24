@@ -1,0 +1,164 @@
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.dialog {
+    margin: 0 auto;
+    margin-top: 30px;
+    background: #fff;
+    width: 480px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,.05);
+}
+
+.dialog-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .dialog-header * {
+        vertical-align: middle;
+    }
+
+    .dialog-header span {
+        line-height: 40px;
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    .dialog-header svg {
+        width: 40px;
+        height: 40px;
+    }
+
+.field {
+    padding: 8px;
+}
+
+.dialog-textbox {
+    font-size: 16px;
+    outline: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    line-height: 34px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    color: #666;
+    font-weight: lighter;
+}
+
+    .dialog-textbox::placeholder {
+        color: #bbb;
+        font-weight: lighter;
+    }
+
+    .dialog-textbox:focus {
+        border-color: #FA9F32;
+        color: #FA9F32;
+    }
+
+.field b {
+    font-size: 12px;
+}
+
+.org-logo-outer {
+    padding: 15px;
+    border-radius: 15px;
+    border: 3px dashed #bbb;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+    .org-logo-outer:hover {
+        border-color: #FA9F32;
+        cursor: pointer;
+    }
+
+    .org-logo-outer img {
+        width: 100px;
+        height: 100px;
+    }
+
+.footer {
+    text-align: center;
+}
+
+.submit {
+    font-size: 18px;
+    margin-top: 15px;
+    display: inline-block;
+    color: #fff;
+    background: #FA9F32;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+    .submit > * {
+        vertical-align: middle;
+    }
+
+    .submit svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff;
+    }
+
+    .submit span {
+        margin-left: 10px;
+    }
+
+    .submit:hover {
+        background: #ffaa45;
+    }
+
+.field-hint {
+    padding: 8px;
+    text-align: center;
+}
+
+.back-button {
+    margin-top: -40px;
+    margin-left: -40px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 0 15px rgb(0 0 0 / 20%);
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color, .2s, ease-in-out;
+}
+
+    .back-button svg {
+        margin: 7px;
+        width: 16px;
+        height: 16px;
+        fill: #666;
+        transition: fill, .2s, ease-in-out
+    }
+
+    .back-button:hover {
+        background: #2c87ff;
+    }
+
+        .back-button:hover svg {
+            fill: #fff;
+        }
+
+.dialog .textarea {
+    outline: 0;
+    border: 1px solid #ddd;
+    height: 120px;
+    color: #777;
+    display: block;
+    width: 100%;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+}

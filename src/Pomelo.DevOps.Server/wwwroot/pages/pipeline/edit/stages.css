@@ -1,0 +1,61 @@
+﻿.pipeline-stages-list {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 210px;
+    background: #fafafa;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.pipeline-stages-list-title {
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.pipeline-stages-list-item {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+    .pipeline-stages-list-item:hover {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+.pipeline-stages-list-item > svg {
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
+    fill: #777;
+}
+
+    .pipeline-stages-list-item:hover > svg {
+        fill: #fff;
+    }
+
+    .pipeline-stages-list-item > * {
+        vertical-align: middle;
+    }
+
+#pipeline-stages-main {
+    background: #fcfcfc;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 211px;
+    right: 0;
+    overflow: auto;
+}

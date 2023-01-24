@@ -108,3 +108,13 @@
 .pipeline-diagram-menu-button.disabled {
     opacity: 0.5;
 }
+
+
+    .pipeline-diagram-menu-button.disabled:hover, .pipeline-diagram-menu-button.disabled.active {
+        background: none;
+        color: #777;
+    }
+
+    .pipeline-diagram-menu-button.disabled:hover svg path, .pipeline-diagram-menu-button.active svg path {
+        fill: #777;
+    }
