@@ -6,11 +6,9 @@ Component('stage', {
             stages: []
         };
     },
-    watch: {
-        settingsActive() {
-            if (!this.settingsActive) {
-                this.$parent.$parent.active = null;
-            }
+    computed: {
+        active() {
+            return this.$parent.active == this.shape;
         },
         settingsActive() {
             return this.active
@@ -18,9 +16,11 @@ Component('stage', {
                 && this.$parent.$parent.active == this.shape;
         }
     },
-    computed: {
-        active() {
-            return this.$parent.active == this.shape;
+    watch: {
+        settingsActive() {
+            if (!this.settingsActive) {
+                this.$parent.$parent.active = null;
+            }
         }
     },
     created() {
