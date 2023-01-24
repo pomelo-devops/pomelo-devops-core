@@ -1,0 +1,129 @@
+.any-node {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 40px;
+    background: #4785F7;
+    text-align: center;
+}
+
+    .any-node > * {
+        vertical-align: middle;
+    }
+
+    .any-node > svg {
+        width: 32px;
+        height: 32px;
+        fill: #fff !important;
+    }
+
+        .any-node > svg path {
+            fill: #fff;
+        }
+
+.any-node-anchor, .any-node-anchor-arrow {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #777;
+    position: absolute;
+    margin-top: -3px;
+    margin-left: -3px;
+    box-sizing: border-box;
+}
+
+.any-node-anchor-arrow {
+    font-size: 12px;
+    line-height: 12px;
+    height: 12px;
+    width: 12px;
+    text-align: center;
+    margin-top: -6px;
+    margin-left: -6px;
+    border: none;
+}
+
+    .any-node-anchor-arrow.connecting:hover {
+        color: #1A76C6;
+    }
+
+.any-node-anchor.connecting:hover {
+    background: #1A76C6;
+}
+
+.any-node-anchor-arrow.active {
+    color: #FF7B15 !important;
+}
+
+.any-node-anchor.active {
+    background: #FF7B15 !important;
+}
+
+.any-node-settings {
+    position: fixed;
+    top: 120px;
+    bottom: 30px;
+    right: 30px;
+    width: 280px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    z-index: 10;
+    text-align: left;
+    line-height: initial;
+}
+
+.any-node-settings-header {
+    border-bottom: 1px solid #ddd;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+    .any-node-settings-header > * {
+        vertical-align: middle;
+    }
+
+    .any-node-settings-header > svg {
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+    }
+
+.any-node-settings-footer {
+    position: absolute;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 10px;
+}
+
+.any-node-settings-footer-button {
+    background: #EE8236;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 8px;
+}
+
+.any-node-settings-body {
+    padding: 10px;
+}
+
+.any-node-settings-body-section-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.any-node-settings-body-textbox {
+    display: block;
+    box-sizing: border-box;
+    outline: 0;
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    width: 100%;
+}
