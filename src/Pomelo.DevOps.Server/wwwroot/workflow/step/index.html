@@ -66,6 +66,11 @@
                     </tbody>
                 </table>
             </div>
+            <div class="step-node-settings-package-more" 
+                 v-if="result && result.currentPage < result.totalPages" 
+                 v-on:click="getPackages(result.currentPage + 1)">
+                Click to load more
+            </div>
         </div>
         <div class="step-node-settings-footer">
             <a class="step-node-settings-footer-button" v-on:click="blur">OK</a>

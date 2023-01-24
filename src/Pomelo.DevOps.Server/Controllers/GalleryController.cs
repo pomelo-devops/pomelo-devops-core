@@ -80,7 +80,7 @@ namespace Pomelo.DevOps.Server.Controllers
             [FromServices] PipelineContext db,
             [FromQuery] string name = null,
             [FromQuery] Guid? author = null,
-            [FromQuery] int p = 1,
+            [FromQuery] int page = 1,
             [FromQuery] Platform? platform = null,
             CancellationToken cancellationToken = default)
         {
@@ -110,7 +110,7 @@ namespace Pomelo.DevOps.Server.Controllers
 
             var data = packages;
             var pageSize = 20;
-            var currentPage = p;
+            var currentPage = page;
             data = data
                 .GroupBy(x => x.Id)
                 .Select(x => x.OrderByDescending(x => x.Version).First())

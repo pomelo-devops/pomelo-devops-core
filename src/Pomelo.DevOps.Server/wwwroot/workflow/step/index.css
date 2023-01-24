@@ -199,3 +199,16 @@
     height: 28px;
     margin: 6px;
 }
+
+.step-node-settings-package-more {
+    text-align: center;
+    padding: 15px;
+    color: #FA9F32;
+    cursor: pointer;
+    margin: 0 -10px;
+}
+
+    .step-node-settings-package-more:hover {
+        background: #FA9F32;
+        color: #fff;
+    }
