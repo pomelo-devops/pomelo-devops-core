@@ -1,0 +1,197 @@
+.step-node {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 160px;
+    height: 40px;
+    box-sizing: border-box;
+    background: #4785F7;
+    color: #fff;
+    padding: 0 15px;
+}
+
+    .step-node > svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .step-node > svg, .step-node > svg path {
+        fill: #fff !important;
+    }
+
+    .step-node > * {
+        vertical-align: middle;
+    }
+
+.step-node-title {
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+    height: 40px;
+    vertical-align: top;
+    margin: 0;
+    width: calc(100% - 6px);
+    line-height: 40px;
+}
+
+.step-node-anchor, .step-node-anchor-arrow {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #777;
+    position: absolute;
+    margin-top: -3px;
+    margin-left: -3px;
+    box-sizing: border-box;
+}
+
+.step-node-anchor-arrow {
+    font-size: 12px;
+    line-height: 12px;
+    height: 12px;
+    width: 12px;
+    text-align: center;
+    margin-top: -6px;
+    margin-left: -6px;
+    border: none;
+}
+
+.step-node-anchor-arrow.connecting:hover {
+    color: #1A76C6;
+}
+
+.step-node-anchor.connecting:hover {
+    background: #1A76C6;
+}
+
+.step-node-anchor-arrow.active {
+    color: #FF7B15!important;
+}
+
+.step-node-anchor.active {
+    background: #FF7B15!important;
+}
+
+.step-node-settings {
+    position: fixed;
+    top: 120px;
+    bottom: 30px;
+    right: 30px;
+    width: 500px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,.1);
+    z-index: 10;
+    color: #777;
+    line-height: initial;
+}
+
+.step-node-settings-header {
+    border-bottom: 1px solid #ddd;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+    .step-node-settings-header > svg {
+        height: 40px;
+        width: 40px;
+        margin-right: 5px;
+    }
+
+.step-node-settings-header > * {
+    vertical-align: middle;
+}
+
+.step-node-settings-footer {
+    position: absolute;
+    border-top: 1px solid #ddd;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 10px;
+}
+
+.step-node-settings-footer-button {
+    background: #EE8236;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 8px;
+}
+
+.step-node-settings-search {
+    position: absolute;
+    top: 61px;
+    height: 48px;
+    border-bottom: 1px solid #ddd;
+    line-height: 48px;
+    left: 0;
+    right: 0;
+}
+
+.step-node-settings-search-textbox {
+    outline: 0;
+    border: 1px solid #ddd;
+    color: #777;
+    padding: 8px 10px;
+    font-size: 14px;
+    display: block;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+    margin: 7px 10px;
+}
+
+.step-node-settings-body {
+    padding: 0 10px;
+    position: absolute;
+    top: 110px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+.step-node-settings-body-section-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.step-node-settings-body-textbox {
+    display: block;
+    box-sizing: border-box;
+    outline: 0;
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.step-node-settings-package-item {
+    margin: 0 -10px;
+    padding: 0 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+}
+
+    .step-node-settings-package-item:hover, .step-node-settings-package-item.active {
+        background: #FA9F32;
+        color: #fff;
+    }
+
+        .step-node-settings-package-item:hover *, .step-node-settings-package-item.active * {
+            color: #fff;
+            fill: #fff;
+        }
+
+    .step-node-settings-package-item > table {
+        margin: -5px 0 -10px 0;
+    }
