@@ -116,6 +116,10 @@ Component('step', {
         },
         selectStep(package) {
             this.selected = package;
+        },
+        next() {
+            this.shape.arguments.StepId = this.selected.id;
+            this.shape.arguments.StepVersion = this.selected.version;
         }
     }
 });

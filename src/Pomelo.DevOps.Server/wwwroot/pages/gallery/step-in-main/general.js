@@ -11,6 +11,7 @@ Page({
         return {
             step: null,
             packages: null,
+            fromDiagram: false
         };
     },
     mounted() {

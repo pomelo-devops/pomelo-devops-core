@@ -48,7 +48,7 @@
 
 .pipeline-diagram-menu {
     position: absolute;
-    z-index: 10;
+    z-index: 9;
     top: 0;
     left: 0;
     right: 0;
@@ -119,3 +119,13 @@
     .pipeline-diagram-menu-button.disabled:hover svg path, .pipeline-diagram-menu-button.active svg path {
         fill: #777;
     }
+
+#step-config-container {
+    z-index: 9;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #fcfcfc;
+}

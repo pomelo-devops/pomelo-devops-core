@@ -6,17 +6,18 @@ Page({
     data() {
         return {
             step: null,
+            shape: null,
             packages: null,
-            active: null
+            active: null,
+            fromDiagram: false
         };
     },
-    async created() {
-        await this.getPackageVersions();
-    },
-    mounted() {
-        console.log('mount');
+    async mounted() {
         this.$container('#step-main');
-        this.$parent.active = 'step-' + this.step.temp;
+        if (this.step) {
+            this.$parent.active = 'step-' + this.step.temp;
+        }
+        await this.getPackageVersions();
         this.open();
     },
     unmounted() {
@@ -28,12 +29,22 @@ Page({
                 return null;
             }
 
-            var package = this.packages.filter(x => x.version == this.step.version);
+            var package = this.packages.filter(x => x.version == this.stepVersion);
             if (!package.length) {
                 return null;
             }
 
             return package[0];
+        },
+        stepId() {
+            return !this.fromDiagram
+                ? this.step.stepId
+                : this.shape.arguments.StepId;
+        },
+        stepVersion() {
+            return !this.fromDiagram
+                ? this.step.version
+                : this.shape.arguments.StepVersion;
         }
     },
     watch: {
@@ -44,10 +55,23 @@ Page({
     },
     methods: {
         async getPackageVersions() {
-            this.packages = (await Pomelo.CQ.Get(`/api/gallery/${this.step.stepId}`)).data;
+            this.packages = (await Pomelo.CQ.Get(`/api/gallery/${this.stepId}`)).data;
         },
         async open() {
-            await this.$containers[0].open(`/api/gallery/${this.step.stepId}/version/${this.step.version}/index`, {
+            if (this.fromDiagram) {
+                this.step = {
+                    stepId: this.stepId,
+                    version: this.stepVersion,
+                    method: this.currentPackage.methods.split(',')[0],
+                    name: this.currentPackage.name,
+                    arguments: {},
+                    timeout: -1,
+                    condition: 'RequirePreviousTaskSuccess',
+                    retry: 0,
+                    errorHandlingMode: 'Normal'
+                };
+            }
+            await this.$containers[0].open(`/api/gallery/${this.stepId}/version/${this.stepVersion}/index`, {
                 step: this.step,
                 stepId: this.step.stepId,
                 stepVersion: this.step.stepVersion
@@ -58,7 +82,8 @@ Page({
                 await this.$containers[0].open('/pages/gallery/step-in-main/general', {
                     step: this.step,
                     stepId: this.step.stepId,
-                    stepVersion: this.step.stepVersion
+                    stepVersion: this.step.stepVersion,
+                    fromDiagram: this.fromDiagram
                 });
             } else {
                 await this.open();

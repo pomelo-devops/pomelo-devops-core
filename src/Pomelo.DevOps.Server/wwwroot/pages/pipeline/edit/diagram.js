@@ -35,6 +35,7 @@ Page({
         if (this.isStage) {
             this.$parent.active = this.diagramStageId;
             this.$root.ui.active = 'pipeline-stages';
+            this.$container('#step-config-container');
         } else {
             this.$root.ui.active = 'pipeline-diagram';
         }
@@ -46,8 +47,17 @@ Page({
         }
     },
     watch: {
+        deep: true,
         version() {
             this.getWorkflowVersion(this.version);
+        },
+        'active.arguments.StepId': function() {
+            if (this.active
+                && this.active.node == 'step'
+                && this.active.arguments
+                && this.active.arguments.StepId) {
+                this.$containers[0].open('/pages/gallery/step-in-main/index', { shape: this.active, fromDiagram: true });
+            }
         }
     },
     methods: {
