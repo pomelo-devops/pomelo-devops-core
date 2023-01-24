@@ -1,6 +1,6 @@
 id: run-powershell-script
 name: Run Powershell Script
-version: 1.0.1
+version: 1.0.2
 description: Run Powershell Script
 dependencies: 
 methods:

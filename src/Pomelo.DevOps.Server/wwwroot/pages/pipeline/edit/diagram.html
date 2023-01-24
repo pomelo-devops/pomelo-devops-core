@@ -61,4 +61,4 @@
                  v-bind:edit="true" 
                  v-if="workflowVersion"
                  v-model:diagramModel="workflowVersion.diagram" />
-<div v-show="isStage && active && active.node == 'step'" id="step-config-container"></div>
+<div v-show="isStage && active && active.node == 'step' && active.arguments && active.arguments.StepId" id="step-config-container"></div>

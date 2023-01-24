@@ -101,7 +101,7 @@
     overflow-y: auto;
 }
 
-    #step-main > .form {
+    #step-main .form {
         margin: 0 30px;
         margin-top: 30px;
         background: #fff;
@@ -111,7 +111,7 @@
         margin-bottom: 30px;
     }
 
-        #step-main > .form input.form-control {
+        #step-main .form input.form-control {
             color: #666;
             width: 100%;
             display: block;
@@ -122,17 +122,17 @@
             line-height: 30px;
         }
 
-            #step-main > .form input.form-control:focus {
+            #step-main .form input.form-control:focus {
                 border-color: #FA9F32;
             }
 
-        #step-main > .form small, #step-main > .form label {
+        #step-main .form small, #step-main .form label {
             font-weight: bold;
             font-size: 12px;
             margin-bottom: 5px;
         }
 
-        #step-main > .form textarea.form-control {
+        #step-main .form textarea.form-control {
             width: 100%;
             min-width: 100%;
             max-width: 100%;
@@ -142,7 +142,7 @@
             font-size: 14px;
         }
 
-        #step-main > .form h1, #step-main > .form h2 {
+        #step-main .form h1, #step-main .form h2 {
             margin: 0;
             padding: 0 0 10px 0;
             font-size: 18px;
@@ -151,14 +151,14 @@
             font-weight: normal;
         }
 
-            #step-main > .form h1 > svg, #step-main > .form h2 > svg {
+            #step-main .form h1 > svg, #step-main .form h2 > svg {
                 width: 32px;
                 height: 32px;
                 vertical-align: middle;
                 margin-right: 5px;
             }
 
-        #step-main > .form .form-group {
+        #step-main .form .form-group {
             margin-bottom: 15px;
         }
 
@@ -188,15 +188,44 @@
         fill: #FA9F32;
     }
 
-#step-main > .form .group {
+#step-main .form .group {
     margin-bottom: 20px;
 }
 
-    #step-main > .form .group > small {
+    #step-main .form .group > small {
         margin-bottom: 5px;
         display: block;
     }
 
-#step-main > .form .danger {
+#step-main .form .danger {
     color: #dc1600;
+}
+
+.gallery-step-ok {
+    padding: 8px 15px;
+    border-radius: 50px;
+    background: #2c87ff;
+    color: #fff;
+    display: inline-block;
+    margin: 12px 15px;
+    cursor: pointer;
+}
+
+    .gallery-step-ok:hover {
+        background: #62a6ff;
+    }
+
+#step-main.diagram {
+    bottom: 61px;
+}
+
+.gallery-step-footer {
+    border-top: 1px solid #ddd;
+    background: #fff;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    right: 0;
 }

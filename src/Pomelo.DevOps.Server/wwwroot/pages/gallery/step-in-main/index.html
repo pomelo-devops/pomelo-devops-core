@@ -22,4 +22,7 @@
         </select>
     </div>
 </div>
-<div id="step-main"></div>
+<div id="step-main" v-bind:class="{ diagram: fromDiagram }"></div>
+<div class="gallery-step-footer" v-if="fromDiagram">
+    <a class="gallery-step-ok" v-on:click="close">OK</a>
+</div>

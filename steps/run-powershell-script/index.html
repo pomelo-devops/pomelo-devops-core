@@ -2,14 +2,16 @@
     Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
     Licensed under the MIT. See LICENSE in the project root for license information.
 -->
-<div v-if="step && step.method == 'Execute Powershell File'" class="form">
-    <div>
-        <small class="form-text text-muted">Script Path</small>
-        <div class="form-group mb-4">
-            <input type="text" v-model="step.arguments.POWERSHELL_SCRIPT_PATH" class="form-control">
+<div>
+    <div v-if="step && step.method == 'Execute Powershell File'" class="form">
+        <div>
+            <small class="form-text text-muted">Script Path</small>
+            <div class="form-group mb-4">
+                <input type="text" v-model="step.arguments.POWERSHELL_SCRIPT_PATH" class="form-control">
+            </div>
         </div>
     </div>
-</div>
-<div v-if="step.method == 'Execute Inline Powershell Script'" class="cm-outer">
-    <textarea v-if="step" id="cm-powershell-content" v-model="step.arguments.POWERSHELL_SCRIPT_CONTENT"></textarea>
+    <div v-if="step.method == 'Execute Inline Powershell Script'" class="cm-outer">
+        <textarea v-if="step" id="cm-powershell-content" v-model="step.arguments.POWERSHELL_SCRIPT_CONTENT"></textarea>
+    </div>
 </div>

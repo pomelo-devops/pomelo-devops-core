@@ -88,6 +88,9 @@ Page({
             } else {
                 await this.open();
             }
+        },
+        close() {
+            this.$parent.$containers[0].close();
         }
     }
 });

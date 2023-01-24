@@ -1,6 +1,6 @@
 id: run-cmd-script
 name: Run Cmd Script
-version: 1.0.1
+version: 1.0.2
 description: Run Cmd Script on Windows
 dependencies: 
 methods:
