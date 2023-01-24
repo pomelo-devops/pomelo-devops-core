@@ -9,7 +9,6 @@
     box-sizing: border-box;
     background: #4785F7;
     color: #fff;
-    padding: 0 15px;
 }
 
     .step-node > svg {
@@ -32,13 +31,12 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border-left: 3px solid #fff;
-    border-right: 3px solid #fff;
     height: 40px;
     vertical-align: top;
     margin: 0;
-    width: calc(100% - 6px);
+    width: 120px;
     line-height: 40px;
+    background: #5395ff;
 }
 
 .step-node-anchor, .step-node-anchor-arrow {
@@ -195,3 +193,9 @@
     .step-node-settings-package-item > table {
         margin: -5px 0 -10px 0;
     }
+
+.step-node-icon {
+    width: 28px;
+    height: 28px;
+    margin: 6px;
+}

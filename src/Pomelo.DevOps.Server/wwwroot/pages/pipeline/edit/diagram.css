@@ -43,6 +43,7 @@
 
 .pomelo-wf-diagram {
     position: relative !important;
+    overflow: initial;
 }
 
 .pipeline-diagram-menu {

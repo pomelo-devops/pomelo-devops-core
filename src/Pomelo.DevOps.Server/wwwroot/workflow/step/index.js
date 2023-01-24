@@ -6,6 +6,12 @@ Component('step', {
     props: ['shape', 'arguments'],
     data() {
         return {
+            search: {
+                name: null,
+                page: 1
+            },
+            result: null,
+            selected: null
         };
     },
     computed: {
@@ -19,10 +25,18 @@ Component('step', {
         }
     },
     watch: {
+        deep: true,
         settingsActive() {
             if (!this.settingsActive) {
                 this.$parent.$parent.active = null;
+            } else {
+                this.result = null;
+                this.getPackages();
             }
+        },
+        'search.name': function () {
+            this.result = null;
+            this.getPackages();
         }
     },
     created() {
@@ -39,6 +53,21 @@ Component('step', {
         }
     },
     methods: {
+        getRoot() {
+            return Pomelo.root();
+        },
+        async getPackages(p) {
+            var result = await Pomelo.CQ.Get(`/api/gallery`, {
+                name: this.search.name,
+                page: p || 1
+            });
+            if (this.result == null) {
+                this.result = result
+            } else {
+                this.result.currentPage = result.currentPage;
+                this.result.data = this.result.data.concat(result.data);
+            }
+        },
         onClicked(event) {
             if (!this.$parent.edit) {
                 return;
@@ -84,6 +113,9 @@ Component('step', {
         },
         blur() {
             this.$parent.$parent.active = null;
+        },
+        selectStep(package) {
+            this.selected = package;
         }
     }
 });
