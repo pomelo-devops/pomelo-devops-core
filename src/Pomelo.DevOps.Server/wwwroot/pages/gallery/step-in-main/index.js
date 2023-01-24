@@ -51,6 +51,9 @@ Page({
         deep: true,
         'step.version': async function () {
             await this.open();
+        },
+        'step.method': function () {
+            this.$containers[0].active.$forceUpdate();
         }
     },
     methods: {
@@ -60,16 +63,17 @@ Page({
         async open() {
             if (this.fromDiagram) {
                 this.step = {
-                    stepId: this.stepId,
-                    version: this.stepVersion,
-                    method: this.currentPackage.methods.split(',')[0],
-                    name: this.currentPackage.name,
-                    arguments: {},
-                    timeout: -1,
-                    condition: 'RequirePreviousTaskSuccess',
-                    retry: 0,
-                    errorHandlingMode: 'Normal'
+                    stepId: this.shape.arguments.StepId || this.stepId,
+                    version: this.shape.arguments.StepVersion || this.stepVersion,
+                    method: this.shape.arguments.method || this.currentPackage.methods.split(',')[0],
+                    name: this.shape.name || this.currentPackage.name,
+                    arguments: this.shape.arguments.arguments || {},
+                    timeout: this.shape.arguments.timeout || -1,
+                    retry: this.shape.arguments.retry || 0,
+                    errorHandlingMode: this.shape.arguments.errorHandlingMode || 'Normal'
                 };
+                console.log(this.shape);
+                console.log(this.step);
             }
             await this.$containers[0].open(`/api/gallery/${this.stepId}/version/${this.stepVersion}/index`, {
                 step: this.step,
@@ -89,8 +93,18 @@ Page({
                 await this.open();
             }
         },
-        close() {
+        close() { // Only for diagram mode
             this.$parent.$containers[0].close();
+        },
+        save() { // Only for diagram mode
+            this.shape.name = this.step.name;
+            this.shape.StepVersion = this.step.version;
+            this.shape.arguments.arguments = this.step.arguments;
+            this.shape.arguments.timeout = this.step.timeout;
+            this.shape.arguments.retry = this.step.retry;
+            this.shape.arguments.method = this.step.method;
+            this.shape.arguments.errorHandlingMode = this.step.errorHandlingMode;
+            this.close();
         }
     }
 });

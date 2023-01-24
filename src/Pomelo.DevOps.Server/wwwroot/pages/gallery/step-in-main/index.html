@@ -24,5 +24,6 @@
 </div>
 <div id="step-main" v-bind:class="{ diagram: fromDiagram }"></div>
 <div class="gallery-step-footer" v-if="fromDiagram">
-    <a class="gallery-step-ok" v-on:click="close">OK</a>
+    <a class="gallery-step-ok" v-on:click="save">OK</a>
+    <a class="gallery-step-close" v-on:click="close">Cancel</a>
 </div>

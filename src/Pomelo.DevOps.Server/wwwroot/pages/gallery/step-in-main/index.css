@@ -215,6 +215,21 @@
         background: #62a6ff;
     }
 
+.gallery-step-close {
+    padding: 8px 15px;
+    border-radius: 50px;
+    background: #dbdbdb;
+    color: #777;
+    display: inline-block;
+    margin: 12px 15px;
+    cursor: pointer;
+    margin-left: 0;
+}
+
+    .gallery-step-close:hover {
+        background: #cdcbcb;
+    }
+
 #step-main.diagram {
     bottom: 61px;
 }
