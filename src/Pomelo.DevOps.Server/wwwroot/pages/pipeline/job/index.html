@@ -1,4 +1,4 @@
-<!--
+﻿<!--
     Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
     Licensed under the MIT. See LICENSE in the project root for license information.
 -->
@@ -51,6 +51,7 @@
         </template>
     </div>
 </div>
+<div class="job-diagram-header">#{{ jobNumber }} · {{ job.name }}</div>
 <div class="job-diagram" v-if="job && job.type == 'Diagram'">
     <pomelo-workflow id="pipeline-diagram-panel"
                      class="pipeline-diagram-panel"

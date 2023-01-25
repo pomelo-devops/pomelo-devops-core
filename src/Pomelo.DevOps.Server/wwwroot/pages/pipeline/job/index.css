@@ -267,13 +267,28 @@
         vertical-align: middle;
     }
 
-.job-diagram {
+.job-diagram-header {
     position: absolute;
     top: 0;
+    left: 0;
+    width: 50%;
+    background: #fafafa;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-size: 16px;
+    line-height: 40px;
+    border-right: 1px solid #ddd;
+}
+
+.job-diagram {
+    position: absolute;
+    top: 41px;
     bottom: 0;
     left: 0;
-    right: 0;
+    width: 50%;
     background: #fff;
+    border-right: 1px solid #ddd;
 }
 
 .pomelo-wf-diagram {
