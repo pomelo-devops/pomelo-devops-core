@@ -11,22 +11,13 @@ namespace Pomelo.DevOps.Agent.Workflow
 {
     public class AgentWorkflowStorageProvider : IWorkflowStorageProvider
     {
+        #region Useless (Design-time APIs)
         public Task<Guid> CreateWorkflowAsync(CreateWorkflowRequest request, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
         public Task<Guid> CreateWorkflowInstanceAsync(Guid id, int version, Dictionary<string, JToken> arguments, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task CreateWorkflowInstanceConnectionAsync(WorkflowInstanceConnection request, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Guid> CreateWorkflowStepAsync(Guid instanceId, WorkflowInstanceStep step, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -41,12 +32,48 @@ namespace Pomelo.DevOps.Agent.Workflow
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<WorkflowInstanceStep>> GetInstanceStepsAsync(Guid instanceId, CancellationToken cancellationToken = default)
+        public Task<int?> GetLatestVersionAsync(Guid workflowId, WorkflowVersionStatus? status = WorkflowVersionStatus.Available, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int?> GetLatestVersionAsync(Guid workflowId, WorkflowVersionStatus? status = WorkflowVersionStatus.Available, CancellationToken cancellationToken = default)
+        public Task<IEnumerable<GetWorkflowInstanceResult>> GetWorkflowInstancesAsync(Guid workflowId, int? version, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Pomelo.Workflow.Models.Workflow>> GetWorkflowsAsync(string name = null, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateWorkflowAsync(Guid workflowId, UpdateWorkflowRequest request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<GetWorkflowVersionResult>> GetWorkflowVersionsAsync(Guid workflowId, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateWorkflowVersionStatusAsync(Guid workflowId, int version, WorkflowVersionStatus status, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        public Task CreateWorkflowInstanceConnectionAsync(WorkflowInstanceConnection request, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Guid> CreateWorkflowStepAsync(Guid instanceId, WorkflowInstanceStep step, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<WorkflowInstanceStep>> GetInstanceStepsAsync(Guid instanceId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -76,32 +103,12 @@ namespace Pomelo.DevOps.Agent.Workflow
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetWorkflowInstanceResult>> GetWorkflowInstancesAsync(Guid workflowId, int? version, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<WorkflowInstanceStep> GetWorkflowInstanceStepAsync(Guid stepId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Pomelo.Workflow.Models.Workflow>> GetWorkflowsAsync(string name = null, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<WorkflowVersion> GetWorkflowVersionAsync(Guid workflowId, int version, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<GetWorkflowVersionResult>> GetWorkflowVersionsAsync(Guid workflowId, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateWorkflowAsync(Guid workflowId, UpdateWorkflowRequest request, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -117,11 +124,6 @@ namespace Pomelo.DevOps.Agent.Workflow
         }
 
         public Task<UpdateWorkflowStepResult> UpdateWorkflowStepAsync(Guid stepId, StepStatus status, Action<Dictionary<string, JToken>> updateArgumentsDelegate, string error = null, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateWorkflowVersionStatusAsync(Guid workflowId, int version, WorkflowVersionStatus status, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

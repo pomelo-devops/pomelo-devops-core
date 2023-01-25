@@ -491,6 +491,95 @@ namespace Pomelo.DevOps.Server.Controllers
         }
         #endregion
 
+        #region Job Stage Workflows
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}")]
+        public async ValueTask<ApiResult<WorkflowInstance>> GetStageWorkflowInstance(
+            [FromRoute] Guid workflowInstanceId,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/connection")]
+        public async ValueTask<ApiResult> PostStageWorkflowInstanceConnection()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step")]
+        public async ValueTask<ApiResult> PostStageWorkflowInstanceStep()
+        { 
+            throw new NotImplementedException(); 
+        }
+
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step")]
+        public async ValueTask<List<object>> GetStageWorkflowInstanceSteps()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/misc/previous-steps")]
+        public async ValueTask<ApiResult<List<GetPreviousStepsResult>>> GetStageWorkflowInstancePreviousSteps(
+            [FromQuery] Guid stepId,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/misc/get-step-by-shape-id")]
+        public async ValueTask<ApiResult<List<GetPreviousStepsResult>>> GetStageWorkflowInstanceStepByShapeId(
+            [FromQuery] Guid instanceId,
+            [FromQuery] Guid shapeId,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/workflow/{workflowId:Guid}")]
+        public async ValueTask<ApiResult<Pomelo.Workflow.Models.Workflow>> GetStageWorkflowInstanceStepByShapeId(
+            [FromRoute] Guid workflowId,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/connection")]
+        public async ValueTask<ApiResult<List<WorkflowInstanceConnection>>> GetStageWorkflowInstanceConnections()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step/{stepId:Guid}")]
+        public async ValueTask<ApiResult<WorkflowInstanceStep>> GetStageWorkflowInstanceStep(
+            Guid stepId,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPatch("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}")]
+        public async ValueTask<ApiResult<UpdateWorkflowInstanceResult>> PatchStageWorkflowInstance(
+            Guid instanceId, 
+            WorkflowStatus status,
+            Dictionary<string, JToken> arguments,
+            string error,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPatch("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step/{stepId:Guid}")]
+        public async ValueTask<ApiResult<UpdateWorkflowInstanceResult>> PatchStageWorkflowInstanceStep(
+            Guid stepId,
+            StepStatus status,
+            Dictionary<string, JToken> arguments,
+            string error,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
         #region Job Extensions
 
         #endregion
