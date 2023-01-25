@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using Pipelines.Sockets.Unofficial.Arenas;
 using Pomelo.DevOps.Models;
 using Pomelo.DevOps.Models.ViewModels;
 using Pomelo.DevOps.Server.Hubs;
@@ -21,6 +22,7 @@ using Pomelo.DevOps.Server.Workflow;
 using Pomelo.DevOps.Shared;
 using Pomelo.Workflow.Models;
 using Pomelo.Workflow.Models.ViewModels;
+using Pomelo.Workflow.Storage;
 
 namespace Pomelo.DevOps.Server.Controllers
 {
@@ -494,49 +496,130 @@ namespace Pomelo.DevOps.Server.Controllers
         #region Job Stage Workflows
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}")]
         public async ValueTask<ApiResult<WorkflowInstance>> GetStageWorkflowInstance(
+            [FromServices] PipelineContext db,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] long jobNumber,
             [FromRoute] Guid workflowInstanceId,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<WorkflowInstance>(403, "You don't have permission to this pipeline job");
+            }
+
+            var stage = await db.JobWorkflowStages
+                .Include(x => x.WorkflowInstance)
+                .Where(x => x.Job.Type == PipelineType.Diagram 
+                    && x.Job.PipelineId == pipeline 
+                    && x.Job.Number == jobNumber)
+                .Where(x => x.WorkflowInstanceId == workflowInstanceId)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return ApiResult(stage.WorkflowInstance as WorkflowInstance);
         }
 
         [HttpPost("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/connection")]
-        public async ValueTask<ApiResult> PostStageWorkflowInstanceConnection()
+        public async ValueTask<ApiResult> PostStageWorkflowInstanceConnection(
+            [FromServices] PipelineContext db,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid workflowInstanceId,
+            [FromBody] PostStorageWorkflowInstanceConnectionRequest request,
+            CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
+            {
+                return ApiResult(403, "You don't have permission to this pipeline job");
+            }
+
+            await wfs.CreateWorkflowInstanceConnectionAsync(new WorkflowInstanceConnection 
+            {
+                ConnectPolylineId = request.ConnectPolylineId,
+                InstanceId = workflowInstanceId
+            }, cancellationToken);
+            return ApiResult(200, "Workflow step connection created");
         }
 
         [HttpPost("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step")]
-        public async ValueTask<ApiResult> PostStageWorkflowInstanceStep()
-        { 
-            throw new NotImplementedException(); 
+        public async ValueTask<ApiResult<Guid>> PostStageWorkflowInstanceStep(
+            [FromServices] PipelineContext db,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid workflowInstanceId,
+            [FromBody] WorkflowInstanceStep request, 
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
+            {
+                return ApiResult<Guid>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.CreateWorkflowStepAsync(workflowInstanceId, request, cancellationToken);
+            return ApiResult(result);
         }
 
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step")]
-        public async ValueTask<List<object>> GetStageWorkflowInstanceSteps()
+        public async ValueTask<ApiResult<List<WorkflowInstanceStep>>> GetStageWorkflowInstanceSteps(
+            [FromServices] PipelineContext db,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid workflowInstanceId,
+            CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<List<WorkflowInstanceStep>>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.GetInstanceStepsAsync(workflowInstanceId, cancellationToken);
+            return ApiResult(result.ToList());
         }
 
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/misc/previous-steps")]
-        public async ValueTask<ApiResult<List<GetPreviousStepsResult>>> GetStageWorkflowInstancePreviousSteps(
+        public async ValueTask<ApiResult<GetPreviousStepsResult>> GetStageWorkflowInstancePreviousSteps(
+            [FromServices] PipelineContext db,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
             [FromQuery] Guid stepId,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<GetPreviousStepsResult>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.GetPreviousStepsAsync(stepId, cancellationToken);
+            return ApiResult(result);
         }
 
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/misc/get-step-by-shape-id")]
-        public async ValueTask<ApiResult<List<GetPreviousStepsResult>>> GetStageWorkflowInstanceStepByShapeId(
-            [FromQuery] Guid instanceId,
+        public async ValueTask<ApiResult<WorkflowInstanceStep>> GetStageWorkflowInstanceStepByShapeId(
+            [FromServices] PipelineContext db,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid workflowInstanceId,
             [FromQuery] Guid shapeId,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<WorkflowInstanceStep>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.GetStepByShapeId(workflowInstanceId, shapeId, cancellationToken);
+            return ApiResult(result);
         }
 
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/workflow/{workflowId:Guid}")]
         public async ValueTask<ApiResult<Pomelo.Workflow.Models.Workflow>> GetStageWorkflowInstanceStepByShapeId(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
             [FromRoute] Guid workflowId,
             CancellationToken cancellationToken = default)
         {
@@ -544,13 +627,19 @@ namespace Pomelo.DevOps.Server.Controllers
         }
 
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/connection")]
-        public async ValueTask<ApiResult<List<WorkflowInstanceConnection>>> GetStageWorkflowInstanceConnections()
+        public async ValueTask<ApiResult<List<WorkflowInstanceConnection>>> GetStageWorkflowInstanceConnections(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
+            [FromRoute] Guid workflowInstanceId,
+            CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step/{stepId:Guid}")]
         public async ValueTask<ApiResult<WorkflowInstanceStep>> GetStageWorkflowInstanceStep(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
             Guid stepId,
             CancellationToken cancellationToken = default)
         {
@@ -559,6 +648,8 @@ namespace Pomelo.DevOps.Server.Controllers
 
         [HttpPatch("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}")]
         public async ValueTask<ApiResult<UpdateWorkflowInstanceResult>> PatchStageWorkflowInstance(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
             Guid instanceId, 
             WorkflowStatus status,
             Dictionary<string, JToken> arguments,
@@ -570,6 +661,8 @@ namespace Pomelo.DevOps.Server.Controllers
 
         [HttpPatch("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step/{stepId:Guid}")]
         public async ValueTask<ApiResult<UpdateWorkflowInstanceResult>> PatchStageWorkflowInstanceStep(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
             Guid stepId,
             StepStatus status,
             Dictionary<string, JToken> arguments,

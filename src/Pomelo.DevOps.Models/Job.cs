@@ -60,11 +60,6 @@ namespace Pomelo.DevOps.Models
 
         public int CurrentStageOrder { get; set; } = 0;
 
-        [ForeignKey(nameof(Instance))]
-        public Guid? PipelineWorkflowInstanceId { get; set; }
-
-        public virtual DbWorkflowInstance Instance { get; set; }
-
         public virtual ICollection<JobStage> LinearStages { get; set; }
 
         [ForeignKey(nameof(DiagramWorkflowInstance))]
