@@ -125,9 +125,40 @@ Page({
             }
         },
         add(node, width, height) {
-            console.log(lifecycleManager.getById('pipeline-diagram-panel'));
             lifecycleManager.getById('pipeline-diagram-panel').addNode = { key: node, width: width, height: height };
             lifecycleManager.getById('pipeline-diagram-panel').mode = 'add';
+            this.$forceUpdate();
+        },
+        getDiagramPanelStatus() {
+            var diagram = lifecycleManager.getById('pipeline-diagram-panel');
+            if (!diagram) {
+                return null;
+            }
+
+            return diagram.mode;
+        },
+        getDiagramPanelAddingNodeType() {
+            var diagram = lifecycleManager.getById('pipeline-diagram-panel');
+            if (!diagram) {
+                return null;
+            }
+
+            if (!diagram.addNode) {
+                return null;
+            }
+
+            return diagram.addNode.key;
+        },
+        getDiagramPanelSelectedElement() {
+            var diagram = lifecycleManager.getById('pipeline-diagram-panel');
+            if (!diagram) {
+                return null;
+            }
+
+            return diagram.active;
+        },
+        deleteElement() {
+            lifecycleManager.getById('pipeline-diagram-panel').deleteSelectedElement();
         }
     }
 });
