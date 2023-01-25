@@ -82,6 +82,7 @@ exports.texts = {
     "PIPELINE_EDIT_REFRESH": "Refresh",
     "PIPELINE_EDIT_NODE_SETTINGS": "Node Settings",
     "PIPELINE_EDIT_DELETE_ELEMENT": "Delete Element",
+    "PIPELINE_EDIT_CLEAR_ALL": "Clear All",
 
     "PIPELINE_EDIT_PLAYBOOK_ADD_STAGE": "Add Stage",
     "PIPELINE_EDIT_PLAYBOOK_ADD_STAGE_DEFAULT": "New Stage",

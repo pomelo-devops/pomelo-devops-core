@@ -169,6 +169,9 @@ Page({
         },
         deleteElement() {
             lifecycleManager.getById('pipeline-diagram-panel').deleteSelectedElement();
+        },
+        clearElements() {
+            lifecycleManager.getById('pipeline-diagram-panel').diagram.clean();
         }
     }
 });
