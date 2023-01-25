@@ -5,6 +5,9 @@ var duration = require('/shared/duration');
 
 Page({
     layout: '/shared/devops',
+    components: [
+        '/assets/js/pomelo-workflow-pomelo-vue/index'
+    ],
     style: [
         '@(css)',
         '/assets/css/font-awesome.css'
@@ -16,7 +19,9 @@ Page({
             toggles: [],
             active: null,
             logs: [],
-            timestamp: null
+            timestamp: null,
+            workflowInstance: null,
+            workflowInstanceView: null
         };
     },
     async created() {
@@ -69,10 +74,21 @@ Page({
                 }
                 self.job = result.data;
                 self.$root.data.currentJob = self.job;
-                if (self.toggles.length < self.job.stages.length) {
-                    var delta = self.job.stages.length - self.toggles.length;
-                    for (var i = 0; i < delta; ++i) {
-                        self.toggles.push(false);
+                if (self.job.type == 'Linear') {
+                    if (self.toggles.length < self.job.stages.length) {
+                        var delta = self.job.stages.length - self.toggles.length;
+                        for (var i = 0; i < delta; ++i) {
+                            self.toggles.push(false);
+                        }
+                    }
+                } else {
+                    if (self.workflowInstanceView == null) {
+                        self.workflowInstanceView = Pomelo.CQ.CreateView(`/api/project/${self.projectId}/pipeline/${self.pipelineId}/job/${self.jobNumber}/diagram`);
+                        self.workflowInstanceView.fetch(function (result) {
+                            self.workflowInstance = result.data;
+                        });
+                    } else {
+                        self.workflowInstanceView.refresh();
                     }
                 }
             });

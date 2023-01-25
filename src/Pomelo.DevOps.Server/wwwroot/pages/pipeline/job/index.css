@@ -266,3 +266,17 @@
     .abort-job > * {
         vertical-align: middle;
     }
+
+.job-diagram {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+}
+
+.pomelo-wf-diagram {
+    position: relative !important;
+    overflow: initial !important;
+}

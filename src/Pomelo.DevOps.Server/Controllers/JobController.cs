@@ -5,23 +5,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Pomelo.DevOps.Models;
 using Pomelo.DevOps.Models.ViewModels;
 using Pomelo.DevOps.Server.Hubs;
 using Pomelo.DevOps.Server.LogManager;
 using Pomelo.DevOps.Server.Utils;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
+using Pomelo.DevOps.Server.Workflow;
 using Pomelo.DevOps.Shared;
-using System.Reflection.Metadata.Ecma335;
 using Pomelo.Workflow.Models;
+using Pomelo.Workflow.Models.ViewModels;
 
 namespace Pomelo.DevOps.Server.Controllers
 {
@@ -42,7 +41,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader))
             {
-                return PagedApiResult<Job>(401, $"You don't have the permission to this pipeline");
+                return PagedApiResult<Job>(403, $"You don't have the permission to this pipeline");
             }
 
             var query = db.Jobs
@@ -75,7 +74,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader))
             {
-                return ApiResult<Job>(401, $"You don't have the permission to this pipeline");
+                return ApiResult<Job>(403, $"You don't have the permission to this pipeline");
             }
 
             var _job = await db.Jobs
@@ -104,6 +103,7 @@ namespace Pomelo.DevOps.Server.Controllers
         [HttpPatch]
         public async ValueTask<ApiResult<Job>> Post(
             [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
             [FromServices] JobStateMachineFactory factory,
             [FromBody] PostPipelineJobRequest body,
             [FromRoute] string projectId,
@@ -112,7 +112,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
             {
-                return ApiResult<Job>(401, "You don't have permission to trigger this pipeline");
+                return ApiResult<Job>(403, "You don't have permission to trigger this pipeline");
             }
 
             // Load the pipeline definition
@@ -122,24 +122,6 @@ namespace Pomelo.DevOps.Server.Controllers
             if (_pipeline == null)
             {
                 return ApiResult<Job>(404, "The pipeline has not been found");
-            }
-
-            if (_pipeline.Type == PipelineType.Diagram)
-            {
-                // Check pipeline workflow
-                if (!await db.WorkflowVersions.AnyAsync(x => x.Status == WorkflowVersionStatus.Available
-                    && x.WorkflowId == _pipeline.WorkflowId, cancellationToken))
-                {
-                    return ApiResult<Job>(400, "The pipeline workflow is in-design, cannot start job.");
-                }
-
-                // Check stage workflow
-                if (!await db.PipelineDiagramStages
-                    .Where(x => x.PipelineId == pipeline)
-                    .AllAsync(x => x.Workflow.Versions.Any(y => y.Status == WorkflowVersionStatus.Available), cancellationToken))
-                {
-                    return ApiResult<Job>(400, "Some of stage workflows are in-design, cannot start job.");
-                }
             }
 
             // Prepare variables
@@ -202,7 +184,8 @@ namespace Pomelo.DevOps.Server.Controllers
                 TriggerType = body.TriggerType,
                 TriggerName = body.TriggerName,
                 Name = body.Name,
-                Variables = variables
+                Variables = variables,
+                Type = _pipeline.Type
             };
 
             if (_pipeline.Type == PipelineType.Linear)
@@ -212,13 +195,33 @@ namespace Pomelo.DevOps.Server.Controllers
             else 
             {
                 // TODO: Generate workflow instance
+                var latestVersion = await wf.GetLatestWorkflowVersionAsync(
+                    _pipeline.WorkflowId.Value, 
+                    WorkflowVersionStatus.Draft, 
+                    cancellationToken);
+                var arguments = body.Arguments
+                    .Select(x => new KeyValuePair<string, JToken>(x.Key, JToken.FromObject(x.Value)))
+                    .ToDictionary(x => x.Key, x => x.Value);
+                var result = await wf.CreateNewWorkflowInstanceAsync(
+                    _pipeline.WorkflowId.Value, 
+                    latestVersion.Version, 
+                    arguments, 
+                    cancellationToken);
+                job.DiagramWorkflowInstanceId = result.InstanceId;
             }
 
             job.Number = await db.Jobs.Where(x => x.PipelineId == pipeline).CountAsync() + 1;
             db.Jobs.Add(job);
             await db.SaveChangesAsync();
-            var statemachine = factory.GetOrCreateStatemachine(job.Id);
-            await statemachine.TransitAsync();
+            if (job.Type == PipelineType.Linear)
+            {
+                var statemachine = factory.GetOrCreateStatemachine(job.Id);
+                await statemachine.TransitAsync();
+            }
+            else
+            {
+                await wf.StartWorkflowInstanceAsync(job.DiagramWorkflowInstanceId.Value, cancellationToken);
+            }
             return ApiResult(job);
         }
 
@@ -250,7 +253,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
             {
-                return ApiResult<JobStep>(401, "You don't have permission to this pipeline job");
+                return ApiResult<JobStep>(403, "You don't have permission to this pipeline job");
             }
 
             var _step = await db.JobSteps
@@ -319,7 +322,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
             {
-                return ApiResult(401, "You don't have permission to this pipeline job");
+                return ApiResult(403, "You don't have permission to this pipeline job");
             }
 
             await db.JobStages
@@ -405,7 +408,7 @@ namespace Pomelo.DevOps.Server.Controllers
         {
             if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
             {
-                return ApiResult(401, "You don't have permission to this pipeline job");
+                return ApiResult(403, "You don't have permission to this pipeline job");
             }
 
             await db.Jobs
@@ -453,21 +456,44 @@ namespace Pomelo.DevOps.Server.Controllers
             return ApiResult(200, "The job has been aborted");
         }
 
+        #region Diagram
+
+        [HttpGet("{jobNumber}/diagram")]
+        public async ValueTask<ApiResult<InstanceDiagram>> GetJobDiagram(
+            [FromServices] PipelineContext db,
+            [FromServices] DevOpsWorkflowManager wf,
+            [FromRoute] long jobNumber,
+            [FromRoute] string pipeline,
+            [FromRoute] string projectId,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Reader, cancellationToken))
+            {
+                return ApiResult<InstanceDiagram>(403, "You don't have permission to this pipeline job");
+            }
+
+            var job = await db.Jobs
+                .FirstOrDefaultAsync(x => x.PipelineId == pipeline && x.Number == jobNumber, cancellationToken);
+
+            if (job == null) 
+            {
+                return ApiResult<InstanceDiagram>(404, "The specified job was not found");
+            }
+
+            if (job.Type != PipelineType.Diagram)
+            {
+                return ApiResult<InstanceDiagram>(404, $"{job.Type} job does not support export a job diagram");
+            }
+
+            var instanceId = job.DiagramWorkflowInstanceId;
+            var diagram = await wf.GetInstanceDiagramAsync(instanceId.Value, cancellationToken);
+            return ApiResult(diagram);
+        }
+        #endregion
+
         #region Job Extensions
 
         #endregion
-
-        internal static async ValueTask<Guid> GetJobIdByNumberAsync(
-            PipelineContext db,
-            string pipelineId,
-            long jobNumber,
-            CancellationToken cancellationToken = default)
-        {
-            return await db.Jobs
-                .Where(x => x.PipelineId == pipelineId && x.Number == jobNumber)
-                .Select(x => x.Id)
-                .FirstOrDefaultAsync(cancellationToken);
-        }
 
         #region Proxy
         [HttpGet("{jobNumber}/extensions/{id}/{*endpoint}")]
@@ -632,7 +658,17 @@ namespace Pomelo.DevOps.Server.Controllers
         #endregion
 
         #region Misc
-
+        internal static async ValueTask<Guid> GetJobIdByNumberAsync(
+            PipelineContext db,
+            string pipelineId,
+            long jobNumber,
+            CancellationToken cancellationToken = default)
+        {
+            return await db.Jobs
+                .Where(x => x.PipelineId == pipelineId && x.Number == jobNumber)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
 
         [HttpPut("{jobNumber}/misc/rename-job")]
         [HttpPost("{jobNumber}/misc/rename-job")]

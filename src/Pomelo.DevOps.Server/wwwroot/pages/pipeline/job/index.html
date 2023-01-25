@@ -2,7 +2,7 @@
     Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
     Licensed under the MIT. See LICENSE in the project root for license information.
 -->
-<div class="pipeline-job-timeline-outer" v-if="job">
+<div class="pipeline-job-timeline-outer" v-if="job && job.type == 'Linear'">
     <div>
         <template v-for="(stage, i) in job.stages">
             <div class="pipeline-job-stage-item" v-bind:class="{ 'active': active == 'stage-' + stage.id }">
@@ -50,6 +50,13 @@
             </template>
         </template>
     </div>
+</div>
+<div class="job-diagram" v-if="job && job.type == 'Diagram'">
+    <pomelo-workflow id="pipeline-diagram-panel"
+                     class="pipeline-diagram-panel"
+                     v-bind:edit="false"
+                     v-if="workflowInstance"
+                     v-model:diagramModel="workflowInstance" />
 </div>
 <div class="abort-job" v-if="job.status == 'Pending' || job.status == 'Waiting' || job.status == 'Running'" v-on:click="abort">
     <svg t="1670480528736" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6577" width="20" height="20"><path d="M661.247 857.615H362.753c-108.002 0-196.368-88.366-196.368-196.368V362.753c0-108.002 88.366-196.368 196.368-196.368h298.494c108.002 0 196.368 88.366 196.368 196.368v298.494c0 108.002-88.366 196.368-196.368 196.368z" fill="#FF7B15" p-id="6578"></path></svg>

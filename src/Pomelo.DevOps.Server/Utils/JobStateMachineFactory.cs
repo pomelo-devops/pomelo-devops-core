@@ -20,20 +20,20 @@ namespace Pomelo.DevOps.Server.Utils
     public class JobStateMachineFactory
     {
         private IServiceProvider _services;
-        private ConcurrentDictionary<Guid, JobStateMachine> _cache;
+        private ConcurrentDictionary<Guid, LinearJobStateMachine> _cache;
 
         public JobStateMachineFactory(IServiceProvider services)
         {
             _services = services;
-            _cache = new ConcurrentDictionary<Guid, JobStateMachine>();
+            _cache = new ConcurrentDictionary<Guid, LinearJobStateMachine>();
         }
 
-        public JobStateMachine GetOrCreateStatemachine(Guid jobId)
+        public LinearJobStateMachine GetOrCreateStatemachine(Guid jobId)
         {
             return _cache.GetOrAdd(jobId, jobId =>
             {
                 var scope = _services.CreateScope();
-                return new JobStateMachine(
+                return new LinearJobStateMachine(
                     _services,
                     jobId,
                     this,
@@ -51,7 +51,7 @@ namespace Pomelo.DevOps.Server.Utils
         }
     }
 
-    public class JobStateMachine : IDisposable
+    public class LinearJobStateMachine : IDisposable
     {
         private IServiceProvider _services;
         private Guid _jobId;
@@ -63,7 +63,7 @@ namespace Pomelo.DevOps.Server.Utils
         private Job job;
         private IHubContext<PipelineHub> _hub;
 
-        public JobStateMachine(
+        public LinearJobStateMachine(
             IServiceProvider services,
             Guid jobId,
             JobStateMachineFactory factory,

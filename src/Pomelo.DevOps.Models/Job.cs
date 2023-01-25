@@ -43,6 +43,8 @@ namespace Pomelo.DevOps.Models
         [Newtonsoft.Json.JsonIgnore]
         public virtual Pipeline Pipeline { get; set; }
 
+        public PipelineType Type { get; set; }
+
         public DateTime TriggeredAt { get; set; } = DateTime.UtcNow;
 
         public DateTime? StartedAt { get; set; } = null;
@@ -64,6 +66,11 @@ namespace Pomelo.DevOps.Models
         public virtual DbWorkflowInstance Instance { get; set; }
 
         public virtual ICollection<JobStage> LinearStages { get; set; }
+
+        [ForeignKey(nameof(DiagramWorkflowInstance))]
+        public Guid? DiagramWorkflowInstanceId { get; set; }
+
+        public virtual DbWorkflowInstance DiagramWorkflowInstance { get; set; }
 
         [Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<JobVariable> Variables { get; set; }

@@ -53,7 +53,7 @@ namespace Pomelo.DevOps.Server.Workflow
                     var job = await db.Jobs
                         .FirstOrDefaultAsync(x => x.PipelineWorkflowInstanceId == jobInstance.Id, cancellationToken);
                     var stageWorkflowId = CurrentStep.Arguments["StageWorkflowId"].ToObject<Guid>();
-                    var latestVersion = await WorkflowManager.GetLatestVersionAsync(stageWorkflowId, cancellationToken: cancellationToken);
+                    var latestVersion = await WorkflowManager.GetLatestVersionAsync(stageWorkflowId, WorkflowVersionStatus.Draft);
                     if (!latestVersion.HasValue)
                     {
                         throw new InvalidProgramException("Missing available workflow version.");
