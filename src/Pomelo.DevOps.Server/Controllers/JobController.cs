@@ -616,60 +616,100 @@ namespace Pomelo.DevOps.Server.Controllers
             return ApiResult(result);
         }
 
-        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/workflow/{workflowId:Guid}")]
-        public async ValueTask<ApiResult<Pomelo.Workflow.Models.Workflow>> GetStageWorkflowInstanceStepByShapeId(
-            [FromServices] PipelineContext db,
-            [FromServices] DevOpsWorkflowManager wf,
-            [FromRoute] Guid workflowId,
-            CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/connection")]
         public async ValueTask<ApiResult<List<WorkflowInstanceConnection>>> GetStageWorkflowInstanceConnections(
             [FromServices] PipelineContext db,
-            [FromServices] DevOpsWorkflowManager wf,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
             [FromRoute] Guid workflowInstanceId,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<List<WorkflowInstanceConnection>>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.GetWorkflowInstanceConnectionsAsync(workflowInstanceId, cancellationToken);
+            return ApiResult(result.ToList());
         }
 
         [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step/{stepId:Guid}")]
         public async ValueTask<ApiResult<WorkflowInstanceStep>> GetStageWorkflowInstanceStep(
             [FromServices] PipelineContext db,
-            [FromServices] DevOpsWorkflowManager wf,
-            Guid stepId,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute]Guid stepId,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<WorkflowInstanceStep>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.GetWorkflowInstanceStepAsync(stepId, cancellationToken);
+            return ApiResult(result);
         }
 
         [HttpPatch("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}")]
         public async ValueTask<ApiResult<UpdateWorkflowInstanceResult>> PatchStageWorkflowInstance(
             [FromServices] PipelineContext db,
-            [FromServices] DevOpsWorkflowManager wf,
-            Guid instanceId, 
-            WorkflowStatus status,
-            Dictionary<string, JToken> arguments,
-            string error,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid workflowInstanceId,
+            [FromBody] PatchWorkflowInstanceRequest request,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<UpdateWorkflowInstanceResult>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.UpdateWorkflowInstanceAsync(
+                workflowInstanceId, 
+                request.Status, 
+                PatchArguments(request.Arguments), 
+                cancellationToken);
+
+            return ApiResult(result);
         }
 
         [HttpPatch("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/step/{stepId:Guid}")]
-        public async ValueTask<ApiResult<UpdateWorkflowInstanceResult>> PatchStageWorkflowInstanceStep(
+        public async ValueTask<ApiResult<UpdateWorkflowStepResult>> PatchStageWorkflowInstanceStep(
             [FromServices] PipelineContext db,
-            [FromServices] DevOpsWorkflowManager wf,
-            Guid stepId,
-            StepStatus status,
-            Dictionary<string, JToken> arguments,
-            string error,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid stepId,
+            [FromBody] PatchWorkflowInstanceStepRequest request,
             CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Collaborator, cancellationToken))
+            {
+                return ApiResult<UpdateWorkflowStepResult>(403, "You don't have permission to this pipeline job");
+            }
+
+            var result = await wfs.UpdateWorkflowStepAsync(
+                stepId, 
+                request.Status, 
+                PatchArguments(request.Arguments), 
+                request.Error, 
+                cancellationToken);
+
+            return ApiResult(result);
+        }
+
+        private Action<Dictionary<string, JToken>> PatchArguments(Dictionary<string, JToken> args)
+        {
+            return new Action<Dictionary<string, JToken>>((arguments) =>
+            {
+                foreach (var x in args)
+                {
+                    arguments[x.Key] = x.Value;
+                }
+            });
         }
         #endregion
 
