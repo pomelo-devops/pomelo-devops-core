@@ -125,8 +125,14 @@ Page({
             }
         },
         add(node, width, height) {
-            lifecycleManager.getById('pipeline-diagram-panel').addNode = { key: node, width: width, height: height };
-            lifecycleManager.getById('pipeline-diagram-panel').mode = 'add';
+            var diagram = lifecycleManager.getById('pipeline-diagram-panel');
+            if (diagram.addNode && diagram.addNode.key == node) {
+                diagram.cancelOperations();
+                this.$forceUpdate();
+                return;
+            }
+            diagram.addNode = { key: node, width: width, height: height };
+            diagram.mode = 'add';
             this.$forceUpdate();
         },
         getDiagramPanelStatus() {
@@ -144,6 +150,10 @@ Page({
             }
 
             if (!diagram.addNode) {
+                return null;
+            }
+
+            if (this.getDiagramPanelStatus() != 'add') {
                 return null;
             }
 

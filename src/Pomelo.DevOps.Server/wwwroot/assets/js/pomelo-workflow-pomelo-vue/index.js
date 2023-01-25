@@ -70,7 +70,7 @@ Component('pomelo-workflow', {
     },
     watch: {
         deep: true,
-        '...diagram': function() {
+        '...diagram': function () {
             this.$emit('update:diagramModel', this.diagram.toViewModel());
         }
     },
@@ -184,6 +184,7 @@ Component('pomelo-workflow', {
                 this.diagram.createConnectPolyline(fromGuid, indexFrom, toGuid, indexTo, this.connectInfo.color, this.connectInfo.type, this.connectInfo.args);
                 this.connectFrom = null;
                 this.connectInfo = null;
+                this.addNode = null;
             }
         },
         onPolylineMouseOver(e, cpl) {

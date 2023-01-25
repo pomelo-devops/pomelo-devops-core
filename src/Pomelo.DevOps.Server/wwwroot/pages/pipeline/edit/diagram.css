@@ -130,11 +130,16 @@
     background: #fcfcfc;
 }
 
-.pipeline-diagram-node-item:hover, .pipeline-diagram-node-item.active {
+.pipeline-diagram-node-item:hover {
+    background: #fff7ee;
+    color: #FA9F32;
+}
+
+.pipeline-diagram-node-item.active {
     background: #FA9F32;
     color: #fff;
 }
 
-    .pipeline-diagram-node-item:hover svg, .pipeline-diagram-node-item:hover svg path, .pipeline-diagram-node-item.active svg, .pipeline-diagram-node-item.active svg path{
+    .pipeline-diagram-node-item.active svg, .pipeline-diagram-node-item.active svg path {
         fill: #fff;
     }
