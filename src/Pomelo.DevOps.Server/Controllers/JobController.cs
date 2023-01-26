@@ -518,6 +518,32 @@ namespace Pomelo.DevOps.Server.Controllers
             return ApiResult(stage.WorkflowInstance as WorkflowInstance);
         }
 
+        [HttpGet("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/workflow-version")]
+        public async ValueTask<ApiResult<WorkflowVersion>> GetStageWorkflowInstanceWorkflowVersion(
+            [FromServices] PipelineContext db,
+            [FromServices] IWorkflowStorageProvider wfs,
+            [FromRoute] string projectId,
+            [FromRoute] string pipeline,
+            [FromRoute] Guid workflowInstanceId,
+            CancellationToken cancellationToken = default)
+        {
+            if (!await HasPermissionToPipelineAsync(db, projectId, pipeline, PipelineAccessType.Master, cancellationToken))
+            {
+                return ApiResult<WorkflowVersion>(403, "You don't have permission to this pipeline job");
+            }
+
+            var instance = await wfs.GetWorkflowInstanceAsync(
+                workflowInstanceId, 
+                cancellationToken);
+
+            var result = await wfs.GetWorkflowVersionAsync(
+                instance.WorkflowId, 
+                instance.WorkflowVersion, 
+                cancellationToken);
+
+            return ApiResult(result);
+        }
+
         [HttpPost("{jobNumber}/diagram-stage/{workflowInstanceId:Guid}/connection")]
         public async ValueTask<ApiResult> PostStageWorkflowInstanceConnection(
             [FromServices] PipelineContext db,

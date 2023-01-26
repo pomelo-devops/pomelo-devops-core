@@ -31,7 +31,7 @@ namespace Pomelo.DevOps.Agent.Workflow
 
         public AgentWorkflowStorageProvider(
             WorkflowContext context,
-            ConfigManager config) 
+            ConfigManager config)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13
                 | SecurityProtocolType.Tls12
@@ -176,75 +176,165 @@ namespace Pomelo.DevOps.Agent.Workflow
         {
             throw new NotImplementedException();
         }
-        #endregion
-
-        public Task CreateWorkflowInstanceConnectionAsync(
-            WorkflowInstanceConnection request, 
-            CancellationToken cancellationToken = default)
-            => RequestAsync<WorkflowInstanceConnection, ApiResult>(
-                HttpMethod.Post,
-                $"/api/project/{_context.ProjectId}/pipeline/${_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/connection",
-                request,
-                cancellationToken);
-
-        public Task<Guid> CreateWorkflowStepAsync(Guid instanceId, WorkflowInstanceStep step, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<WorkflowInstanceStep>> GetInstanceStepsAsync(Guid instanceId, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<GetPreviousStepsResult> GetPreviousStepsAsync(Guid stepId, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<WorkflowInstanceStep> GetStepByShapeId(Guid instanceId, Guid shapeId, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<Pomelo.Workflow.Models.Workflow> GetWorkflowAsync(Guid workflowId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
+        #endregion
 
-        public Task<WorkflowInstance> GetWorkflowInstanceAsync(Guid instanceId, CancellationToken cancellationToken = default)
+        public Task CreateWorkflowInstanceConnectionAsync(
+            WorkflowInstanceConnection request,
+            CancellationToken cancellationToken = default)
+            => RequestAsync<WorkflowInstanceConnection, ApiResult>(
+                HttpMethod.Post,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/connection",
+                request,
+                cancellationToken);
+
+        public async Task<Guid> CreateWorkflowStepAsync(Guid instanceId, WorkflowInstanceStep step, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await RequestAsync<WorkflowInstanceStep, ApiResult<Guid>>(
+                HttpMethod.Post,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/step",
+                step, 
+                cancellationToken);
+
+            return response.Data;
         }
 
-        public Task<IEnumerable<WorkflowInstanceConnection>> GetWorkflowInstanceConnectionsAsync(Guid instanceId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<WorkflowInstanceStep>> GetInstanceStepsAsync(Guid instanceId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await RequestAsync<ApiResult<IEnumerable<WorkflowInstanceStep>>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/step",
+                cancellationToken);
+
+            return response.Data;
         }
 
-        public Task<WorkflowInstanceStep> GetWorkflowInstanceStepAsync(Guid stepId, CancellationToken cancellationToken = default)
+        public async Task<GetPreviousStepsResult> GetPreviousStepsAsync(
+            Guid stepId, 
+            CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await RequestAsync<ApiResult<GetPreviousStepsResult>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/misc/previous-steps?stepId={stepId}",
+                cancellationToken);
+
+            return response.Data;
         }
 
-        public Task<WorkflowVersion> GetWorkflowVersionAsync(Guid workflowId, int version, CancellationToken cancellationToken)
+        public async Task<WorkflowInstanceStep> GetStepByShapeId(
+            Guid instanceId, 
+            Guid shapeId, 
+            CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await RequestAsync<ApiResult<WorkflowInstanceStep>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/misc/get-step-by-shape-id?shapeId={shapeId}",
+                cancellationToken);
+
+            return response.Data;
         }
 
-        public Task<UpdateWorkflowInstanceResult> UpdateWorkflowInstanceAsync(Guid instanceId, WorkflowStatus status, Action<Dictionary<string, JToken>> updateArgumentsDelegate, CancellationToken cancellationToken = default)
+        public async Task<WorkflowInstance> GetWorkflowInstanceAsync(
+            Guid instanceId, 
+            CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await RequestAsync<ApiResult<WorkflowInstance>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}",
+                cancellationToken);
+
+            return response.Data;
         }
 
-        public Task UpdateWorkflowInstanceUpdateTimeAsync(Guid instanceId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<WorkflowInstanceConnection>> GetWorkflowInstanceConnectionsAsync(
+            Guid instanceId, 
+            CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await RequestAsync<ApiResult<IEnumerable<WorkflowInstanceConnection>>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/connection",
+                cancellationToken);
+
+            return response.Data;
         }
 
-        public Task<UpdateWorkflowStepResult> UpdateWorkflowStepAsync(Guid stepId, StepStatus status, Action<Dictionary<string, JToken>> updateArgumentsDelegate, string error = null, CancellationToken cancellationToken = default)
+        public async Task<WorkflowInstanceStep> GetWorkflowInstanceStepAsync(
+            Guid stepId, 
+            CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var response = await RequestAsync<ApiResult<WorkflowInstanceStep>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/step/{stepId}",
+                cancellationToken);
+
+            return response.Data;
+        }
+
+        public async Task<WorkflowVersion> GetWorkflowVersionAsync(
+            Guid workflowId, 
+            int version, 
+            CancellationToken cancellationToken)
+        {
+            var response = await RequestAsync<ApiResult<WorkflowVersion>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/workflow-version",
+                cancellationToken);
+
+            return response.Data;
+        }
+
+        public async Task<UpdateWorkflowInstanceResult> UpdateWorkflowInstanceAsync(Guid instanceId, WorkflowStatus status, Action<Dictionary<string, JToken>> updateArgumentsDelegate, CancellationToken cancellationToken = default)
+        {
+            var dic = new Dictionary<string, JToken>();
+            updateArgumentsDelegate?.Invoke(dic);
+
+            var response = await RequestAsync<PatchWorkflowInstanceRequest, ApiResult<UpdateWorkflowInstanceResult>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}",
+                new PatchWorkflowInstanceRequest 
+                {
+                    Status = status,
+                    Arguments = dic,
+                    // Error = error
+                },
+                cancellationToken);
+
+            return response.Data;
+        }
+
+        public Task UpdateWorkflowInstanceUpdateTimeAsync(
+            Guid instanceId, 
+            CancellationToken cancellationToken = default)
+        {
+            return Task.CompletedTask;
+        }
+
+        public async Task<UpdateWorkflowStepResult> UpdateWorkflowStepAsync(
+            Guid stepId, 
+            StepStatus status, 
+            Action<Dictionary<string, JToken>> updateArgumentsDelegate, 
+            string error = null, 
+            CancellationToken cancellationToken = default)
+        {
+            var dic = new Dictionary<string, JToken>();
+            updateArgumentsDelegate?.Invoke(dic);
+
+            var response = await RequestAsync<PatchWorkflowInstanceStepRequest, ApiResult<UpdateWorkflowStepResult>>(
+                HttpMethod.Get,
+                $"/api/project/{_context.ProjectId}/pipeline/{_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/step/{stepId}",
+                new PatchWorkflowInstanceStepRequest
+                {
+                    Status = status,
+                    Arguments = dic,
+                    Error = error
+                },
+                cancellationToken);
+
+            return response.Data;
         }
 
         public void Dispose()
