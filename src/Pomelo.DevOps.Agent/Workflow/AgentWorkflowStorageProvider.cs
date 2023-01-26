@@ -185,7 +185,6 @@ namespace Pomelo.DevOps.Agent.Workflow
                 HttpMethod.Post,
                 $"/api/project/{_context.ProjectId}/pipeline/${_context.PipelineId}/job/{_context.JobNumber}/diagram-stage/{_context.WorkflowInstanceId}/connection",
                 request,
-                null,
                 cancellationToken);
 
         public Task<Guid> CreateWorkflowStepAsync(Guid instanceId, WorkflowInstanceStep step, CancellationToken cancellationToken = default)
