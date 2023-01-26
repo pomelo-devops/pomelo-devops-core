@@ -45,7 +45,10 @@ namespace Pomelo.DevOps.Agent
 
         public Connector(ConfigManager config)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13 
+                | SecurityProtocolType.Tls12 
+                | SecurityProtocolType.Tls11 
+                | SecurityProtocolType.Tls;
 
             _config = config;
             _client = new HttpClient();
@@ -54,7 +57,6 @@ namespace Pomelo.DevOps.Agent
             {
                 _client.DefaultRequestHeaders.Add("X-Pomelo-Agent-Version", CilentVersion);
             }
-
         }
 
         public void RefreshHeaders()
@@ -191,6 +193,10 @@ namespace Pomelo.DevOps.Agent
             }
             return result.Data;
         }
+
+        #region Workflow APIs
+
+        #endregion
 
         public async ValueTask<ApiResult<T>> PostApiAsync<T>(string endpoint, object request, CancellationToken cancellationToken = default)
         {

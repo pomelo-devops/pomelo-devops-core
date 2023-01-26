@@ -8,7 +8,7 @@ namespace Pomelo.DevOps.Agent.Workflow
 
         public string PipelineId { get; set; }
 
-        public long JobId { get; set; }
+        public long JobNumber { get; set; }
 
         public Guid WorkflowInstanceId { get; set; }
     }

@@ -189,6 +189,7 @@ namespace Pomelo.DevOps.Agent
             context.ProjectId = stage.Project;
             context.PipelineId = stage.Pipeline;
             context.WorkflowInstanceId = stage.PipelineDiagramStageId.Value;
+            context.JobNumber = stage.JobNumber;
         }
     }
 
