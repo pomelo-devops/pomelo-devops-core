@@ -25,15 +25,8 @@ namespace Pomelo.DevOps.Agent
         {
             using (var scope = _services.CreateScope())
             {
-                if (stage.Type == PipelineType.Linear)
-                {
-                    var statemachine = new StageStateMachine(scope, stage);
-                    await statemachine.TransitAsync();
-                }
-                else
-                {
-                    // TODO: Start Workflow
-                }
+                var statemachine = new StageStateMachine(scope, stage);
+                await statemachine.TransitAsync();
             }
         }
     }

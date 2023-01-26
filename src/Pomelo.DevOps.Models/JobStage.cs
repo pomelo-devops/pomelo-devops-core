@@ -82,10 +82,7 @@ namespace Pomelo.DevOps.Models
         [YamlMember(Alias = "timeout", Order = 7)]
         public int Timeout { get; set; } = -1;
 
-        [YamlMember(Alias = "identifier", Order = 8)]
-        public int? Identifier { get; set; } = null;
-
-        [YamlMember(Alias = "steps", Order = 9, DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
+        [YamlMember(Alias = "steps", Order = 8, DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
         public virtual ICollection<JobStep> Steps { get; set; }
 
         [YamlIgnore]
@@ -96,7 +93,13 @@ namespace Pomelo.DevOps.Models
         public virtual PipelineDiagramStage PipelineDiagramStage { get; set; }
 
         [NotMapped]
-        [YamlMember(Alias = "diagram", Order = 9, DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
+        [YamlIgnore]
         public virtual Diagram Diagram { get; set; }
+
+        [NotMapped]
+        [YamlMember(Alias = "workflow_instance_id", Order = 9, DefaultValuesHandling = DefaultValuesHandling.OmitNull)]
+        public Guid WorkflowInstanceId { get; set; }
+
+        public virtual JobStageWorkflow JobStageWorkflow { get; set; }
     }
 }

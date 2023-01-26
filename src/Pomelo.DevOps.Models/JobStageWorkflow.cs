@@ -4,12 +4,12 @@ using Pomelo.Workflow.Models.EntityFramework;
 
 namespace Pomelo.DevOps.Models
 {
-    public class JobWorkflowStage
+    public class JobStageWorkflow
     {
-        [ForeignKey(nameof(Job))]
-        public Guid JobId { get; set; }
+        [ForeignKey(nameof(JobStage))]
+        public Guid JobStageId { get; set; }
 
-        public virtual Job Job { get; set; }
+        public virtual JobStage JobStage { get; set; }
 
         [ForeignKey(nameof(WorkflowInstance))]
         public Guid WorkflowInstanceId { get; set; }

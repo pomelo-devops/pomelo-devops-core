@@ -82,7 +82,7 @@ namespace Pomelo.DevOps.Models
 
         public DbSet<DbWorkflowInstanceConnection> WorkflowInstanceConnections { get; set; }
 
-        public DbSet<JobWorkflowStage> JobWorkflowStages { get; set; }
+        public DbSet<JobStageWorkflow> JobStageWorkflows { get; set; }
 
         public async ValueTask InstallSampleDataAsync(CancellationToken cancellationToken = default)
         {
@@ -317,9 +317,10 @@ namespace Pomelo.DevOps.Models
                 e.HasIndex(x => new { x.LoginProviderId, x.Username }).IsUnique();
             });
 
-            builder.Entity<JobWorkflowStage>(e =>
+            builder.Entity<JobStageWorkflow>(e =>
             {
-                e.HasKey(x => new { x.JobId, x.WorkflowInstanceId });
+                e.HasKey(x => new { x.JobStageId, x.WorkflowInstanceId });
+                e.HasOne(x => x.JobStage).WithOne(x => x.JobStageWorkflow).IsRequired(false);
             });
 
             var restricts = builder.Model.GetEntityTypes()

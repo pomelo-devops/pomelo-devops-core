@@ -289,6 +289,7 @@
     width: 50%;
     background: #fff;
     border-right: 1px solid #ddd;
+    overflow: auto;
 }
 
 .pomelo-wf-diagram {

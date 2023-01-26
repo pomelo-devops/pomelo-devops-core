@@ -4,6 +4,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.DevOps.Agent.Workflow;
 using Pomelo.DevOps.Models;
 using Pomelo.DevOps.Models.ViewModels;
 using YamlDotNet.Serialization;
@@ -18,6 +19,7 @@ namespace Pomelo.DevOps.Agent
         private readonly StageContainer _stageContainer;
         private readonly LogManager _log;
         private readonly IDeserializer _yamlDeserializer;
+        private readonly IServiceProvider _services;
         private string jobId;
         public string JobId => jobId;
 
@@ -26,6 +28,7 @@ namespace Pomelo.DevOps.Agent
             Connector connector,
             StageStateMachineFactory factory,
             StageContainer stageContainer,
+            IServiceProvider services,
             LogManager log)
         {
             _config = config;
@@ -33,6 +36,7 @@ namespace Pomelo.DevOps.Agent
             _factory = factory;
             _log = log;
             _stageContainer = stageContainer;
+            _services = services;
             _yamlDeserializer = new DeserializerBuilder().IgnoreUnmatchedProperties().Build();
         }
 
@@ -95,7 +99,15 @@ namespace Pomelo.DevOps.Agent
                     {
                         try
                         {
-                            await _factory.RunStageAsync(stage);
+                            if (stage.Type == PipelineType.Linear)
+                            {
+                                await _factory.RunStageAsync(stage);
+                            }
+                            else
+                            {
+                                // Diagram
+                                await StartWorkflowAsync(_services, stage);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -114,7 +126,14 @@ namespace Pomelo.DevOps.Agent
                 }
                 else
                 {
-                    await _factory.RunStageAsync(stage);
+                    if (stage.Type == PipelineType.Linear)
+                    {
+                        await _factory.RunStageAsync(stage);
+                    }
+                    else
+                    {
+                        // Diagram
+                    }
                 }
                 return true;
             }
@@ -159,6 +178,17 @@ namespace Pomelo.DevOps.Agent
                     catch { }
                 }
             }
+        }
+
+        private async ValueTask StartWorkflowAsync(
+            IServiceProvider services, 
+            JobStage stage)
+        { 
+            using var scope = services.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<WorkflowContext>();
+            context.ProjectId = stage.Project;
+            context.PipelineId = stage.Pipeline;
+            context.WorkflowInstanceId = stage.PipelineDiagramStageId.Value;
         }
     }
 

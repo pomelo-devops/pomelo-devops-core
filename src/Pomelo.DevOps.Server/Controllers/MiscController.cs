@@ -55,6 +55,7 @@ namespace Pomelo.DevOps.Server.Controllers
                 .ThenInclude(x => x.Pipeline)
                 .Include(x => x.Steps)
                 .Include(x => x.PipelineDiagramStage)
+                .Include(x => x.JobStageWorkflow)
                 .Where(x => x.PipelineJob.Status != PipelineJobStatus.Skipped)
                 .Where(x => x.AgentPoolId == agent.AgentPoolId)
                 .Where(x => x.Status == PipelineJobStatus.Waiting
@@ -73,15 +74,6 @@ namespace Pomelo.DevOps.Server.Controllers
             {
                 query = query
                     .Where(x => x.IsolationLevel == IsolationLevel.Sequential);
-            }
-
-            if (body.Identifier.HasValue)
-            {
-                query = query.Where(x => x.Identifier == body.Identifier.Value || !x.Identifier.HasValue);
-            }
-            else
-            {
-                query = query.Where(x => !x.Identifier.HasValue);
             }
 
             query = query
@@ -144,7 +136,7 @@ namespace Pomelo.DevOps.Server.Controllers
 
                     stage.Type = PipelineType.Diagram;
                     stage.Steps = null;
-                    stage.Diagram = workflowVersion.Diagram; // TODO: Serialize diagram into YAML?
+                    stage.WorkflowInstanceId = stage.JobStageWorkflow.WorkflowInstanceId;
                 }
                 db.SaveChanges();
                 return Content(YamlSerializer.Serialize(stage), "application/yaml");

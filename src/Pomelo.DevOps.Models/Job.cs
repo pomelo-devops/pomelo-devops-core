@@ -72,6 +72,6 @@ namespace Pomelo.DevOps.Models
 
         public virtual ICollection<JobLabel> Labels { get; set; }
 
-        public virtual ICollection<JobWorkflowStage> WorkflowStages { get; set; }
+        public virtual ICollection<JobStageWorkflow> WorkflowStages { get; set; }
     }
 }

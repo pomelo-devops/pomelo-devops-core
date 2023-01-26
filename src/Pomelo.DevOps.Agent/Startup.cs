@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pomelo.DevOps.Shared;
 using Pomelo.DevOps.Models.ViewModels;
 using Newtonsoft.Json.Converters;
+using Pomelo.Workflow;
 
 namespace Pomelo.DevOps.Agent
 {
@@ -33,6 +34,7 @@ namespace Pomelo.DevOps.Agent
             services.AddDispatcher();
             services.AddConfigManager();
             services.AddAdhocStepContainer();
+            services.AddWorkflowManager();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Pomelo DevOps Agent", Version = "v1", });

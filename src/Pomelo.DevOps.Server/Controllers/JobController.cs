@@ -147,7 +147,6 @@ namespace Pomelo.DevOps.Server.Controllers
                     {
                         Status = PipelineJobStatus.Pending,
                         Name = x.Name,
-                        Identifier = null,
                         Condition = x.Condition,
                         ConditionVariable = x.ConditionVariable,
                         AgentPoolId = x.AgentPoolId,
@@ -508,11 +507,11 @@ namespace Pomelo.DevOps.Server.Controllers
                 return ApiResult<WorkflowInstance>(403, "You don't have permission to this pipeline job");
             }
 
-            var stage = await db.JobWorkflowStages
+            var stage = await db.JobStageWorkflows
                 .Include(x => x.WorkflowInstance)
-                .Where(x => x.Job.Type == PipelineType.Diagram 
-                    && x.Job.PipelineId == pipeline 
-                    && x.Job.Number == jobNumber)
+                .Where(x => x.JobStage.Type == PipelineType.Diagram 
+                    && x.JobStage.PipelineJob.PipelineId == pipeline 
+                    && x.JobStage.PipelineJob.Number == jobNumber)
                 .Where(x => x.WorkflowInstanceId == workflowInstanceId)
                 .FirstOrDefaultAsync(cancellationToken);
 
