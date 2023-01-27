@@ -67,6 +67,8 @@ Component('stage', {
             this.shape.arguments.IsolationLevel = 'Parallel';
         }
 
+        this.updateAgentPool();
+
         Pomelo.CQ.CreateView(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage`, {}, 60000).fetch(function (result) {
             self.stages = result.data;
         });
