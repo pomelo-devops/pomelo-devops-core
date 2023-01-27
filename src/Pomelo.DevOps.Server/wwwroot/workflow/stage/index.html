@@ -25,6 +25,12 @@
                 </div>
             </div>
 
+            <div class="stage-node-settings-body-section">
+                <b>{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL') }}</b>
+                <radio-button v-model="shape.arguments.IsolationLevel" value="Sequential" v-bind:title="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_SEQUENTIAL')" v-bind:hint="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_SEQUENTIAL_HINT')"></radio-button>
+                <radio-button v-model="shape.arguments.IsolationLevel" value="Parallel" v-bind:title="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_PARALLEL')" v-bind:hint="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_PARALLEL_HINT')"></radio-button>
+            </div>
+
             <div class="stage-node-settings-body-section" v-if="shape && shape.arguments">
                 <div class="stage-node-settings-body-section-title">{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_AGENT_POOL') }}</div>
                 <div class="agent-pool-selector-link" v-if="!shape.arguments.AgentPoolId" v-on:click="showAgentSelector = true">{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_AGENT_POOL_CLICK') }}</div>

@@ -3,6 +3,7 @@ Component('stage', {
     props: ['shape', 'arguments'],
     components: [
         '/components/agent-pool-selector/index',
+        '/components/radio-button/index',
         '/components/input-number/index'
     ],
     data() {
@@ -56,6 +57,14 @@ Component('stage', {
 
         if (!this.shape.arguments.AgentPoolId) {
             this.shape.arguments.AgentPoolId = null;
+        }
+
+        if (!this.shape.arguments.AgentCount) {
+            this.shape.arguments.AgentCount = 0;
+        }
+
+        if (!this.shape.arguments.IsolationLevel) {
+            this.shape.arguments.IsolationLevel = 'Parallel';
         }
 
         Pomelo.CQ.CreateView(`/api/project/${this.projectId}/pipeline/${this.pipelineId}/diagram-stage`, {}, 60000).fetch(function (result) {
