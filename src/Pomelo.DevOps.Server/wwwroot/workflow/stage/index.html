@@ -10,16 +10,30 @@
             <span>Stage</span>
         </div>
         <div class="stage-node-settings-body">
-            <div class="stage-node-settings-body-section-title">Name</div>
-            <div><input class="stage-node-settings-body-textbox" v-model="shape.name" placeholder="Please input name..." /></div>
-        </div>
-        <div class="stage-node-settings-body">
-            <div class="stage-node-settings-body-section-title">Stage</div>
-            <div>
-                <select class="stage-node-settings-body-textbox" v-model="shape.arguments.StageWorkflowId">
-                    <option v-bind:value="null">Not selected</option>
-                    <option v-for="stage in stages" v-bind:value="stage.workflowId">{{ stage.workflow.name }}</option>
-                </select>
+            <div class="stage-node-settings-body-section">
+                <div class="stage-node-settings-body-section-title">Name</div>
+                <div><input class="stage-node-settings-body-textbox" v-model="shape.name" placeholder="Please input name..." /></div>
+            </div>
+
+            <div class="stage-node-settings-body-section">
+                <div class="stage-node-settings-body-section-title">Stage</div>
+                <div>
+                    <select class="stage-node-settings-body-textbox" v-model="shape.arguments.StageWorkflowId">
+                        <option v-bind:value="null">Not selected</option>
+                        <option v-for="stage in stages" v-bind:value="stage.workflowId">{{ stage.workflow.name }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="stage-node-settings-body-section" v-if="shape && shape.arguments">
+                <div class="stage-node-settings-body-section-title">{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_AGENT_POOL') }}</div>
+                <div class="agent-pool-selector-link" v-if="!shape.arguments.AgentPoolId" v-on:click="showAgentSelector = true">{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_AGENT_POOL_CLICK') }}</div>
+                <div class="agent-pool-selector-link selected" v-else-if="agentPool" v-on:click="showAgentSelector = true">{{ (agentPool && agentPool.name) || stage.agentPoolId }}</div>
+            </div>
+
+            <div class="stage-node-settings-body-section" v-if="shape && shape.arguments">
+                <div class="stage-node-settings-body-section-title">{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_AGENT_COUNT') }}</div>
+                <input-number v-model="shape.arguments.AgentCount" min="1"></input-number> <span class="agent-count-hint" v-if="agentPool">({{ localization().sr('PIPELINE_EDIT_PLAYBOOK_AGENT_COUNT_HINT', agentPool.agents.length) }})</span>
             </div>
         </div>
         <div class="stage-node-settings-footer">
@@ -27,3 +41,9 @@
         </div>
     </div>
 </div>
+
+<agent-pool-selector v-model:visible="showAgentSelector"
+                     v-bind:projectId="projectId"
+                     v-if="shape"
+                     v-model="shape.arguments.AgentPoolId">
+</agent-pool-selector>

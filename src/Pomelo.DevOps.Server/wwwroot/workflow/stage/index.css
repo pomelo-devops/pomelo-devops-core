@@ -145,3 +145,25 @@
     padding: 8px 10px;
     width: 100%;
 }
+
+.stage-node-settings-body-section {
+    padding-bottom: 15px;
+}
+
+.agent-pool-selector-link {
+    color: #FA9F32;
+    cursor: pointer;
+}
+
+    .agent-pool-selector-link:hover {
+        color: #ffaa45;
+        text-decoration: underline;
+    }
+
+    .agent-pool-selector-link.selected {
+        font-size: 18px;
+    }
+
+.agent-count-hint {
+    font-size: 12px;
+}
