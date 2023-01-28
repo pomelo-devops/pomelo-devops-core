@@ -26,7 +26,7 @@
             </div>
 
             <div class="stage-node-settings-body-section">
-                <b>{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL') }}</b>
+                <div class="stage-node-settings-body-section-title">{{ localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL') }}</div>
                 <radio-button v-model="shape.arguments.IsolationLevel" value="Sequential" v-bind:title="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_SEQUENTIAL')" v-bind:hint="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_SEQUENTIAL_HINT')"></radio-button>
                 <radio-button v-model="shape.arguments.IsolationLevel" value="Parallel" v-bind:title="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_PARALLEL')" v-bind:hint="localization().sr('PIPELINE_EDIT_PLAYBOOK_ISOLATION_LEVEL_PARALLEL_HINT')"></radio-button>
             </div>

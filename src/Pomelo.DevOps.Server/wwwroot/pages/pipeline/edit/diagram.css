@@ -1,4 +1,9 @@
-﻿.pipeline-diagram-panel {
+﻿/*
+  Copyright (c) Yuko(Yisheng) Zheng. All rights reserved.
+  Licensed under the MIT. See LICENSE in the project root for license information.
+*/
+
+.pipeline-diagram-panel {
     position: absolute;
     top: 38px;
     bottom: 0;
