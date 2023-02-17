@@ -24,7 +24,7 @@ Page({
             return;
         }
 
-        this.localization = require('/shared/localization').create()
+        this.localization = require('/assets/js/pomelo-vue/pomelo.localization').create()
         this.localization.addLocale('/shared/localization/en-US', ['en', 'en-US', 'en-GB', 'en-AU', 'en-CA'], true);
         this.localization.addLocale('/shared/localization/zh-CN', ['zh', 'zh-CN']);
         this.localization.setLocale();
