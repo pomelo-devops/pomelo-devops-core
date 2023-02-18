@@ -20,5 +20,9 @@ Page({
         if (!this.step.arguments.PUBLISH_TRX_PATH) {
             this.step.arguments.PUBLISH_TRX_PATH = ''
         }
+    
+        if (!this.step.arguments.PUBLISH_FOLDER_PATH) {
+            this.step.arguments.PUBLISH_FOLDER_PATH = ''
+        }
     }
 });

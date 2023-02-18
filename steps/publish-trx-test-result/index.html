@@ -3,12 +3,20 @@
     Licensed under the MIT. See LICENSE in the project root for license information.
 -->
 <div v-if="step" class="form">
-    <small class="form-text text-muted">Suite Name</small>
-    <div class="form-group mb-4">
-        <input type="text" v-model="step.arguments.PUBLISH_TRX_SUITE" class="form-control">
-    </div>
-    <small class="form-text text-muted">Test Result File Path (*.trx/*.json)</small>
-    <div class="form-group mb-4">
-        <input type="text" v-model="step.arguments.PUBLISH_TRX_PATH" class="form-control">
-    </div>
+    <template v-if="step.method == 'Publish Single Result'">
+        <small class="form-text text-muted">Suite Name</small>
+        <div class="form-group mb-4">
+            <input type="text" v-model="step.arguments.PUBLISH_TRX_SUITE" class="form-control">
+        </div>
+        <small class="form-text text-muted">Test Result File Path (*.trx/*.json)</small>
+        <div class="form-group mb-4">
+            <input type="text" v-model="step.arguments.PUBLISH_TRX_PATH" class="form-control">
+        </div>
+    </template>
+    <template v-else>
+        <small class="form-text text-muted">Test Result Folder (Find *.trx/*.json)</small>
+        <div class="form-group mb-4">
+            <input type="text" v-model="step.arguments.PUBLISH_FOLDER_PATH" class="form-control">
+        </div>
+    </template>
 </div>
