@@ -60,8 +60,8 @@ namespace Pomelo.DevOps.Server.Controllers
                 .Where(x => x.AgentPoolId == agent.AgentPoolId)
                 .Where(x => x.Status == PipelineJobStatus.Waiting
                         || x.Status == PipelineJobStatus.Running && x.AgentId == body.AgentId && !body.ProhibitStages.Contains(x.Id))
-                .Where(x => x.Type == PipelineType.Linear 
-                    || x.Type == PipelineType.Diagram 
+                .Where(x => x.PipelineJob.Type == PipelineType.Linear 
+                    || x.PipelineJob.Type == PipelineType.Diagram 
                         && x.PipelineJob.Pipeline.Workflow.Versions.Any(y => y.Status == Pomelo.Workflow.Models.WorkflowVersionStatus.Available)
                         && x.PipelineJob.Pipeline.Stages.All(y => y.Workflow.Versions.Any(z => z.Status == Pomelo.Workflow.Models.WorkflowVersionStatus.Available)));
 
